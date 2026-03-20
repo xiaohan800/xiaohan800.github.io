@@ -1,0 +1,5293 @@
+<!--
+现在整个HTML页面是Byte Beat音频播放器
+你可以任意输入表达式。
+发明于2011年9月18日那天
+由芬兰程序员Viznut发明了Byte beat
+其他人也同样编写了一些表达式
+在2011年10月5日到10月10日期间
+许多人编写了很多Byte Beat表达式
+虽然现在Byte Beat小众，但是Byte Beat永存
+-->
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>音频字符双用工具 - Bytebeat生成器 + Unicode字符显示器</title>
+
+    <!-- 添加Prism.js CSS和JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ------------- 以下为你原有样式，完全不动 ------------- */
+        .prism-wrapper {
+            position: relative;
+        }
+
+        pre[class*="language-"] {
+            margin: 0;
+            padding: 0;
+            background: #041605;
+            overflow: visible;
+            border: none;
+            border-radius: 0;
+        }
+
+        code[class*="language-"] {
+            font-family: monospace !important;
+            font-size: 13px !important;
+            line-height: 14px !important;
+            letter-spacing: 0px !important;
+            word-break: break-all !important;
+            overflow-wrap: break-word !important;
+            white-space: pre-wrap !important;
+            background: transparent !important;
+            color: #ffffff !important;
+            text-shadow: none !important;
+            box-shadow: none !important;
+        }
+        /* ===================== 你原有样式 ===================== */
+        .token.comment,
+        .token.prolog,
+        .token.cdata {
+            color: #374966 !important;
+            font-style: italic !important;
+        }
+        .token.doctype {
+            color: #4dabf7!important
+        }
+
+        .token.operator {
+            color: #ffa9bc !important;
+        }
+        .token.keyword {
+            color: #addcff !important;
+            font-weight: bold !important;
+        }
+        .token.function {
+            color: #fcf0b0 !important;
+        }
+        .token.number {
+            color: #a2b8ff !important;
+        }
+        .token.string {
+            color: #a0fcd0 !important;
+        }
+        .token.punctuation {
+            color: #ffffff !important;
+        }
+        .token.boolean {
+            color: #85ffff !important;
+        }
+        .token.builtin {
+            color: #fc58dd !important;
+        }
+        .token.constant {
+            color: #9890fc !important;
+        }
+
+        .token.regex {
+            color: #ff9800 !important;
+            font-weight: 900 !important;
+        }
+        .token.regex-delimiter {
+            color: #8500ff !important;
+        }
+        .token.regex-flags {
+            color: #ff3300 !important;
+        }
+        .token.charclass {
+            color: #fc06fd !important;
+        }
+        .token.escape {
+            color: #80ff00 !important;
+        }
+        .token.quantifier {
+            color: #639927 !important;
+        }
+        .token.alternation {
+            color: #fcfd55 !important;
+        }
+        .token.group {
+            color: #ff0602 !important;
+        }
+        .token.assertion {
+            color: #602bff !important;
+        }
+
+        .token.variable {
+            color: #660fcc !important;
+        }
+        .token.property {
+            color: #f0f0ff !important;
+        }
+        .token.class-name {
+            color: #62fcdd !important;
+        }
+        .token.namespace {
+            color: #dcdcdc !important;
+        }
+        .token.tag {
+            color: #fcfccc !important;
+        }
+        .token.attr-name {
+            color: #4dcdf5 !important;
+        }
+        .token.attr-value {
+            color: #fcfd9f !important;
+        }
+        .token.selector {
+            color: #ffd0fc !important;
+        }
+        .token.atrule {
+            color: #fcff0000 !important;
+        }
+        .token.important {
+            color: #303555 !important;
+        }
+        .token.deleted {
+            color: #f33fff !important;
+        }
+        .token.inserted {
+            color: #fff600 !important;
+        }
+        .token.changed {
+            color: #72fc44 !important;
+        }
+        .token.symbol {
+            color: #fcfcfc !important;
+        }
+        .token.interpolation {
+            color: #9800ff !important;
+        }
+        .token.interpolation-punctuation {
+            color: #ff9800 !important;
+        }
+        .token.url {
+            color: #bc00ff !important;
+        }
+        .token.entity {
+            color: #10dcdc !important;
+        }
+        .token.parameter {
+            color: #85ff00 !important;
+        }
+        .token.label {
+            color: #fcccfb !important;
+        }
+
+
+        @font-face {
+            font-family: "Times";
+            src: url(TH-Times.ttf);
+        }
+        @font-face {
+            font-family: "Hancom";
+            src: url(Hancom.ttf);
+        }
+        @font-face {
+            font-family: "TH-P0";
+            src: url(TH-Disp-P0.ttf);
+        }
+        @font-face {
+            font-family: "TH-P2";
+            src: url(TH-Disp-P2.ttf);
+        }
+        @font-face {
+            font-family: "TH-P3";
+            src: url(TH-Disp-P3.ttf);
+        }
+        @font-face {
+            font-family: "TH-SungP";
+            src: url(TH-Disp-SungP.ttf);
+        }
+        @font-face {
+            font-family: "TH-MingJ";
+            src: url(TH-Disp-MingJ.ttf);
+        }
+        @font-face {
+            font-family: "TH-MingP2";
+            src: url(TH-Ming-P2.ttc);
+        }
+        @font-face {
+            font-family: "TH-MingP0";
+            src: url(TH-Ming-P0.ttc);
+        }
+
+        @font-face {
+            font-family: "tshyn";
+            src: url(TH-Tshyn-P0.ttf);
+        }
+        @font-face {
+            font-family: "feon";
+            src: url(TH-Feon.ttf);
+        }
+        @font-face {
+            font-family: "mi";
+            src: url(MiSans L3.otf);
+        }
+        @font-face {
+            font-family: "hak";
+            src: url(TH-Hak.ttf);
+        }
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            word-break: break-all;
+        }
+
+        body {
+            background: linear-gradient(180deg, #151629, #16172d);
+            color: #f0f0f0;
+            font-family: Monospace, "Times", "TH-P2", "TH-P0", "TH-P3", Sans-Serif;
+            max-width: 9999px;
+            margin: 6px 0;
+            padding: 0 6px;
+            line-height: 1;
+        }
+
+        .container {
+            background: linear-gradient(180deg, #151629, #17192c);
+            padding: 0px;
+            border-radius: 3px;
+            border: 1px solid #333;
+            margin-bottom: 0px;
+            overflow: hidden;
+        }
+
+        .main-title {
+            color: #7800ff;
+            font-size: 2rem;
+            text-align: center;
+            margin: 1px 0 5px 0;
+        }
+
+        .subtitle {
+            color: #bbb;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 2px;
+            font-style: italic;
+        }
+
+        .img-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            margin: 1px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        img {
+            aspect-ratio: 1 / 1;
+            max-width: 120px;
+            max-height: 120px;
+            width: 100%;
+            height: auto;
+            display: block;
+            transform-origin: center center;
+            animation: werticalwave 500ms ease-in-out infinite;
+        }
+
+        @keyframes werticalwave {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(0.2);
+                filter: hue-rotate(-6deg);
+            }
+
+            50% {
+                transform: translateY(0) scale(0.5);
+                filter: hue-rotate(6deg);
+            }
+        }
+        textarea {
+            width: 100%;
+            background: linear-gradient(135deg, #111111, #121212);
+            color: #f0f0f0;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 1px;
+            font-family: monospace, serif;
+            font-size: 20px;
+            line-height: 23px;
+            letter-spacing: 0px;
+            margin-bottom: 0px;
+            min-height: 300px;
+            resize: vertical;
+            box-sizing: border-box;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+
+            outline: none;
+
+            /* 光标颜色 */
+            caret-color: #ffffff;
+            /* 小众属性：强制光标为块状（配合宽度实现粗光标） */
+            caret-shape: block;
+            /* 核心：用 text-indent 视觉补偿 + 伪类实现 3px 粗光标效果 */
+            /* 现代浏览器专属：-webkit-text-stroke 模拟粗光标 */
+            -webkit-cursor-text-stroke-width: 4px;
+            cursor-text-stroke-width: 4px;
+        }
+
+        textarea:focus {
+            border-color: #a9bcff;
+            box-shadow: 0 0 6px #a9bcff88;
+        }
+
+
+
+        .code-editor-container {
+            position: relative;
+            margin-bottom: 0px;
+        }
+
+        .code-editor-wrapper {
+            position: relative;
+            border-radius: 0px;
+            background: linear-gradient(135deg, #151629, #151628);
+            border: 1px solid #444;
+        }
+
+        .code-editor-textarea {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            color: transparent;
+            caret-color: #ffffff;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: monospace, serif;
+            font-size: 13px;
+            line-height: 14px;
+            letter-spacing: 0px;
+            padding: 0px;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .code-editor-highlight {
+            position: relative;
+            min-height: 500px;
+            padding: 0px;
+            overflow: scroll;
+            z-index: 1;
+        }
+
+        .code-editor-highlight pre {
+            margin: 0;
+        }
+
+        button {
+            background: #15192a;
+            color: #f0f0f0;
+            border: 1px solid #555;
+            padding: 1px 1px;
+            margin: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-weight: 400;
+            font-family: TH-P0;
+        }
+
+        button:hover:not(:disabled) {
+            background: #4dcc20;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .status {
+            margin-top: 19px;
+            padding: 12px;
+            background: linear-gradient(135deg, #fc8600, #fc0500);
+            border-radius: 6px;
+            display: none;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .active {
+            background: linear-gradient(135deg, #141521, #16192d);
+            display: block;
+        }
+        .example-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 15px 0;
+        }
+
+        .example-btn-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow: visible;
+            cursor: pointer;
+            position: relative;
+            padding: 8px 10px;
+            border-bottom: 1px solid #2a2d45;
+            background: #1a1a2e;
+        }
+
+        .example-name {
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .example-expr {
+            color: #dddddd;
+            font-size: 15px;
+            width: 100%;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        /* 强制完整显示表达式，黄色，无省略 */
+        .example-expr-full {
+            display: block;
+            color: #fffc56;
+            /* 黄色完整表达式 */
+            font-size: 16px;
+            font-family: monospace;
+            word-break: break-all;
+            white-space: pre-wrap;
+            line-height: 1.1;
+            width: 100%;
+            overflow: visible;
+            text-overflow: unset;
+            position: static;
+            /* 取消绝对定位，直接在流中显示 */
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            opacity: 1;
+            transform: none;
+            transition: none;
+            z-index: auto;
+            max-width: none;
+            max-height: none;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .example-copy-btn,
+        .example-load-btn {
+            background: #151628;
+            border: 1px solid #555;
+            padding: 4px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+        }
+
+        .example-copy-btn {
+            color: #4dabf7;
+        }
+
+        .example-load-btn {
+            color: #4CAF50;
+        }
+
+        .example-copy-btn:hover {
+            background: #2a2d45;
+            border-color: #4dabf7;
+            color: #6bb9ff;
+        }
+
+        .example-load-btn:hover {
+            background: #2a2d45;
+            border-color: #4CAF50;
+            color: #6dd470;
+        }
+
+        .copy-success {
+            color: #4CAF50;
+            font-size: 10px;
+            position: absolute;
+            top: 20px;
+            right: 0;
+            background: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid #4CAF50;
+            display: none;
+            white-space: nowrap;
+            z-index: 10000;
+        }
+
+        .copy-success.show {
+            display: block;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .example-copy-btn,
+        .example-load-btn {
+            background: #151628;
+            border: 1px solid #555;
+            padding: 4px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+        }
+
+        .example-copy-btn {
+            color: #4dabf7;
+        }
+
+        .example-load-btn {
+            color: #4CAF50;
+        }
+
+        .example-copy-btn:hover {
+            background: #2a2d45;
+            border-color: #4dabf7;
+            color: #6bb9ff;
+        }
+
+        .example-load-btn:hover {
+            background: #2a2d45;
+            border-color: #4CAF50;
+            color: #6dd470;
+        }
+
+        .copy-success {
+            color: #4CAF50;
+            font-size: 10px;
+            position: absolute;
+            top: 20px;
+            right: 0;
+            background: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid #4CAF50;
+            display: none;
+            white-space: nowrap;
+            z-index: 10000;
+        }
+
+        .copy-success.show {
+            display: block;
+            animation: fade-in-out 1.5s ease forwards;
+        }
+
+        @keyframes fade-in-out {
+            0% {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            80% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+        }
+
+
+        .control-panel {
+            display: flex;
+            gap: 1px;
+            align-items: center;
+            margin: 0px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-item {
+            background: linear-gradient(135deg, #161928, #333333);
+            padding: 1px 1px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            min-width: 110px;
+            flex: 1;
+        }
+
+        .control-label {
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .control-value {
+            color: #f0f0f0;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .main-buttons {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background: #2d5a7a;
+            border-color: #4dabf7;
+            padding: 12px 20px;
+            font-size: 15px;
+            flex: 2;
+        }
+
+        .play-btn:hover:not(:disabled) {
+            background: #3a6a9a;
+        }
+
+        .stop-btn {
+            background: #7a2d2d;
+            border-color: #f74d4d;
+            padding: 12px 20px;
+            font-size: 15px;
+            flex: 1;
+        }
+
+        .stop-btn:hover:not(:disabled) {
+            background: #9a3a3a;
+        }
+
+        .reverse-btn {
+            background: #5a2d7a;
+            border-color: #ab4df7;
+            padding: 12px 20px;
+            font-size: 15px;
+            flex: 1;
+        }
+
+        .reverse-btn:hover:not(:disabled) {
+            background: #6a3a9a;
+        }
+
+        .reset-btn {
+            background: #2d7a5a;
+            border-color: #4df7ab;
+            padding: 12px 20px;
+            font-size: 15px;
+            flex: 1;
+        }
+
+        .reset-btn:hover:not(:disabled) {
+            background: #3a9a6a;
+        }
+
+        .speed-btn {
+            background: #7a5a2d;
+            border-color: #f7ab4d;
+            padding: 15px 12px;
+            font-size: 15px;
+            flex: 1;
+        }
+
+        .speed-btn:hover:not(:disabled) {
+            background: #9a7a3a;
+        }
+
+        .audio-controls {
+            margin: 2px 0;
+            padding: 5px;
+            background: linear-gradient(135deg, #161928, #232939);
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .volume-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .volume-label {
+            color: #aaa;
+            font-size: 14px;
+            min-width: 80px;
+        }
+
+        .volume-label i {
+            color: #4dabf7;
+            margin-right: 8px;
+        }
+
+        .volume-value {
+            color: #4dabf7;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #444;
+            outline: none;
+            margin: 10px 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #a9bcff;
+            cursor: pointer;
+            border: 2px solid #161529;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #a9bcff;
+            transform: scale(1.0);
+        }
+
+        .channel-indicator {
+            display: inline-block;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .channel-mono {
+            background: linear-gradient(90deg, #4c45fd, #4c45fc);
+        }
+
+        .channel-stereo {
+            background: linear-gradient(90deg, #00ff00, #ff00ff);
+        }
+
+        .example-tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            background: linear-gradient(135deg, #161529, #212932);
+            border-radius: 6px 6px 0 0;
+            overflow: hidden;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #aaa;
+            padding: 1px 6px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            flex: 1;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ddd;
+        }
+
+        .tab-btn.active {
+            color: #88ccff;
+            border-bottom-color: #4dabf7;
+            background: rgba(77, 171, 247, 0.1);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .category-title {
+            color: #ff9800;
+            font-size: 14px;
+            margin: 20px 0 10px 0;
+            padding-left: 10px;
+            border-left: 3px solid #ff9800;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255, 152, 0, 0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .warning-note {
+            background: linear-gradient(135deg, #4f2829, #140000);
+            border-left: 4px solid #ff9800;
+            padding: 20px 5px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 13px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .warning-note i {
+            color: #ff9800;
+            margin-right: 8px;
+        }
+
+        .t-display-container {
+            background: linear-gradient(180deg, #030303, #040404);
+            padding: 1px;
+            border-radius: 1px;
+            border: 1px solid #444;
+            margin: 0px 0;
+        }
+
+        .t-display-row {
+            margin: 2px 0;
+            padding: 1px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        .t-display-row:last-child {
+            border-bottom: none;
+        }
+
+        .t-display-label {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 1px;
+        }
+
+        .t-display-value {
+            color: #f0f0f0;
+            font-weight: normal;
+            font-size: 31px;
+            word-break: break-all;
+            text-align: left;
+            font-family: Times, TH-P0, TH-SungP, TH-P2;
+            font-feature-settings: "smcp" 0, "zero" 0, "pnum" 0, "onum" 0, "ss01" 0, "ss02" 0, "ss03" 0, "ss04" 0;
+        }
+
+        .time-display {
+            color: #fcfcfc;
+        }
+
+        .address-display {
+            color: #ffffff;
+        }
+
+        .speed-controls {
+            margin: 1px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #151929, #212132);
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .speed-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .speed-label {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .speed-value-display {
+            color: #f7ab4d;
+            font-weight: bold;
+            font-size: 18px;
+            font-family: monospace;
+        }
+
+        .speed-buttons {
+            display: flex;
+            gap: 8px;
+            margin: 1px 0;
+        }
+
+        .speed-up-btn {
+            background: #5caf76;
+            border-color: #6c8f75;
+            flex: 1;
+        }
+
+        .speed-up-btn:hover:not(:disabled) {
+            background: #69cf76;
+        }
+
+        .speed-down-btn {
+            background: #7a2d5a;
+            border-color: #f74dab;
+            flex: 1;
+        }
+
+        .speed-down-btn:hover:not(:disabled) {
+            background: #9a3a6a;
+        }
+
+        .char-section {
+            background: linear-gradient(135deg, #011000, #020400);
+            border-radius: 1px;
+            padding: 2px;
+            margin-top: 2px;
+            border: 1px solid #4dabf7;
+        }
+
+        .char-title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .char-input {
+            font-family: Times, Hancom, TH-P0, TH-P2, TH-P3;
+            font-size: 25px;
+            min-height: 100px;
+            background: linear-gradient(135deg, #060606, #080808);
+            color: #ffffff;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 0px;
+            width: 100%;
+            box-sizing: border-box;
+            resize: vertical;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .char-controls {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .char-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .char-label {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .char-select {
+            width: 100%;
+            background: linear-gradient(135deg, #151828, #282f3f);
+            color: #f0f0f0;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .char-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .char-btn {
+            background: #16152a;
+            border: 1px solid #555;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .char-btn:hover {
+            background: #4a4a4a;
+            transform: translateY(-2px);
+        }
+
+        .char-btn-name {
+            color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .char-btn-status {
+            color: #4dabf7;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .char-info {
+            background: linear-gradient(135deg, #151928, #212933);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .char-info-text {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .char-footer {
+            text-align: right;
+            color: #888;
+            font-size: 12px;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #444;
+        }
+
+        .collection-section {
+            background: linear-gradient(135deg, #1a3a2a, #0a2a1a);
+            border-radius: 8px;
+            padding: 1px;
+            margin: 2px 0;
+            border: 1px solid #4df7ab;
+        }
+
+        .collection-title {
+            color: #88ff88;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #555;
+            padding-bottom: 8px;
+        }
+
+        .collection-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1px;
+            margin: 1px 0;
+        }
+
+        .collection-item {
+            background: linear-gradient(135deg, #16192a, #222531);
+            padding: 1px;
+            border-radius: 6px;
+            border: 1px solid #555;
+        }
+
+        .collection-label {
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .collection-value {
+            color: #6fcd08;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .collection-total {
+            background: linear-gradient(135deg, #2a3a3a, #1a2a2a);
+            padding: 1px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 1px;
+        }
+
+        .collection-total-label {
+            color: #88ccff;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .collection-total-value {
+            color: #4dabf7;
+            font-weight: bold;
+            font-size: 28px;
+        }
+
+        .autosave-indicator {
+            position: fixed;
+            bottom: 1px;
+            left: 1px;
+            background: linear-gradient(135deg, #151629, #232938);
+            color: #cfd6fe;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.9s;
+            z-index: 1000;
+            border: 1px solid #cfd6fe;
+        }
+
+        .autosave-indicator.show {
+            opacity: 0.8;
+        }
+
+        .restore-btn {
+            background: #5a2d7a;
+            border-color: #ab4df7;
+            padding: 8px 12px;
+            font-size: 13px;
+            margin-left: 10px;
+        }
+
+        .restore-btn:hover:not(:disabled) {
+            background: #6a3a9a;
+        }
+
+        .speed-presets {
+            display: flex;
+            gap: 0px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .speed-preset-btn {
+            background: #15162a;
+            border: 1px solid #555;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .speed-preset-btn:hover {
+            background: #4a4a4a;
+        }
+
+        .speed-preset-btn.active {
+            background: #7800ff;
+            color: white;
+        }
+
+        .waveform-section {
+            background: linear-gradient(135deg, #151928, #212132);
+            padding: 0px;
+            border-radius: 8px;
+            margin: 0px 0;
+            border: 0px solid #444;
+            overflow: visible;
+        }
+
+        .waveform-container {
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            max-width: 512px;
+            min-height: 0px;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0px;
+            margin: 55px 0;
+            overflow: visible;
+            position: relative;
+            padding: 0px;
+            box-sizing: border-box;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #waveformCanvas {
+            width: 512px;
+            height: 255px;
+            background: transparent;
+            border-radius: 0px;
+            display: block;
+
+            box-shadow: 0 6px 0px rgba(0, 0, 0, 0.3);
+            border: 0px solid #333;
+            margin: 0 auto;
+            overflow: hidden;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .waveform-title {
+            color: #99ffff;
+            font-size: 1.2rem;
+            margin-bottom: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .waveform-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .waveform-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 1px;
+            flex-wrap: wrap;
+        }
+
+        .waveform-btn {
+            background: #15192a;
+            border: 1px solid #555;
+            padding: 25px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .waveform-btn:hover:not(:disabled) {
+            background: #666666;
+        }
+
+        .waveform-btn.active {
+            background: #50dcdc;
+            color: white;
+        }
+
+        @keyframes angryFullscreen {
+
+            0%,
+            100% {
+                background-color: transparent;
+            }
+
+            50% {
+                background-color: #330000;
+            }
+        }
+
+        .angry-notice {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999999 !important;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: angryFullscreen 0.5s infinite alternate;
+            pointer-events: none;
+            background: rgba(255, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+        }
+
+        .angry-notice.show {
+            display: flex;
+        }
+
+        .angry-notice::before {
+            content: "⚠️ 检测到危险操作！页面可能被清空！ ⚠️";
+            display: block;
+            color: #ff0000;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #ff0000;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+
+
+        /* ===== 新增样式：内存占用显示（按种子/个数统计） ===== */
+        .memory-section {
+            background: linear-gradient(135deg, #2a1a3a, #1a0a2a);
+            border-radius: 8px;
+            padding: 1px;
+            margin: 2px 0;
+            border: 1px solid #ab4df7;
+        }
+
+        .memory-title {
+            color: #ddaaff;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid #555;
+            padding-bottom: 8px;
+        }
+
+        .memory-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .memory-item {
+            background: linear-gradient(135deg, #1f1a2f, #1a1525);
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-align: center;
+            min-width: 130px;
+        }
+
+        .memory-item-label {
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        .memory-item-value {
+            color: #e0b0ff;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* 排行榜区域（按种子数/表达式个数） */
+        .leaderboard-section {
+            background: linear-gradient(135deg, #1a2a3a, #0a1a2a);
+            border-radius: 8px;
+            padding: 1px;
+            margin: 2px 0;
+            border: 1px solid #4dabf7;
+        }
+
+        .leaderboard-title {
+            color: #88ccff;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid #555;
+            padding-bottom: 8px;
+        }
+
+        .leaderboard-list {
+            margin: 0;
+            padding: 5px 10px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px 10px;
+            margin: 4px 0;
+            border-radius: 4px;
+            border-left: 3px solid #4dabf7;
+            font-size: 13px;
+        }
+
+        .leaderboard-rank {
+            color: #ffd966;
+            font-weight: bold;
+            min-width: 25px;
+        }
+
+        .leaderboard-name {
+            color: #fff;
+            flex: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin: 0 8px;
+        }
+
+        .leaderboard-count {
+            color: #a2b8ff;
+            font-family: monospace;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        /* ===== 新增：上下滑动面板样式 ===== */
+        .swipe-panel-container {
+            background: linear-gradient(135deg, #151628, #1a1b24);
+            border-radius: 12px;
+            padding: 1px;
+            margin: 1px 0;
+            border: 1px solid #f7ab4d;
+        }
+
+        .swipe-panel-title {
+            color: #fcfcfc;
+            font-size: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .swipe-panel-title i {
+            font-size: 18px;
+        }
+
+        .swipe-area {
+            background: #0f0f1a;
+            border-radius: 8px;
+            padding: 2px 1px;
+            text-align: center;
+            cursor: ns-resize;
+            user-select: none;
+            border: 2px solid #f7ab4d;
+            transition: all 0.1s;
+            touch-action: none;
+            /* 防止触摸时页面滚动 */
+        }
+
+        .swipe-area:active {
+            background: #1a1a21;
+            border-color: #ffd966;
+        }
+
+        .swipe-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 1px 0 1px;
+            font-family: monospace;
+        }
+
+        .swipe-exponent {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 2px;
+        }
+
+        .swipe-instruction {
+            display: flex;
+            justify-content: center;
+            gap: 2px;
+            color: #888;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .swipe-instruction i {
+            margin-right: 4px;
+            color: #f7ab4d;
+        }
+
+        .sensitivity-badge {
+            background: #2a2a3a;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            color: #f7ab4d;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .exponent-value-display {
+            color: #ffd966;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* 金属质感外层容器 */
+        .error-box {
+            margin: 24px auto;
+            max-width: 520px;
+            border-radius: 8px;
+            /* 金属渐变背景 */
+            background: linear-gradient(145deg, #2a2e35, #111316);
+            /* 金属高光 + 内阴影 */
+            box-shadow:
+            inset 0 1px 2px rgba(255,255,255,0.12),
+            inset 0 -1px 2px rgba(0,0,0,0.5),
+            0 4px 8px rgba(0,0,0,0.4),
+            0 1px 3px rgba(0,0,0,0.3);
+            border: 1px solid rgba(180,180,190,0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 文字提示条 */
+        .error-tip {
+            margin: 0;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #ffffff;
+            /* 半透明金属内条 */
+            background: rgba(0,0,0,0.25);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 顶部细金属高光线 */
+        .error-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(220,220,240,0.25), transparent);
+            z-index: 2;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="angry-notice" id="angryNotice"></div>
+    <div class="autosave-indicator" id="autosaveIndicator">
+        <i class="fas fa-save"></i> 已保存
+    </div>
+
+    <h1 class="main-title"><i class="fas fa-music"></i>+<i class="fas fa-font"></i>音频字符双用工具</h1>
+    <div class="subtitle">
+        既是Bytebeat音频生成器，又是Unicode字符显示器 - 二合一专业工具
+    </div>
+    <p style="color: #5dfcfd;font-size: 1rem;text-align: center;">
+        We have included over 100 expressions
+    </p>
+    <div class="img-container">
+        <img src="creator.png" alt="𪍲𤵗">
+    </div>
+
+    <div class="container">
+        <h2><i class="fas fa-music"></i> Bytebeat音频生成器</h2>
+        <div class="warning-note">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>注意:</strong>使用ScriptProcessorNode(已废弃但部分浏览器仍可用)
+        </div>
+
+        <!-- 新增：采样率选择下拉框 + 自定义输入区域 -->
+        <div style="margin: 1px 0; padding: 1px; background: linear-gradient(135deg, #161928, #232939); border-radius: 8px; border: 1px solid #444;">
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <div style="color: #aaa; font-size: 14px;">
+                    <i class="fas fa-microchip"></i> 基础采样率:
+                </div>
+                <select id="sampleRateSelector" style="background: #15192a; color: #f0f0f0; border: 1px solid #555; border-radius: 4px; padding: 8px; flex: 2; min-width: 150px;">
+                    <option value="8000">8kHz</option>
+                    <option value="11025">11kHz</option>
+                    <option value="12000">12kHz</option>
+                    <option value="16000">16kHz</option>
+                    <option value="22050">22kHz</option>
+                    <option value="24000">24kHz</option>
+                    <option value="32000">32kHz</option>
+                    <option value="44100">44kHz</option>
+                    <option value="48000">48kHz</option>
+                    <option value="64000">64kHz</option>
+                    <option value="96000">96kHz</option>
+                    <option value="128000">128kHz</option>
+                    <option value="192000">192kHz</option>
+                    <option value="384000">384kHz</option>
+                    <option value="768000">768kHz</option>
+                    <option value="1536000">1.5MHz</option>
+                    <option value="1572864000">1.5GHz</option>
+                    <option value="2516582400">2.5GHz</option>
+                    <option value="custom">自定义...</option>
+                </select>
+                <div id="customSampleRateContainer" style="display: none; flex: 2;">
+                    <input type="number" id="customSampleRate" step="any" min="0" placeholder="输入采样率 (Hz)" style="width: 100%; background: #15192a; color: #f0f0f0; border: 1px solid #555; border-radius: 4px; padding: 8px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="code-editor-container">
+            <div class="code-editor-wrapper" id="codeEditorWrapper">
+                <textarea id="expr" class="code-editor-textarea" placeholder="输入Bytebeat表达式如:t&t>>8">t&lt;&lt;7</textarea>
+                <div class="code-editor-highlight">
+                    <pre><code class="language-javascript" id="codeEditorHighlight"></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 1px 0; display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: #aaa; font-size: 13px;">
+                <i class="fas fa-history"></i> 上次保存时间:
+                <span id="lastSaveTime">从未保存</span>
+            </span>
+            <button onclick="clearAllSavedData()" class="restore-btn" title="清除所有保存的数据">
+                <i class="fas fa-trash-alt"></i> 清除数据
+            </button>
+            <button onclick="quickFixExpression()" style="margin-left: 10px; background: #ff9800; border-color: #ff9800; padding: 8px 12px; font-size: 13px;" title="自动修复表达式语法">
+                <i class="fas fa-wrench"></i> 修复语法
+            </button>
+        </div>
+
+
+        <div class="error-box">
+            <p id="error" class="error-tip">
+                表达式语法正确
+            </p>
+        </div>
+
+        <div id="exprValidation" class="status">
+            <i class="fas fa-check-circle"></i>
+            <span id="exprValidationText">表达式语法正确</span>
+        </div>
+        <div class="control-panel">
+            <div class="control-item">
+                <div class="control-label">
+                    播放方向
+                </div>
+                <div class="control-value">
+                    <span id="playDirection">正向</span>
+                </div>
+            </div>
+            <div class="control-item">
+                <div class="control-label">
+                    播放状态
+                </div>
+                <div class="control-value">
+                    <span id="playState">已停止</span>
+                </div>
+            </div>
+            <div class="control-item">
+                <div class="control-label">
+                    当前采样率
+                </div>
+                <div class="control-value">
+                    <span id="sampleRateDisplay">8000</span>Hz
+                </div>
+            </div>
+        </div>
+        <!-- ========== 新增：上下滑动面板（灵敏度0.001） ========== -->
+        <div class="swipe-panel-container">
+            <div class="swipe-panel-title">
+                <i class="fas fa-arrows-alt-v"></i> 指数速度滑动面板
+                <span class="sensitivity-badge"><i class="fas fa-microscope"></i> 灵敏度 0.001</span>
+            </div>
+            <div class="swipe-area" id="swipeArea">
+                <div class="swipe-value" id="swipeSpeedValue">
+                    1.00x
+                </div>
+                <div class="swipe-exponent" id="swipeExponentValue">
+                    10^0.00
+                </div>
+                <div style="color:#ffb347; font-size:20px; margin:5px 0;">
+                    ⇅
+                </div>
+                <div class="swipe-instruction">
+                    <span><i class="fas fa-mouse"></i> 按住上下拖动</span>
+                    <span><i class="fas fa-finger"></i> 触摸滑动</span>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                <div class="slider-arrow" onclick="adjustExponentBy(-0.5)">
+                    <i class="fas fa-arrow-down"></i> 减0.5
+                </div>
+                <div class="slider-arrow" onclick="adjustExponentBy(-0.1)">
+                    <i class="fas fa-chevron-down"></i> 减0.1
+                </div>
+                <div class="slider-arrow" onclick="adjustExponentBy(0.1)">
+                    <i class="fas fa-chevron-up"></i> 加0.1
+                </div>
+                <div class="slider-arrow" onclick="adjustExponentBy(0.5)">
+                    <i class="fas fa-arrow-up"></i> 加0.5
+                </div>
+            </div>
+            <div style="color:#aaa; font-size:12px; margin-top:8px; text-align:center;">
+                指数范围: 10⁻³⁰⁰ ~ 10³⁰⁰，滑动面板实时调节，播放无需重启
+            </div>
+        </div>
+
+        <div class="t-display-container">
+            <div class="t-display-row">
+                <div class="t-display-label">
+                    当前T值（采样地址）
+                </div>
+                <div class="t-display-value address-display" id="currentT">
+                    0
+                </div>
+            </div>
+            <div class="t-display-row">
+                <div class="t-display-label">
+                    播放时间（秒）
+                </div>
+                <div class="t-display-value time-display" id="currentTime">
+                    0
+                </div>
+            </div>
+            <div class="t-display-row">
+                <div class="t-display-label">
+                    播放速度
+                </div>
+                <div class="t-display-value time-display" id="speedMultiplier">
+                    1.0x
+                </div>
+            </div>
+        </div>
+
+
+        <div class="speed-controls">
+            <div class="speed-display">
+                <div class="speed-label">
+                    <i class="fas fa-tachometer-alt"></i>播放速度控制
+                </div>
+
+                <div class="speed-value-display" id="speedDisplay">
+                    1.0x
+                </div>
+            </div>
+            <div class="speed-buttons">
+                <button onclick="speedUp()" class="speed-btn speed-up-btn"><i class="fas fa-forward"></i>加速</button>
+                <button onclick="speedDown()" class="speed-btn speed-down-btn"><i class="fas fa-backward"></i>减速</button>
+                <button onclick="resetSpeed()" class="speed-btn reset-btn"><i class="fas fa-redo"></i>重置速度</button>
+            </div>
+            <div class="speed-presets">
+                <button onclick="setSpeedPreset(0.125)" class="speed-preset-btn">0.125x</button>
+                <button onclick="setSpeedPreset(0.25)" class="speed-preset-btn">0.25x</button>
+                <button onclick="setSpeedPreset(0.5)" class="speed-preset-btn">0.5x</button>
+                <button onclick="setSpeedPreset(1)" class="speed-preset-btn active">1x</button>
+                <button onclick="setSpeedPreset(2)" class="speed-preset-btn">2x</button>
+                <button onclick="setSpeedPreset(4)" class="speed-preset-btn">4x</button>
+                <button onclick="setSpeedPreset(8)" class="speed-preset-btn">8x</button>
+                <button onclick="setSpeedPreset(2**((Math.random()*6)-3))" class="speed-preset-btn">???x</button>
+            </div>
+        </div>
+        <div class="audio-controls">
+            <div class="volume-slider-container">
+                <div class="volume-label">
+                    <i class="fas fa-volume-up"></i>音量
+                </div>
+                <input type="range" id="volumeSlider" min="0" max="100" value="50" step="1">
+                <div class="volume-value" id="volumeValue">
+                    50%
+                </div>
+            </div>
+        </div>
+
+        <div class="waveform-section">
+            <div class="waveform-title">
+                <span><i class="fas fa-wave-square"></i> 实时波形图</span>
+                <span style="color: #aaa; font-size: 14px;">
+                    FPS: <span id="waveformFPS">0</span>
+                    <span style="margin-left: 10px; color: #4dabf7; font-size: 12px;">
+                        <i class="fas fa-arrows-alt-h"></i> <span id="waveformDimensions">512×255</span>
+                    </span>
+                </span>
+            </div>
+            <div class="waveform-container">
+                <canvas id="waveformCanvas"></canvas>
+            </div>
+            <div class="waveform-info">
+                <span>振幅: <span id="waveformAmplitude">0%</span></span>
+                <span>峰值: <span id="waveformPeak">0%</span></span>
+                <span>信号: <span id="waveformSignal">静音</span></span>
+                <span>尺寸: <span id="waveformSizeDisplay" style="color: #4dabf7;">512×256</span></span>
+            </div>
+            <div class="waveform-controls">
+                <button onclick="toggleWaveform()" class="waveform-btn" id="waveformToggleBtn">
+                    <i class="fas fa-pause"></i> 暂停波形图
+                </button>
+                <button onclick="changeWaveformScale('time')" class="waveform-btn active" id="waveformTimeBtn">
+                    时间域
+                </button>
+                <button onclick="changeWaveformScale('frequency')" class="waveform-btn" id="waveformFreqBtn">
+                    频率域与信息
+                </button>
+                <button onclick="centerWaveform()" class="waveform-btn" id="waveformCenterBtn" title="滚动到波形图中心" style="display: none;">
+                    <i class="fas fa-crosshairs"></i> 居中
+                </button>
+            </div>
+        </div>
+
+        <div class="main-buttons">
+            <button id="playBtn" onclick="startPlayback(),navigator.vibrate(200)" class="play-btn"><i class="fas fa-play"></i>播放</button>
+            <button id="reverseBtn" onclick="reversePlayback(),navigator.vibrate(200)" class="reverse-btn"><i class="fas fa-backward"></i>倒放</button>
+            <button id="stopBtn" onclick="stopPlayback(),navigator.vibrate(200)" class="stop-btn"><i class="fas fa-stop"></i> 停止</button>
+            <button id="resetBtn" onclick="resetPlayback(),navigator.vibrate(80)" class="reset-btn"><i class="fas fa-redo"></i>重置</button>
+        </div>
+        <div id="status" class="status">
+            <i class="fas fa-circle" style="color:#4CAF50;"></i>
+            <span id="statusText">准备就绪</span>
+        </div>
+
+        <div class="example-section">
+            <h3><i class="fas fa-lightbulb"></i>示例表达式</h3>
+            <div class="example-tabs">
+                <button class="tab-btn active" onclick="switchTab('basic')">基础示例</button>
+                <button class="tab-btn" onclick="switchTab('advanced')">高级示例</button>
+                <button class="tab-btn" onclick="switchTab('stereo')">立体声</button>
+                <button class="tab-btn" onclick="switchTab('virus')">病毒主题</button>
+                <button class="tab-btn" onclick="switchTab('special')">乱码波形</button>
+                <button class="tab-btn" onclick="switchTab('fixed')">修复表达式</button>
+                <button class="tab-btn" onclick="switchTab('custom')">自编/其他人</button>
+            </div>
+            <div id="basic-tab" class="tab-content active">
+                <div class="example-grid" id="exampleGrid"></div>
+            </div>
+            <div id="advanced-tab" class="tab-content">
+                <div class="example-grid" id="advancedGrid"></div>
+            </div>
+            <div id="stereo-tab" class="tab-content">
+                <div class="example-grid" id="stereoGrid"></div>
+            </div>
+            <div id="virus-tab" class="tab-content">
+                <div class="example-grid" id="virusGrid"></div>
+            </div>
+            <div id="special-tab" class="tab-content">
+                <div class="example-grid" id="specialGrid"></div>
+            </div>
+            <div id="fixed-tab" class="tab-content">
+                <div class="example-grid" id="fixedGrid"></div>
+            </div>
+            <div id="custom-tab" class="tab-content">
+                <div class="example-grid" id="customGrid"></div>
+            </div>
+        </div>
+
+        <!-- ========== 新增：种子/个数统计（去掉字节，改用个数） ========== -->
+        <div class="memory-section">
+            <h3 class="memory-title"><i class="fas fa-cubes"></i> 种子统计（个数）</h3>
+            <div class="memory-stats">
+                <div class="memory-item">
+                    <div class="memory-item-label">
+                        当前表达式种子
+                    </div>
+                    <div class="memory-item-value" id="memoryCurrentExpr">
+                        0 个
+                    </div>
+                </div>
+                <div class="memory-item">
+                    <div class="memory-item-label">
+                        所有示例种子数
+                    </div>
+                    <div class="memory-item-value" id="memoryTotalExamples">
+                        0 个
+                    </div>
+                </div>
+                <div class="memory-item">
+                    <div class="memory-item-label">
+                        本地存储种子数
+                    </div>
+                    <div class="memory-item-value" id="memoryLocalStorage">
+                        0 个
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 新增：最长表达式排行榜（按种子数/个数排序） ========== -->
+        <div class="leaderboard-section">
+            <h3 class="leaderboard-title"><i class="fas fa-trophy"></i> 种子排行榜 (Top 10) —— 按表达式个数</h3>
+            <div class="leaderboard-list" id="leaderboardList">
+                <!-- 动态生成 -->
+                <div style="text-align:center; color:#aaa;">
+                    加载中...
+                </div>
+            </div>
+        </div>
+
+        <div class="collection-section">
+            <h3 class="collection-title"><i class="fas fa-database"></i>表达式收录情况</h3>
+            <div class="collection-stats">
+                <div class="collection-item">
+                    <div class="collection-label">
+                        基础表达式
+                    </div>
+                    <div class="collection-value" id="basicCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        高级表达式
+                    </div>
+                    <div class="collection-value" id="advancedCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        立体声表达式
+                    </div>
+                    <div class="collection-value" id="stereoCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        病毒主题表达式
+                    </div>
+                    <div class="collection-value" id="virusCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        乱码波形表达式
+                    </div>
+                    <div class="collection-value" id="specialCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        修复表达式
+                    </div>
+                    <div class="collection-value" id="fixedCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        自编表达式
+                    </div>
+                    <div class="collection-value" id="customCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        单声道表达式
+                    </div>
+                    <div class="collection-value" id="monoCount">
+                        0 个
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <div class="collection-label">
+                        立体声表达式
+                    </div>
+                    <div class="collection-value" id="stereoChannelCount">
+                        0 个
+                    </div>
+                </div>
+            </div>
+            <div class="collection-total">
+                <div class="collection-total-label">
+                    总共收录表达式
+                </div>
+                <div class="collection-total-value" id="totalCount">
+                    0 个
+                </div>
+                <div style="margin-top: 8px; font-size: 12px; color: #aaa;">
+                    更新时间: <span id="updateTime"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container char-section">
+        <h2 class="char-title"><i class="fas fa-font"></i>Unicode字符显示器</h2>
+        <div>
+            <label class="char-label"><i class="fas fa-keyboard"></i>输入要显示的字符：</label>
+        </div>
+        <textarea id="charInput" class="char-input" placeholder="在此输入或粘贴Unicode字符"></textarea>
+        <div class="char-controls">
+            <div class="char-group">
+                <label class="char-label"><i class="fas fa-language"></i>界面语言：</label>
+                <select id="charLang" class="char-select">
+                    <option value="en">English</option>
+                    <option value="zh-CN" selected>简体中文</option>
+                    <option value="zh-TW">正體中文</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </div>
+            <div class="char-group">
+                <label class="char-label"><i class="fas fa-globe"></i>本地化语言：</label>
+                <select id="charLocal" class="char-select">
+                    <option value="en" selected>默认</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="zh-HK">繁体中文(香港)</option>
+                    <option value="zh-TW">正體中文(台灣)</option>
+                    <option value="ja">日本語</option>
+                </select>
+            </div>
+        </div>
+        <div class="char-buttons">
+            <button class="char-btn" onclick="toggleCharStyle('bold')">
+                <span class="char-btn-name">粗体</span>
+                <span class="char-btn-status" id="charBoldStatus">关</span>
+            </button>
+            <button class="char-btn" onclick="toggleCharStyle('italic')">
+                <span class="char-btn-name">斜体</span>
+                <span class="char-btn-status" id="charItalicStatus">关</span>
+            </button>
+            <button class="char-btn" onclick="toggleCharStyle('smcp')">
+                <span class="char-btn-name">小型大写</span>
+                <span class="char-btn-status" id="charSmcpStatus">关</span>
+            </button>
+            <button class="char-btn" onclick="toggleCharStyle('zero')">
+                <span class="char-btn-name">斜线零</span>
+                <span class="char-btn-status" id="charZeroStatus">关</span>
+            </button>
+            <button class="char-btn" onclick="toggleCharStyle('num')">
+                <span class="char-btn-name">数字形式</span>
+                <span class="char-btn-status" id="charNumStatus">等宽</span>
+            </button>
+            <button class="char-btn" onclick="toggleCharStyle('ss')">
+                <span class="char-btn-name">样式集</span>
+                <span class="char-btn-status" id="charSsStatus">默认</span>
+            </button>
+        </div>
+        <div class="char-info">
+            <div class="char-info-text" id="charDescription">
+                这是一个用于显示所有Unicode字符的工具。输入框支持所有Unicode字符的显示，包括Emoji表情、各国语言文字、特殊符号等。支持多语言界面和本地化设置，可调整字体样式和显示效果。
+                <br><br>
+                <strong>注意：</strong>字体样式设置（粗体、斜体、数字形式、样式集等）也会应用到上方的T值显示区域。
+            </div>
+        </div>
+        <div class="char-footer">
+            <p>
+                <i class="fas fa-code"></i>软件底层编译版本：1.2
+            </p>
+            <p>
+                <i class="fas fa-calendar"></i>编译日期：2026年2月22日
+            </p>
+            <p>
+                <i class="fas fa-user"></i>作者：𪍲𤵗
+            </p>
+            <p>
+                <i class="fab fa-qq"></i>QQ号：3143877237
+            </p>
+            <p>
+                <i class="fas fa-users"></i>QQ群：907741735
+            </p>
+            <p>
+                有问题反馈，请见QQ群或私聊
+            </p>
+        </div>
+    </div>
+    <noscript>
+        请使用Javascript才能启动该播放器。
+    </noscript>
+    <script>
+        console.warn("ScriptProcessorNode已废弃，但我们仍使用ScriptProcessorNode。");
+
+        // 防止页面被清空的保护机制 - 改进版，带有实时警告
+        (function() {
+            // 获取警告元素
+            let angryNotice = null;
+
+            // 显示红色警告请使用JavaScript才能启动该播放器。
+            function showAngryNotice() {
+                if (!angryNotice) {
+                    angryNotice = document.getElementById('angryNotice');
+                }
+                if (angryNotice) {
+                    angryNotice.classList.add('show');
+                    // 3秒后自动隐藏
+                    setTimeout(() => {
+                        if (angryNotice) {
+                            angryNotice.classList.remove('show');
+                        }
+                    },
+                        3000);
+                }
+            }
+
+            // 保存原始方法
+            const originalWrite = document.write;
+            const originalWriteln = document.writeln;
+            const originalOpen = document.open;
+            const originalClose = document.close;
+
+            // 重写危险方法 - 立即显示警告
+            document.write = function() {
+                console.warn('检测到危险的 document.write 调用，已阻止');
+                showAngryNotice();
+                return;
+            };
+
+            document.writeln = function() {
+                console.warn('检测到危险的 document.writeln 调用，已阻止');
+                showAngryNotice();
+                return;
+            };
+
+            document.open = function() {
+                console.warn('检测到危险的 document.open 调用，已阻止');
+                showAngryNotice();
+                return document;
+            };
+
+            document.close = function() {
+                console.warn('检测到危险的 document.close 调用，已阻止');
+                showAngryNotice();
+                return;
+            };
+
+            // 保护 body.innerHTML
+            try {
+                const bodyDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype,
+                    'innerHTML');
+                if (bodyDescriptor) {
+                    Object.defineProperty(document.body, 'innerHTML', {
+                        set: function(value) {
+                            if (value === '') {
+                                console.warn('检测到清空 body.innerHTML 的尝试，已阻止');
+                                showAngryNotice();
+                                return;
+                            }
+                            bodyDescriptor.set.call(this, value);
+                        },
+                        get: bodyDescriptor.get
+                    });
+                }
+
+                // 保护 head.innerHTML
+                Object.defineProperty(document.head,
+                    'innerHTML',
+                    {
+                        set: function(value) {
+                            if (value === '') {
+                                console.warn('检测到清空 head.innerHTML 的尝试，已阻止');
+                                showAngryNotice();
+                                return;
+                            }
+                            if (bodyDescriptor) {
+                                bodyDescriptor.set.call(this, value);
+                            }
+                        },
+                        get: function() {
+                            return bodyDescriptor ? bodyDescriptor.get.call(this): '';
+                        }
+                    });
+            } catch (e) {
+                console.warn('无法设置属性保护:',
+                    e);
+            }
+
+            // 监控控制台输入
+            const originalEval = window.eval;
+            window.eval = function(code) {};
+        })();
+
+        // 原有的所有 JavaScript 代码保持不变（包括变量定义、函数、事件监听等）
+        // 但是需要修改 initExamples 函数从 expr.json 加载数据
+
+        const Msg = `欢迎您来到该网页。此网页在计算机方面表现性能最佳，部分表达式对于超倍数可能会出出现卡住。请您放心使用如需问题，请反馈作者。群号907741735`;
+        console.log(Msg);
+
+        const STORAGE_KEYS = {
+            EXPRESSION: 'bytebeat_expression',
+            SPEED_MULTIPLIER: 'bytebeat_speed_multiplier',
+            VOLUME: 'bytebeat_volume',
+            CHAR_INPUT: 'char_input_text',
+            CHAR_LANG: 'char_language',
+            CHAR_LOCAL: 'char_localization',
+            CHAR_STYLES: 'char_styles',
+            LAST_SAVE_TIME: 'last_save_time',
+            LAST_VALID_EXPRESSION: 'last_valid_bytebeat_expression',
+            BASE_SAMPLE_RATE: 'bytebeat_base_sample_rate' // 新增：保存基础采样率
+        };
+
+        // 改为 let 以便修改
+        let BASE_SAMPLE_RATE = 8000;
+        const TARGET_SAMPLE_RATE = 32000;
+        const $ = 1;
+        const DEFAULT_VOLUME = 0.5;
+        const fft = 4096; // FFT大小
+        const sensitivity = 0.001; // 滑动面板灵敏度
+
+        const WAVEFORM_CONFIG = {
+            WIDTH: 512,
+            HEIGHT: 255,
+            FPS: 30,
+            FREQUENCY_DECAY: 0,
+            GRID_LINES: 32,
+            FREQUENCY_BARS: 51200,
+            MAX_FREQUENCY_VALUE: 256,
+            MIN_FREQUENCY_VALUE: 0,
+            SMOOTHING_TIME_CONSTANT: 0,
+            COLORS: {
+                BACKGROUND: '#000000',
+                WAVEFORM: '#ffffff',
+                FREQUENCY_START: '#000000',
+                FREQUENCY_END: '#010101',
+                GRID: '#000000',
+                CENTER_LINE: 'rgba(255, 255, 255, 0)',
+                TEXT: '#ffffff'
+            }
+        };
+
+        let SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE;
+        let speedMultiplier = 1.0;
+        let SCALE = 1;
+        let audioCtx, scriptProcessor, gainNode, isPlaying = false;
+        let animationFrameId = null;
+        let isReverse = false;
+        let currentTValue = 0;
+        let currentVolume = DEFAULT_VOLUME;
+        let bufferSize = 1024;
+        let currentValExpr = function(t) {
+            return (t << 7) & 255;
+        };
+        let currentAmpExpr = function(val) {
+            return val;
+        };
+        let currentExprText = 't<<7';
+        let lastValidExprText = 't<<7';
+        let exprValidationTimer = null;
+
+        let waveformCanvas, waveformCtx;
+        let analyser = null;
+        let waveformDataArray = null;
+        let waveformAnimationId = null;
+        let waveformFrameCount = 0;
+        let waveformLastTime = 0;
+        let waveformFPSLastTime = 0;
+        let waveformEnabled = true;
+        let waveformScale = 'time';
+        let waveformAmplitude = 0;
+        let waveformPeak = 0;
+        let waveformSignalDetected = false;
+
+        let frequencyDecayArray = null;
+        let previousFrequencyData = null;
+        let decaySmoothing = WAVEFORM_CONFIG.FREQUENCY_DECAY;
+
+        const charLangbank = ["en", "zh-CN", "zh-TW", "ja"];
+        const charTexts = {
+            welcome: ["Welcome to the Character Displayer!",
+                "欢迎来到字符显示器！",
+                "歡迎來到字元顯示器！",
+                "文字ディスプレーヤーへようこそ！"],
+            inputLabel: ["Please input characters:",
+                "请输入字符：",
+                "请输入字符：",
+                "文字を入力してください："],
+            interfaceLang: ["Interface language:",
+                "界面语言：",
+                "界面语言：",
+                "インターフェース言語："],
+            localization: ["Localization:",
+                "本地化：",
+                "本地化：",
+                "ローカライズ："],
+            bold: ["Bold",
+                "粗体",
+                "粗體",
+                "太字"],
+            italic: ["Italic",
+                "斜体",
+                "斜體",
+                "斜体"],
+            smcp: ["Small Caps",
+                "小型大写",
+                "小型大寫",
+                "小型大文字"],
+            zero: ["Slashed Zero",
+                "斜线零",
+                "斜線零",
+                "斜線付きゼロ"],
+            off: ["Off",
+                "关",
+                "關",
+                "オフ"],
+            on: ["On",
+                "开",
+                "開",
+                "オン"],
+            num: ["Num Forms",
+                "数字形式",
+                "數字形式",
+                "数字形式"],
+            tabular: ["Tabular",
+                "等宽",
+                "等寬",
+                "等幅"],
+            proportional: ["Proportional",
+                "比例",
+                "比例",
+                "比例"],
+            oldstyle: ["Old-Style",
+                "旧式",
+                "舊式",
+                "旧形式"],
+            ss: ["Style Sets",
+                "样式集",
+                "樣式集",
+                "スタイルセット"],
+            description: [
+                "Unicode character display tool with multi-language support.",
+                "支持多语言的Unicode字符显示工具。",
+                "支援多語言的Unicode字元顯示工具。",
+                "多言語対応のUnicode文字表示ツール。"
+            ]
+        };
+
+        let charStyles = {
+            bold: false,
+            italic: false,
+            smcp: false,
+            zero: false,
+            num: 'tabular',
+            ss: 'default'
+        };
+
+        let codeEditorTextarea = null;
+        let codeEditorHighlight = null;
+        let isUpdatingCodeEditor = false;
+
+        // 定义全局变量存储加载的数据
+        let EXAMPLE_EXPRESSIONS = [];
+        let ADVANCED_EXPRESSIONS = [];
+        let STEREO_EXPRESSIONS = [];
+        let VIRUS_EXPRESSIONS = [];
+        let SPECIAL_EXPRESSIONS = [];
+        let FIXED_EXPRESSIONS = [];
+        let CUSTOM_EXPRESSIONS = [];
+
+        function initCodeEditor() {
+            codeEditorTextarea = document.getElementById('expr');
+            codeEditorHighlight = document.getElementById('codeEditorHighlight');
+
+            if (!codeEditorTextarea || !codeEditorHighlight) {
+                console.error('代码编辑器元素未找到');
+                return;
+            }
+
+            codeEditorTextarea.addEventListener('scroll', function() {
+                if (!isUpdatingCodeEditor) {
+                    isUpdatingCodeEditor = true;
+                    codeEditorHighlight.parentElement.scrollTop = this.scrollTop;
+                    codeEditorHighlight.parentElement.scrollLeft = this.scrollLeft;
+                    isUpdatingCodeEditor = false;
+                }
+            });
+
+            codeEditorHighlight.parentElement.addEventListener('scroll',
+                function() {
+                    if (!isUpdatingCodeEditor) {
+                        isUpdatingCodeEditor = true;
+                        codeEditorTextarea.scrollTop = this.scrollTop;
+                        codeEditorTextarea.scrollLeft = this.scrollLeft;
+                        isUpdatingCodeEditor = false;
+                    }
+                });
+
+            function syncSize() {
+                const scrollHeight = codeEditorTextarea.scrollHeight;
+                const clientHeight = codeEditorTextarea.clientHeight;
+
+                codeEditorHighlight.style.height = scrollHeight + 'px';
+                codeEditorHighlight.parentElement.style.height = clientHeight + 'px';
+            }
+
+            codeEditorTextarea.addEventListener('input',
+                function() {
+                    if (!isUpdatingCodeEditor) {
+                        updateCodeHighlight();
+                        syncSize();
+
+                        clearTimeout(exprValidationTimer);
+                        exprValidationTimer = setTimeout(() => {
+                            const newExpr = codeEditorTextarea.value.trim();
+                            const isValid = validateExpression(true);
+                            if (isValid) {
+                                try {
+                                    const funcs = parseExpression(newExpr);
+                                    funcs.valFunc(0);
+                                    currentValExpr = funcs.valFunc;
+                                    currentAmpExpr = funcs.ampFunc;
+                                    currentExprText = newExpr;
+                                    lastValidExprText = newExpr;
+                                    saveToStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, newExpr);
+                                    if (isPlaying) updateStatus(true, '表达式已实时更新');
+                                    // 更新内存显示
+                                    updateMemoryDisplay();
+                                } catch (error) {
+                                    console.warn('表达式错误:', error);
+                                    rollbackToLastValid();
+                                }
+                            } else {
+                                rollbackToLastValid();
+                            }
+                            saveExpression();
+                        },
+                            3000);
+                    }
+                });
+
+            setTimeout(() => {
+                syncSize();
+                updateCodeHighlight();
+            }, 0);
+
+            window.addEventListener('resize', syncSize);
+        }
+
+        function updateCodeHighlight() {
+            const code = codeEditorTextarea.value
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+            codeEditorHighlight.innerHTML = code;
+            Prism.highlightElement(codeEditorHighlight);
+        }
+        function rollbackToLastValid() {
+            // 不再读取、不再回滚，仅做提示
+            const validationEl = document.getElementById('exprValidation');
+            const validationText = document.getElementById('exprValidationText');
+            validationEl.className = 'status active';
+            validationText.innerHTML = '<i class="fas fa-exclamation-circle"></i> 表达式无效，请修正后重试';
+            updateButtonStates();
+        }
+
+        function restoreExpression() {
+            const savedExpr = getFromStorage(STORAGE_KEYS.EXPRESSION, 't<<7');
+            const savedValid = getFromStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, 't<<7');
+            let exprToUse = savedExpr;
+            try {
+                const testFunc = parseExpression(savedExpr);
+                testFunc.valFunc(0);
+                lastValidExprText = savedExpr;
+                saveToStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, savedExpr);
+            } catch (e) {
+                exprToUse = savedValid;
+                lastValidExprText = savedValid;
+            }
+            codeEditorTextarea.value = exprToUse;
+            updateCodeHighlight();
+
+            const savedMultiplier = parseFloat(getFromStorage(STORAGE_KEYS.SPEED_MULTIPLIER,
+                '1.0'));
+            if (!isNaN(savedMultiplier) && savedMultiplier > 0) {
+                speedMultiplier = savedMultiplier;
+                SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
+            }
+            const savedVolume = parseInt(getFromStorage(STORAGE_KEYS.VOLUME, '50'));
+            if (!isNaN(savedVolume)) {
+                currentVolume = savedVolume / 100;
+                document.getElementById('volumeSlider').value = savedVolume;
+                document.getElementById('volumeValue').textContent = savedVolume + '%';
+            }
+            updateLastSaveTime();
+            validateExpression(true);
+            updateSpeedDisplay();
+            updatePresetButtons();
+        }
+
+        // 添加这个函数 - 修复loadExpressionToInput未定义错误
+        // 加载表达式函数 - 符合所有要求
+        function loadExpressionToInput(example) {
+            const exprText = example.expr;
+
+            try {
+                // 测试表达式是否有效
+                const testFunc = parseExpression(exprText);
+                testFunc.valFunc(0);
+
+                // 更新输入框内容
+                const textarea = document.getElementById('expr');
+                textarea.value = exprText;
+
+                // 更新代码高亮
+                if (typeof updateCodeHighlight === 'function') {
+                    updateCodeHighlight();
+                }
+
+                // 验证表达式
+                if (typeof validateExpression === 'function') {
+                    validateExpression(true);
+                }
+
+                // 更新状态
+                if (typeof updateStatus === 'function') {
+                    updateStatus(false, `已加载: ${example.name}`);
+                }
+
+                // 更新按钮状态
+                if (typeof updateButtonStates === 'function') {
+                    updateButtonStates();
+                }
+
+                // 保存到存储
+                if (typeof saveExpression === 'function') {
+                    saveExpression();
+                }
+
+                // 更新最后有效表达式
+                if (typeof lastValidExprText !== 'undefined') {
+                    lastValidExprText = exprText;
+                }
+                if (typeof saveToStorage === 'function') {
+                    saveToStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, exprText);
+                }
+
+                // === 核心逻辑：处理播放和T值 ===
+
+                // 无论之前是什么状态，都重置T值为0
+                if (typeof currentTValue !== 'undefined') {
+                    currentTValue = 0;
+                }
+
+                // 无论之前是正向还是倒放，都设置为正向播放
+                if (typeof isReverse !== 'undefined') {
+                    isReverse = false;
+                }
+
+                // 更新T值显示
+                const tDisplay = document.getElementById('currentT');
+                if (tDisplay) tDisplay.textContent = '0';
+
+                const timeDisplay = document.getElementById('currentTime');
+                if (timeDisplay) timeDisplay.textContent = '0';
+
+                // 更新方向显示
+                if (typeof updateDirectionDisplay === 'function') {
+                    updateDirectionDisplay();
+                }
+
+                // 判断播放状态并执行相应操作
+                if (typeof isPlaying !== 'undefined') {
+                    if (isPlaying) {
+                        // 情况1：正在播放中 - 停止当前播放，然后重新开始正向播放
+                        if (typeof stopPlayback === 'function') {
+                            stopPlayback();
+                        }
+
+                        // 短暂延迟后重新开始播放（正向）
+                        setTimeout(() => {
+                            if (typeof startAudioPlayback === 'function') {
+                                startAudioPlayback();
+                            }
+                        },
+                            50);
+                    } else {
+                        // 情况2：没有播放 - 直接开始正向播放
+                        if (typeof startAudioPlayback === 'function') {
+                            startAudioPlayback();
+                        }
+                    }
+                }
+
+                // 阻止默认滚动行为
+                if (window.event) {
+                    window.event.preventDefault?.();
+                    window.event.stopPropagation?.();
+                }
+
+            } catch (e) {
+                if (typeof updateStatus === 'function') {
+                    updateStatus(false, `表达式错误，无法加载: ${e.message}`);
+                }
+                console.error('加载表达式失败:', e);
+            }
+        }
+        function quickFixExpression() {
+            let expr = codeEditorTextarea.value.trim();
+            if (!expr) {
+                codeEditorTextarea.value = 't<<7';
+                updateCodeHighlight();
+                validateExpression(true);
+                updateStatus(false, '已重置为默认表达式');
+                saveExpression();
+                return;
+            }
+            let fixedExpr = expr;
+            let changes = [];
+            if (expr.includes('Math.sin') || expr.includes('Math.cos') || expr.includes('Math.tan')) {
+                fixedExpr = expr.replace(/Math\.(sin|cos|tan)\(/g, 'Math.$1(');
+                if (fixedExpr !== expr) changes.push('修复数学函数语法');
+            }
+            if (expr.includes('=') && !expr.includes(';')) {
+                const lines = expr.split(/\r?\n/);
+                if (lines.length === 1) {
+                    const varMatch = expr.match(/^([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=\s*(.+)$/);
+                    if (varMatch) {
+                        fixedExpr = `${varMatch[1]}=${varMatch[2]}; ${varMatch[1]}`;
+                        changes.push('添加分号和返回值');
+                    }
+                }
+            }
+            // 移除自动添加 &255 的修复，因为 bytebeat 可以不限制范围
+            // 如果用户没有写任何操作，也可以保留原样
+
+            if (changes.length > 0) {
+                try {
+                    const testFunc = parseExpression(fixedExpr);
+                    testFunc.valFunc(0);
+                    codeEditorTextarea.value = fixedExpr;
+                    updateCodeHighlight();
+                    validateExpression(true);
+                    updateStatus(false, `表达式已修复：${changes.join('，')}`);
+                    saveExpression();
+                    lastValidExprText = fixedExpr;
+                    saveToStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, fixedExpr);
+                    if (isPlaying) {
+                        setTimeout(() => {
+                            const funcs = parseExpression(fixedExpr);
+                            currentValExpr = funcs.valFunc;
+                            currentAmpExpr = funcs.ampFunc;
+                            currentExprText = fixedExpr;
+                            updateStatus(true, '表达式已实时更新');
+                        }, 1);
+                    }
+                } catch (e) {
+                    updateStatus(false, '修复失败，表达式仍有错误');
+                }
+            } else {
+                updateStatus(false, '表达式无需修复');
+            }
+        }
+
+        // 加载 expr.json 的函数
+        async function loadExpressionsFromJSON() {
+            try {
+                const response = await fetch('http://xiaohan800.github.io/expr.json');
+                if (!response.ok) {
+                    throw new Error('加载时存在问题,请检查是否在同一目录下，或者是代码拼写错误问题');
+                }
+                const data = await response.json();
+                // 根据你的 JSON 结构填充数组，这里假设 JSON 结构为 { basic: [...], advanced: [...], ... }
+                // 你需要根据实际 expr.json 的键名进行调整
+                EXAMPLE_EXPRESSIONS = data.basic || [];
+                ADVANCED_EXPRESSIONS = data.advanced || [];
+                STEREO_EXPRESSIONS = data.stereo || [];
+                VIRUS_EXPRESSIONS = data.virus || [];
+                SPECIAL_EXPRESSIONS = data.special || [];
+                FIXED_EXPRESSIONS = data.fixed || [];
+                CUSTOM_EXPRESSIONS = data.custom || [];
+
+                // 重新初始化示例按钮和统计
+                initExamplesAfterLoad();
+                updateCollectionDisplay();
+                console.log("json加载成功");
+            } catch (error) {
+                console.error('加载表达式失败:', error);
+                // 如果加载失败，可以使用一些默认表达式避免界面空白
+                EXAMPLE_EXPRESSIONS = [{
+                    name: "默认",
+                    short: "默认",
+                    expr: "t<<7",
+                    desc: "默认表达式",
+                    channel: "mono"
+                }];
+                initExamplesAfterLoad();
+            }
+        }
+
+        function setCanvasFixedSize() {
+            if (!waveformCanvas) return;
+            const canvasWidth = 512;
+            const canvasHeight = 255;
+            waveformCanvas.width = canvasWidth;
+            waveformCanvas.height = canvasHeight;
+            waveformCanvas.style.width = canvasWidth + 'px';
+            waveformCanvas.style.height = canvasHeight + 'px';
+            WAVEFORM_CONFIG.WIDTH = canvasWidth;
+            WAVEFORM_CONFIG.HEIGHT = canvasHeight;
+            updateWaveformSizeDisplay();
+        }
+
+        function updateWaveformSizeDisplay() {
+            const sizeElement = document.getElementById('waveformSizeDisplay');
+            const dimensionsElement = document.getElementById('waveformDimensions');
+            if (sizeElement) {
+                sizeElement.textContent = `512×255`;
+            }
+            if (dimensionsElement) {
+                dimensionsElement.textContent = `512×255`;
+            }
+        }
+
+
+
+
+// ==================== ByteBeat解析器配置 ====================
+const BYTEBEAT_CONFIG = {
+    // 默认回退函数：当解析失败时使用的函数
+    DEFAULT_FALLBACK: function(t) {
+        return (t & 1) ? 255: 0;
+    },
+    // 是否启用详细日志
+    VERBOSE: false,
+    // 输出值范围限制 (0-255)
+    CLIP_OUTPUT: true,
+    // 测试用的t值数组 - 使用多个测试点
+    TEST_T_VALUES: [1, 100, 1000, 10000, 44100],
+    // 需要多少个测试点通过才算有效
+    REQUIRED_PASS_RATIO: 0.6 // 60%的测试点通过即可
+};
+
+// ==================== 工具函数 ====================
+
+/**
+* 检查值是否为有效的数字（包括0）
+*/
+function isValidNumber(value) {
+    return typeof value === 'number' && !isNaN(value) && isFinite(value);
+}
+
+/**
+* 安全的转换为数字
+*/
+function toValidNumber(value, t) {
+    if (isValidNumber(value)) {
+        return value;
+    }
+    return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t);
+}
+
+/**
+* 使用多个t值测试函数是否有效
+*/
+function testFunction(func, exprText = '') {
+    if (BYTEBEAT_CONFIG.VERBOSE) {
+        console.log(`测试函数: ${exprText || '匿名函数'}`);
+    }
+    
+    const testValues = BYTEBEAT_CONFIG.TEST_T_VALUES;
+    let validCount = 0;
+    let totalTests = 0;
+    
+    for (const t of testValues) {
+        try {
+            const result = func(t);
+            if (isValidNumber(result)) {
+                validCount++;
+                if (BYTEBEAT_CONFIG.VERBOSE) {
+                    console.log(`  t=${t}: 有效 (${result})`);
+                }
+            } else {
+                if (BYTEBEAT_CONFIG.VERBOSE) {
+                    console.log(`  t=${t}: 无效 (NaN/Infinity)`);
+                }
+            }
+        } catch (e) {
+            if (BYTEBEAT_CONFIG.VERBOSE) {
+                console.log(`  t=${t}: 错误 (${e.message})`);
+            }
+        }
+        totalTests++;
+    }
+    
+    const passRatio = validCount / totalTests;
+    const isValid = passRatio >= BYTEBEAT_CONFIG.REQUIRED_PASS_RATIO;
+    
+    if (BYTEBEAT_CONFIG.VERBOSE) {
+        console.log(`  通过率: ${(passRatio * 100).toFixed(1)}% - ${isValid ? '✅ 有效' : '❌ 无效'}`);
+    }
+    
+    return isValid;
+}
+
+// ==================== 策略实现 ====================
+
+/**
+* 策略0: 检测是否包含分号，如果包含则使用多语句执行
+*/
+function strategy0(exprText) {
+    try {
+        // 如果包含分号，使用多语句策略
+        if (exprText.includes(';')) {
+            const statements = exprText.split(';').filter(s => s.trim());
+
+            if (statements.length > 0) {
+                // 构建函数体：先执行所有语句，然后返回最后一个表达式的值
+                let funcBody = '';
+
+                // 执行所有语句（除了最后一个）
+                for (let i = 0; i < statements.length - 1; i++) {
+                    funcBody += statements[i] + ';\n';
+                }
+
+                // 最后一个语句作为返回值
+                const lastStmt = statements[statements.length - 1];
+                funcBody += 'return ' + lastStmt + ';\n';
+
+                const func = new Function('t', funcBody);
+                
+                // 使用多t值测试
+                if (testFunction(func, exprText)) {
+                    return {
+                        valFunc: function(t) {
+                            try {
+                                return func(t) & 255;
+                            } catch(e) {
+                                return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                            }
+                        },
+                        ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                    };
+                }
+            }
+        } else {
+            // 没有分号，直接作为表达式返回
+            const func = new Function('t', 'return ' + exprText + ';');
+            
+            // 使用多t值测试
+            if (testFunction(func, exprText)) {
+                return {
+                    valFunc: function(t) {
+                        try {
+                            return func(t) & 255;
+                        } catch(e) {
+                            return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                        }
+                    },
+                    ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                };
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略0错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略1: 多语句执行（专门处理带分号的表达式）
+*/
+function strategy1(exprText) {
+    try {
+        if (exprText.includes(';')) {
+            const statements = exprText.split(';').filter(s => s.trim());
+
+            if (statements.length > 0) {
+                // 构建完整的执行环境
+                let funcBody = '';
+
+                // 执行所有赋值语句
+                for (let i = 0; i < statements.length - 1; i++) {
+                    funcBody += statements[i] + ';\n';
+                }
+
+                // 最后一个语句作为返回值
+                const lastStmt = statements[statements.length - 1];
+                funcBody += 'return ' + lastStmt + ';\n';
+
+                const func = new Function('t', funcBody);
+                
+                // 使用多t值测试
+                if (testFunction(func, exprText)) {
+                    return {
+                        valFunc: function(t) {
+                            try {
+                                return func(t) & 255;
+                            } catch(e) {
+                                return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                            }
+                        },
+                        ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                    };
+                }
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略1错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略2: 函数定义处理
+*/
+function strategy2(exprText) {
+    try {
+        if (exprText.includes('function') || exprText.includes('=>')) {
+            const func = eval('(' + exprText + ')');
+            if (typeof func === 'function') {
+                // 使用多t值测试
+                if (testFunction(func, exprText)) {
+                    return {
+                        valFunc: function(t) {
+                            try {
+                                return func(t) & 255;
+                            } catch(e) {
+                                return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                            }
+                        },
+                        ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                    };
+                }
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略2错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略3: IIFE处理
+*/
+function strategy3(exprText) {
+    try {
+        if (exprText.includes('})(t)') || exprText.includes('})(')) {
+            const func = new Function('t', `return (${exprText});`);
+            
+            // 使用多t值测试
+            if (testFunction(func, exprText)) {
+                return {
+                    valFunc: function(t) {
+                        try {
+                            return func(t) & 255;
+                        } catch(e) {
+                            return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                        }
+                    },
+                    ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                };
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略3错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略4: 通用执行器
+*/
+function strategy4(exprText) {
+    try {
+        const func = new Function('t', `
+            try {
+                // 先尝试作为表达式执行
+                try {
+                    return eval(${JSON.stringify(exprText)});
+                } catch(e) {
+                    // 如果失败，尝试作为语句执行
+                    let result;
+                    ${exprText};
+
+                    // 尝试获取最后一个语句的值
+                    const statements = ${JSON.stringify(exprText)}.split(';').filter(s => s.trim());
+                    const lastStmt = statements[statements.length - 1];
+                    if (lastStmt) {
+                        result = eval(lastStmt);
+                    }
+
+                    return result !== undefined ? result : t;
+                }
+            } catch(e) {
+                return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t);
+            }
+        `);
+
+        // 使用多t值测试
+        if (testFunction(func, exprText)) {
+            return {
+                valFunc: function(t) {
+                    try {
+                        return func(t) & 255;
+                    } catch(e) {
+                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                    }
+                },
+                ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+            };
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略4错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略5: 终极回退
+*/
+function strategy5(exprText) {
+    try {
+        // 最简单的执行方式
+        const func = new Function('t', `
+            try {
+                let result;
+                ${exprText};
+                return result !== undefined ? result : t;
+            } catch(e) {
+                return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t);
+            }
+        `);
+
+        // 使用多t值测试
+        if (testFunction(func, exprText)) {
+            return {
+                valFunc: function(t) {
+                    try {
+                        return func(t) & 255;
+                    } catch(e) {
+                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                    }
+                },
+                ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+            };
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略5错误:', e);
+    }
+    return null;
+}
+
+// ==================== 主函数 ====================
+function parseExpression(exprText) {
+    try {
+        exprText = exprText.trim();
+
+        // 默认回退函数
+        const defaultFunc = {
+            valFunc: BYTEBEAT_CONFIG.DEFAULT_FALLBACK,
+            ampFunc: (val) => val
+        };
+
+        if (!exprText) {
+            return defaultFunc;
+        }
+
+        // 立体声处理
+        if (exprText.startsWith('[') && exprText.includes(',')) {
+            try {
+                const stereoFunc = new Function('t', `
+                    try {
+                        const result = ${exprText};
+                        let left, right;
+
+                        if (Array.isArray(result)) {
+                            left = Number(result[0]);
+                            right = Number(result[1]);
+                        } else {
+                            const val = Number(result);
+                            left = val;
+                            right = val;
+                        }
+
+                        left = isNaN(left) ? ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) : left;
+                        right = isNaN(right) ? ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) : right;
+
+                        return [left & 255, right & 255];
+                    } catch(e) {
+                        const fallback = ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t);
+                        return [fallback, fallback];
+                    }
+                `);
+
+                // 测试立体声函数
+                if (testFunction((t) => stereoFunc(t)[0], exprText)) {
+                    return {
+                        valFunc: function(t) {
+                            try {
+                                return stereoFunc(t);
+                            } catch(e) {
+                                const fallback = BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t);
+                                return [fallback, fallback];
+                            }
+                        },
+                        ampFunc: (val) => val
+                    };
+                }
+            } catch (e) {
+                return defaultFunc;
+            }
+        }
+
+        // ========== 按顺序尝试所有策略 ==========
+
+        const strategies = [
+            { name: '策略0', fn: strategy0 },
+            { name: '策略1', fn: strategy1 },
+            { name: '策略2', fn: strategy2 },
+            { name: '策略3', fn: strategy3 },
+            { name: '策略4', fn: strategy4 },
+            { name: '策略5', fn: strategy5 }
+        ];
+
+        for (const strategy of strategies) {
+            const result = strategy.fn(exprText);
+            if (result) {
+                if (BYTEBEAT_CONFIG.VERBOSE) {
+                    console.log(`✅ 使用 ${strategy.name} 成功解析: ${exprText}`);
+                }
+                return result;
+            }
+        }
+
+        if (BYTEBEAT_CONFIG.VERBOSE) {
+            console.log(`⚠️ 所有策略失败，使用默认回退: ${exprText}`);
+        }
+        return defaultFunc;
+
+    } catch (error) {
+        if (BYTEBEAT_CONFIG.VERBOSE) {
+            console.error('解析错误:', error);
+        }
+        return {
+            valFunc: BYTEBEAT_CONFIG.DEFAULT_FALLBACK,
+            ampFunc: (val) => val
+        };
+    }
+}
+        function createAudioProcessor(isStereoExpr) {
+            // 内部配置：所有参数都在这里调整
+            const config = {
+                // Bit Crusher 效果
+                bitCrush: {
+                    enable: true,
+                    bitDepth: 8,
+                    // 比特深度（越小越失真，8/4/2/1 最常用）
+                    downSample: 1,
+                    // 降采样倍数（越大越 Lo-Fi，1=不降采样）
+                    mix: 1.0 // 混合比例 0~1
+                },
+                volume: 1.0,
+                // 主音量
+                clamp: 255,
+                // 位深度掩码
+                normalize: 127.5,
+                // 归一化系数
+                maxT: 10 ** 300 // T值上限，防溢出
+            };
+
+            // 用于降采样的缓冲（保持上一个输出值，实现阶梯效果）
+            let downSampleCounter = 0;
+            let lastOutL = 0;
+            let lastOutR = 0;
+
+            return function(e) {
+                if (!isPlaying || !currentValExpr) return;
+
+                const outputBuffer = e.outputBuffer;
+                const bufferLength = outputBuffer.length;
+                const samplesPerBuffer = bufferLength * (SOURCE_SAMPLE_RATE / TARGET_SAMPLE_RATE);
+
+                const leftChannel = outputBuffer.getChannelData(0);
+                const rightChannel = outputBuffer.numberOfChannels >= 2
+                ? outputBuffer.getChannelData(1): leftChannel;
+
+                try {
+                    for (let i = 0; i < bufferLength; i++) {
+                        const sampleIndex = isReverse
+                        ? Math.floor(currentTValue - (i / bufferLength) * samplesPerBuffer): Math.floor(currentTValue + (i / bufferLength) * samplesPerBuffer);
+
+                        const rawVal = currentValExpr(sampleIndex);
+
+                        let leftVal,
+                        rightVal;
+                        if (Array.isArray(rawVal) && rawVal.length >= 2) {
+                            leftVal = rawVal[0] || 0;
+                            rightVal = rawVal[1] || 0;
+                        } else {
+                            const monoVal = typeof rawVal === 'number' ? rawVal: t<<7;
+                            leftVal = monoVal;
+                            rightVal = monoVal;
+                        }
+
+                        // 原始采样归一化（干声）
+                        let dryL = ((leftVal & config.clamp) / config.normalize - 1) * config.volume;
+                        let dryR = ((rightVal & config.clamp) / config.normalize - 1) * config.volume;
+
+                        let crushedL = dryL;
+                        let crushedR = dryR;
+
+                        if (config.bitCrush.enable) {
+                            const {
+                                bitDepth,
+                                downSample,
+                                mix
+                            } = config.bitCrush;
+
+                            // ===================== Bit Crusher 核心 =====================
+                            // 1. 降采样（保持样本值 N 个采样不变）
+                            downSampleCounter++;
+                            if (downSampleCounter >= downSample) {
+                                downSampleCounter = 0;
+
+                                // 2. 比特深度削减
+                                const step = Math.pow(2, bitDepth) - 1;
+                                crushedL = Math.round(dryL * step) / step;
+                                crushedR = Math.round(dryR * step) / step;
+
+                                lastOutL = crushedL;
+                                lastOutR = crushedR;
+                            } else {
+                                // 保持上一个值，实现阶梯波形
+                                crushedL = lastOutL;
+                                crushedR = lastOutR;
+                            }
+
+                            // 3. 干湿混合
+                            crushedL = dryL * (1 - mix) + crushedL * mix;
+                            crushedR = dryR * (1 - mix) + crushedR * mix;
+                        }
+
+                        // 输出
+                        leftChannel[i] = crushedL;
+                        rightChannel[i] = crushedR;
+                    }
+
+                    // 时间轴步进
+                    currentTValue = isReverse
+                    ? currentTValue - samplesPerBuffer: currentTValue +samplesPerBuffer;
+
+                    // 防溢出
+                    if (Math.abs(currentTValue) > config.maxT) {
+                        currentTValue = 0;
+                    }
+
+                } catch (err) {
+                    console.warn('音频处理错误:', err);
+                    for (let i = 0; i < bufferLength; i++) {
+                        leftChannel[i] = 0;
+                        if (outputBuffer.numberOfChannels >= 2) {
+                            rightChannel[i] = 0;
+                        }
+                    }
+                }
+            };
+        }
+
+        function validateExpression(updateUI = true) {
+            const exprText = codeEditorTextarea.value.trim();
+
+            window.lastExprText = exprText;
+            window.lastValidationTime = new Date().toISOString();
+
+            const validationEl = document.getElementById('exprValidation');
+            const validationText = document.getElementById('exprValidationText');
+            let isValid = false;
+            let errorMessage = '';
+
+            try {
+                if (!exprText) {
+                    errorMessage = '表达式不能为空';
+                    isValid = false;
+                } else {
+                    // 基础括号匹配检查
+                    let parenCount = 0,
+                    braceCount = 0,
+                    bracketCount = 0;
+                    let inString = false,
+                    stringChar = '';
+
+                    for (let i = 0; i < exprText.length; i++) {
+                        const char = exprText[i];
+
+                        if ((char === '"' || char === "'" || char === '`') && !inString) {
+                            inString = true;
+                            stringChar = char;
+                            continue;
+                        } else if (inString && char === stringChar) {
+                            if (i > 0 && exprText[i - 1] !== '\\') {
+                                inString = false;
+                            }
+                            continue;
+                        } else if (inString) continue;
+
+                        if (char === '(') parenCount++;
+                        if (char === ')') parenCount--;
+                        if (char === '{') braceCount++;
+                        if (char === '}') braceCount--;
+                        if (char === '[') bracketCount++;
+                        if (char === ']') bracketCount--;
+                    }
+
+                    if (parenCount !== 0) errorMessage = '语法错误: 括号不匹配';
+                    else if (braceCount !== 0) errorMessage = '语法错误: 花括号不匹配';
+                    else if (bracketCount !== 0) errorMessage = '语法错误: 方括号不匹配';
+                    else {
+                        // 使用 new Function 检查语法
+                        try {
+                            // 构造一个函数体，只做语法校验，不执行逻辑
+                            const checkSyntax = new Function('t', exprText);
+                            // 语法通过，再尝试轻量执行
+                            const funcs = parseExpression(exprText);
+                            const testPoints = [0,
+                                100];
+                            let testPassed = true;
+
+                            for (const t of testPoints) {
+                                try {
+                                    funcs.valFunc(t);
+                                } catch (e) {
+                                    testPassed = false;
+                                    errorMessage = `执行错误: ${e.message}`;
+                                    break;
+                                }
+                            }
+
+                            if (testPassed) {
+                                isValid = true;
+                            }
+                        } catch (e) {
+                            // 语法错误只记录，不抛错回滚
+                            errorMessage = `语法错误: ${e.message}`;
+                            isValid = false;
+                        }
+                    }
+                }
+            } catch (unexpectedErr) {
+                // 极端意外错误，不回滚流程，只记录
+                errorMessage = `校验异常: ${unexpectedErr.message}`;
+                isValid = false;
+            }
+
+            if (updateUI) {
+                validationEl.className = 'status active';
+                validationText.innerHTML = isValid
+                ? '<i class="fas fa-check-circle"></i> 表达式语法正确': `<i class="fas fa-exclamation-circle"></i> ${errorMessage}`;
+                updateButtonStates();
+            }
+
+            return isValid;
+        }
+
+        function checkIfStereoExpression(expr) {
+            const trimmed = expr.trim();
+            return trimmed.startsWith('[') && trimmed.includes(',');
+        }
+
+        async function startAudioPlayback() {
+            // 关键：先确保完全停止当前播放
+            if (isPlaying) {
+                // 如果已经在播放，先完全停止
+                await stopPlayback(true); // 传入true表示强制停止
+            }
+
+            try {
+                if (!audioCtx || audioCtx.state === 'closed') {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)({
+                        sampleRate: TARGET_SAMPLE_RATE
+                    });
+                }
+                if (audioCtx.state === 'suspended') {
+                    await audioCtx.resume();
+                }
+
+                const exprText = codeEditorTextarea.value.trim();
+                const funcs = parseExpression(exprText);
+                currentValExpr = funcs.valFunc;
+                currentAmpExpr = funcs.ampFunc;
+                currentExprText = exprText;
+
+                gainNode = audioCtx.createGain();
+                gainNode.gain.value = currentVolume;
+
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = fft;
+                analyser.smoothingTimeConstant = WAVEFORM_CONFIG.SMOOTHING_TIME_CONSTANT;
+                const bufferLength = analyser.frequencyBinCount;
+                frequencyDecayArray = new Float32Array(bufferLength);
+                previousFrequencyData = new Float32Array(bufferLength);
+
+                const isStereoExpr = checkIfStereoExpression(exprText);
+                const numberOfChannels = isStereoExpr ? 2: 1;
+
+                scriptProcessor = audioCtx.createScriptProcessor(bufferSize, 0, numberOfChannels);
+                scriptProcessor.onaudioprocess = createAudioProcessor(isStereoExpr);
+
+                scriptProcessor.connect(gainNode);
+                gainNode.connect(analyser);
+                analyser.connect(audioCtx.destination);
+
+                isPlaying = true;
+                updateDirectionDisplay();
+
+                // 取消旧的动画帧
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+                animationFrameId = requestAnimationFrame(updateTDisplay);
+
+                updateStatus(true, isReverse ? '倒放中...': '正在播放...');
+                updateButtonStates();
+
+                if (!waveformEnabled) {
+                    waveformEnabled = true;
+                    document.getElementById('waveformToggleBtn').innerHTML = '<i class="fas fa-pause"></i> 暂停波形图';
+                    startWaveformAnimation();
+                }
+            } catch (error) {
+                console.error('音频播放启动失败:', error);
+                updateStatus(false, '启动失败: ' + error.message);
+                stopPlayback(true);
+            }
+        }
+        function updateStatus(active, text) {
+            const statusEl = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            if (statusText) statusText.textContent = text || (active ? '正在播放...': '已停止');
+            if (statusEl) active ? statusEl.classList.add('active'): statusEl.classList.remove('active');
+        }
+
+        function updateDirectionDisplay() {
+            document.getElementById('playDirection').textContent = isReverse ? '倒放': '正向';
+            document.getElementById('playState').textContent = isPlaying ? '播放中': '已停止';
+        }
+
+        function updateButtonStates() {
+            const exprText = codeEditorTextarea.value.trim();
+            const isValid = validateExpression(false);
+            const isTZero = Math.abs(currentTValue) < 1;
+            document.getElementById('playBtn').disabled = !isValid || (isPlaying && !isReverse);
+            document.getElementById('reverseBtn').disabled = !isValid || (isPlaying && isReverse);
+            document.getElementById('stopBtn').disabled = !isPlaying;
+            document.getElementById('resetBtn').disabled = isTZero && !isPlaying;
+        }
+        // ====================== 全局开关 & 统一配置 ======================
+        const CONFIG = {
+            ENABLED: false,
+            // true=开启单位换算模式 | false=纯数字智能格式化
+            sciNotationThreshold: 1e16,
+            sciFractionDigits: 16,
+            normalMinFraction: 3,
+            normalMaxFraction: 3,
+        };
+
+        // ====================== 智能数字格式化 ======================
+        function toSmartNumber(num) {
+            const threshold = CONFIG.sciNotationThreshold;
+            if (Math.abs(num) >= threshold) {
+                const parts = num.toExponential(CONFIG.sciFractionDigits).split('e');
+                const mantissa = parts[0].replace(/\.?0+$/, '');
+                const exp = parts[1].replace('+', '');
+                return `${mantissa}e**${exp}`;
+            } else {
+                return num.toLocaleString('en-US', {
+                    minimumFractionDigits: CONFIG.normalMinFraction,
+                    maximumFractionDigits: CONFIG.normalMaxFraction,
+                }).replace(/\.?0+$/, '');
+            }
+        }
+
+        // ====================== 秒数 => 完整中文时间 ======================
+        function formatFullTime(seconds) {
+            const isNegative = seconds < 0;
+            const totalMs = Math.abs(seconds) * 1000;
+
+            const msPerSecond = 1000;
+            const msPerMinute = msPerSecond * 60;
+            const msPerHour = msPerMinute * 60;
+            const msPerDay = msPerHour * 24;
+            const msPerMonth = msPerDay * 30;
+            const msPerYear = msPerMonth * 12;
+
+            let remain = totalMs;
+
+            const years = Math.floor(remain / msPerYear);
+            remain %= msPerYear;
+
+            const months = Math.floor(remain / msPerMonth);
+            remain %= msPerMonth;
+
+            const days = Math.floor(remain / msPerDay);
+            remain %= msPerDay;
+
+            const hours = Math.floor(remain / msPerHour);
+            remain %= msPerHour;
+
+            const minutes = Math.floor(remain / msPerMinute);
+            remain %= msPerMinute;
+
+            const secs = Math.floor(remain / msPerSecond);
+            remain %= msPerSecond;
+
+            const ms = Math.floor(remain);
+            const us = Math.round((remain - ms) * 1000);
+
+            const parts = [];
+            if (years > 0) parts.push(`${years}年`);
+            if (months > 0) parts.push(`${months}个月`);
+            if (days > 0) parts.push(`${days}天`);
+            if (hours > 0) parts.push(`${hours}小时`);
+            if (minutes > 0) parts.push(`${minutes}分`);
+            if (secs > 0) parts.push(`${secs}秒`);
+            if (ms > 0) parts.push(`${ms}毫秒`);
+            if (us > 0 && parts.length === 0) parts.push(`${us}微秒`);
+
+            let timeStr = parts.join('') || '0秒';
+            if (isNegative) timeStr = `-${timeStr}`;
+            return timeStr;
+        }
+
+        // ====================== T 显示更新（自动切换模式） ======================
+        function updateTDisplay() {
+            if (!isPlaying) return;
+
+            const tValue = Math.floor(Math.floor(Math.floor(currentTValue) / SCALE) * SCALE);
+            document.getElementById('currentT').textContent = toSmartNumber(tValue) + "t";
+
+            const timeInSeconds = tValue / BASE_SAMPLE_RATE;
+
+            // 根据开关自动切换
+            if (CONFIG.ENABLED) {
+                document.getElementById('currentTime').textContent = formatFullTime(timeInSeconds);
+            } else {
+                document.getElementById('currentTime').textContent = toSmartNumber(timeInSeconds);
+            }
+
+            animationFrameId = requestAnimationFrame(updateTDisplay);
+        }
+
+        // ====================== 速度显示 ======================
+        function updateSpeedDisplay() {
+            document.getElementById('speedDisplay').textContent = toSmartNumber(speedMultiplier) + 'x';
+            document.getElementById('speedMultiplier').textContent = toSmartNumber(speedMultiplier) + 'x';
+            document.getElementById('sampleRateDisplay').textContent = Math.round(SOURCE_SAMPLE_RATE);
+        }
+
+        function updateVolume(value) {
+            currentVolume = value / 100;
+            document.getElementById('volumeValue').textContent = value + '%';
+            if (gainNode) gainNode.gain.value = currentVolume;
+            saveToStorage(STORAGE_KEYS.VOLUME, value.toString());
+        }
+
+        function initWaveform() {
+            waveformCanvas = document.getElementById('waveformCanvas');
+            waveformCtx = waveformCanvas.getContext('2d');
+            setCanvasFixedSize();
+            startWaveformAnimation();
+            window.addEventListener('resize', function() {
+                setCanvasFixedSize();
+            });
+        }
+
+        function startWaveformAnimation() {
+            if (waveformAnimationId) {
+                cancelAnimationFrame(waveformAnimationId);
+            }
+            waveformLastTime = performance.now();
+            waveformFPSLastTime = performance.now();
+            waveformAnimationId = requestAnimationFrame(drawWaveform);
+        }
+
+        function drawWaveform(timestamp) {
+            if (!waveformEnabled) {
+                waveformAnimationId = requestAnimationFrame(drawWaveform);
+                return;
+            }
+            const frameInterval = 1000 / WAVEFORM_CONFIG.FPS;
+            const elapsed = timestamp - waveformLastTime;
+            if (elapsed < frameInterval) {
+                waveformAnimationId = requestAnimationFrame(drawWaveform);
+                return;
+            }
+            waveformLastTime = timestamp - (elapsed % frameInterval);
+            waveformFrameCount++;
+            if (timestamp - waveformFPSLastTime >= 1000) {
+                const actualFPS = Math.round(waveformFrameCount * 1000 / (timestamp - waveformFPSLastTime));
+                document.getElementById('waveformFPS').textContent = actualFPS;
+                waveformFrameCount = 0;
+                waveformFPSLastTime = timestamp;
+            }
+            if (!analyser || !isPlaying) {
+                drawEmptyWaveform();
+                waveformAnimationId = requestAnimationFrame(drawWaveform);
+                return;
+            }
+            const bufferLength = analyser.frequencyBinCount;
+            if (!waveformDataArray || waveformDataArray.length !== bufferLength) {
+                waveformDataArray = new Uint8Array(bufferLength);
+                frequencyDecayArray = new Float32Array(bufferLength);
+                previousFrequencyData = new Float32Array(bufferLength);
+            }
+            if (waveformScale === 'frequency') {
+                analyser.getByteFrequencyData(waveformDataArray);
+            } else {
+                analyser.getByteTimeDomainData(waveformDataArray);
+            }
+            waveformCtx.clearRect(0, 0, WAVEFORM_CONFIG.WIDTH, WAVEFORM_CONFIG.HEIGHT);
+            waveformCtx.fillStyle = WAVEFORM_CONFIG.COLORS.BACKGROUND;
+            waveformCtx.fillRect(0, 0, WAVEFORM_CONFIG.WIDTH, WAVEFORM_CONFIG.HEIGHT);
+            if (waveformScale === 'frequency') {
+                drawFrequencyWaveform(waveformDataArray);
+            } else {
+                drawTimeWaveform(waveformDataArray);
+            }
+            calculateWaveformStats(waveformDataArray);
+            waveformAnimationId = requestAnimationFrame(drawWaveform);
+        }
+
+
+
+
+
+
+
+        // 全局状态管理
+        let waveformCounterTimer = null;
+        let lastBaseSampleRate = BASE_SAMPLE_RATE; // 保留采样率监测
+
+        // 记录启动基准时间（确保 Unicode 从配置起始码开始）
+        let waveformBaseTime = performance.now();
+
+        // ========== 【全局配置区 - 可自由修改】 ==========
+        const WAVEFORM_UI_CONFIG = {
+            FONT_FAMILY: 'tshyn, TH-P0, hak, mi, TH-P2, TH-P3',
+            FONT_SIZE_TITLE: 17,
+            FONT_SIZE_CENTER: 175,
+            // 田字格内字符大小
+            FONT_SIZE_TIME: 16,
+            FONT_SIZE_UNICODE: 17,
+            UNICODE_START: 0x21777,
+            // 起始编码
+            UNICODE_MAX: 0x33479,
+            // Unicode 上限
+            TEXT_COLOR: '#FFFFFF',
+            PADDING: 2,
+            // 新增：田字格配置
+            GRID_SIZE: 255,
+            // 左侧大田字格 350×350
+            GRID_LINE_COLOR: '#444444',
+            // 田字格线条颜色
+            GRID_BG_COLOR: '#111111' // 田字格背景
+        };
+        // ========== 【配置区结束】 ==========
+
+        /**
+        * 优化时间格式：使用 Date.now()，格式为 XXXX年.XX月.XX日 XX:XX:SS.XXX
+        * 微秒级 → 毫秒级，只显示 3 位毫秒
+        */
+        function formatSignalTime() {
+            const now = Date.now();
+            const date = new Date(now);
+            const year = date.getFullYear().toString().padStart(4, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+
+            const milliseconds = (now % 1000).toString().padStart(3, '0');
+
+            return `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}.${milliseconds}`;
+        }
+
+        /**
+        * Unicode 计算：循环显示
+        */
+        function getCycleUnicode() {
+            const {
+                UNICODE_START,
+                UNICODE_MAX
+            } = WAVEFORM_UI_CONFIG;
+            const elapsedSeconds = (performance.now() - waveformBaseTime) / 1000;
+            const codeIndex = Math.floor(elapsedSeconds * 30);
+
+            const range = UNICODE_MAX - UNICODE_START + 1;
+            const unicodeCode = UNICODE_START + (codeIndex % range);
+
+            const codeStr = `U+${unicodeCode.toString(16).toUpperCase().padStart(4, '0')}`;
+
+            let unicodeChar;
+            if (unicodeCode <= 0xFFFF) {
+                unicodeChar = String.fromCharCode(unicodeCode);
+            } else {
+                const surrogateOffset = unicodeCode - 0x10000;
+                const highSurrogate = 0xD800 + (surrogateOffset >> 10);
+                const lowSurrogate = 0xDC00 + (surrogateOffset & 0x3FF);
+                unicodeChar = String.fromCharCode(highSurrogate, lowSurrogate);
+            }
+
+            // 过滤控制字符
+            if ((unicodeCode <= 0x1F || unicodeCode === 0x7F) || (unicodeCode >= 0x80 && unicodeCode <= 0x9F)) {
+                unicodeChar = '?';
+            }
+
+            return {
+                code: codeStr,
+                char: unicodeChar
+            };
+        }
+
+        /**
+        * 绘制左侧 350×350 大田字格
+        */
+        function drawCharacterGrid() {
+            const cfg = WAVEFORM_UI_CONFIG;
+            const size = cfg.GRID_SIZE;
+
+            // 田字格背景
+            waveformCtx.fillStyle = cfg.GRID_BG_COLOR;
+            waveformCtx.fillRect(0, 0, size, size);
+
+            // 外框
+            waveformCtx.strokeStyle = cfg.GRID_LINE_COLOR;
+            waveformCtx.lineWidth = 2;
+            waveformCtx.strokeRect(0, 0, size, size);
+
+            // 十字线（大田字格）
+            waveformCtx.lineWidth = 1;
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(size / 2, 0);
+            waveformCtx.lineTo(size / 2, size);
+            waveformCtx.moveTo(0, size / 2);
+            waveformCtx.lineTo(size, size / 2);
+            waveformCtx.stroke();
+
+            // 中间绘制 Unicode 字符
+            const unicodeData = getCycleUnicode();
+            waveformCtx.fillStyle = cfg.TEXT_COLOR;
+            waveformCtx.font = `${cfg.FONT_SIZE_CENTER}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.textAlign = 'center';
+            waveformCtx.textBaseline = 'middle';
+            waveformCtx.fillText(unicodeData.char, size / 2, size / 2);
+        }
+
+        /**
+        * 绘制右侧信息：无信号、Unicode、时间
+        */
+        function drawRightInfo() {
+            const canvasWidth = WAVEFORM_CONFIG.WIDTH;
+            const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
+            const cfg = WAVEFORM_UI_CONFIG;
+            const gridSize = cfg.GRID_SIZE;
+
+            waveformCtx.fillStyle = cfg.TEXT_COLOR;
+
+            // 右侧顶部：无信号
+            waveformCtx.font = `${cfg.FONT_SIZE_TITLE}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.textAlign = 'left';
+            waveformCtx.textBaseline = 'top';
+            waveformCtx.fillText('无信号', gridSize + 10, cfg.PADDING);
+
+            // 右侧中部：Unicode 编码
+            const unicodeData = getCycleUnicode();
+            waveformCtx.font = `${cfg.FONT_SIZE_UNICODE}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.fillText(unicodeData.code, gridSize + 10, canvasHeight / 2);
+
+            // 右侧底部：当前时间
+            waveformCtx.font = `${cfg.FONT_SIZE_TIME}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.textAlign = 'left';
+            waveformCtx.textBaseline = 'bottom';
+            const timeStr = formatSignalTime();
+            waveformCtx.fillText(timeStr, gridSize + 10, canvasHeight - cfg.PADDING);
+        }
+
+        /**
+        * 绘制无信号界面（左侧田字格 + 右侧信息）
+        */
+        function drawEmptyWaveform() {
+            const canvasWidth = WAVEFORM_CONFIG.WIDTH;
+            const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
+            const cfg = WAVEFORM_UI_CONFIG;
+
+            // 清空整个画布
+            waveformCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+            waveformCtx.fillStyle = WAVEFORM_CONFIG.COLORS.BACKGROUND;
+            waveformCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            // 绘制网格（保留你原有波形网格，不需要可删掉 drawWaveformGrid()）
+            drawWaveformGrid();
+
+            // 左侧：350×350 田字格 + 字符
+            drawCharacterGrid();
+
+            // 右侧：文字信息
+            drawRightInfo();
+
+            // 采样率监测
+            if (typeof lastBaseSampleRate !== 'undefined' && BASE_SAMPLE_RATE !== lastBaseSampleRate) {
+                lastBaseSampleRate = BASE_SAMPLE_RATE;
+            }
+
+            // 底部状态文本
+            document.getElementById('waveformAmplitude').textContent = '0%';
+            document.getElementById('waveformPeak').textContent = '0%';
+            document.getElementById('waveformSignal').textContent = '靜音';
+        }
+
+        /**
+        * 启动更新
+        */
+        function startEmptyWaveform() {
+            if (waveformCounterTimer) {
+                clearInterval(waveformCounterTimer);
+            }
+            waveformBaseTime = performance.now();
+            lastBaseSampleRate = BASE_SAMPLE_RATE;
+
+            waveformCounterTimer = setInterval(() => {
+                if (isPlaying) drawEmptyWaveform();
+            },
+                1000 / 10);
+        }
+
+        /**
+        * 停止更新
+        */
+        function stopEmptyWaveform() {
+            if (typeof waveformCounterTimer !== 'undefined' && waveformCounterTimer) {
+                clearInterval(waveformCounterTimer);
+                waveformCounterTimer = null;
+            }
+        }
+
+
+
+
+
+
+
+        function drawTimeWaveform(dataArray) {
+            const canvasWidth = WAVEFORM_CONFIG.WIDTH;
+            const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
+            drawWaveformGrid();
+
+            waveformCtx.strokeStyle = WAVEFORM_CONFIG.COLORS.WAVEFORM;
+            waveformCtx.lineWidth = $; // 把 $ 换成实际线宽，这里用1
+
+            waveformCtx.beginPath();
+            const sliceWidth = canvasWidth / dataArray.length;
+            let x = 0;
+
+            for (let i = 0; i < dataArray.length; i++) {
+                const clampedValue = Math.max(WAVEFORM_CONFIG.MIN_FREQUENCY_VALUE,
+                    Math.min(WAVEFORM_CONFIG.MAX_FREQUENCY_VALUE, dataArray[i]));
+                const v = clampedValue / 256.0;
+                const y = v * canvasHeight;
+                const currentY = canvasHeight - y;
+
+                if (i === 0) {
+                    waveformCtx.moveTo(x, currentY);
+                }
+
+                // 水平画线到当前段末尾
+                waveformCtx.lineTo(x + sliceWidth, currentY);
+
+                // 不是最后一个点：垂直跳到下一个点的y（阶梯跳变）
+                if (i < dataArray.length - 1) {
+                    const nextClamped = Math.max(WAVEFORM_CONFIG.MIN_FREQUENCY_VALUE,
+                        Math.min(WAVEFORM_CONFIG.MAX_FREQUENCY_VALUE, dataArray[i + 1]));
+                    const nextV = nextClamped / 256.0;
+                    const nextY = canvasHeight - nextV * canvasHeight;
+
+                    waveformCtx.lineTo(x + sliceWidth, nextY);
+                }
+
+                x += sliceWidth;
+            }
+
+            waveformCtx.stroke();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
+        * 【TOP5 峰值 + 完美表格排版 + 文字纯白可见】频谱图
+        * @param {Uint8Array|number[]} dataArray
+        */
+        function drawFrequencyWaveform(dataArray) {
+            // ==========================
+            // 🎯 统一可配置
+            // ==========================
+            const CONFIG = {
+                topCount: 5,
+                peakCircleRadius: 12,
+                peakCircleWidth: 4,
+                peakCircleColor: '#ff0000',
+                textFont: '10px TH-P0',
+                textColor: '#ffffff',
+                textBgColor: 'rgba(0,0,0,0.7)',
+                lineHeight: 10,
+                padding: 0,
+                rightMargin: 0,
+                labelWidth: 44,
+                valueWidth: 43,
+
+                // 底部面板
+                bottomPanelHeight: 28,
+                bottomPadding: 4,
+                dbBarWidth: 120,
+                dbBarHeight: 11,
+                dbBarColor: '#ff00ff',
+                dbBgColor: '#222222',
+
+                // 总体系数一行布局：左文字 + 中间分贝条 + 右数值
+                totalLineLeft: 8,
+                totalLineRight: 8,
+                labelText: "总体系数:"
+            };
+
+            // ==========================
+            // 1. 复用你原有全局配置
+            // ==========================
+            const canvasWidth = WAVEFORM_CONFIG.WIDTH;
+            const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
+            const barCount = Math.min(dataArray.length, WAVEFORM_CONFIG.FREQUENCY_BARS);
+            const decaySmooth = decaySmoothing;
+            const freqColorStart = WAVEFORM_CONFIG.COLORS.FREQUENCY_START;
+            const freqColorEnd = WAVEFORM_CONFIG.COLORS.FREQUENCY_END;
+            const sampleRate = TARGET_SAMPLE_RATE;
+            const fftSize = fft;
+            const MIN_VALUE = 0;
+            const MAX_VALUE = 255;
+            const MIN_DISPLAY_FREQ = 1;
+
+            // 🔥 频谱高度让出底部面板
+            const drawHeight = canvasHeight - CONFIG.bottomPanelHeight;
+
+            // 画布重置
+            waveformCtx.setTransform(1, 0, 0, 1, 0, 0);
+            waveformCtx.fillStyle = '#000000';
+            waveformCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            if (typeof drawWaveformGrid === 'function') drawWaveformGrid();
+
+            // 历史数据
+            if (!previousFrequencyData || previousFrequencyData.length !== barCount) {
+                previousFrequencyData = new Array(barCount).fill(MIN_VALUE);
+            }
+            if (!frequencyDecayArray || frequencyDecayArray.length !== barCount) {
+                frequencyDecayArray = new Array(barCount).fill(MIN_VALUE);
+            }
+
+            const logMin = Math.log10(MIN_DISPLAY_FREQ);
+            const logMax = Math.log10(sampleRate / 2);
+            const logRange = Math.max(1e-10, logMax - logMin);
+
+            const points = [];
+            let totalSum = 0;
+
+            for (let i = 0; i < barCount; i++) {
+                const rawValue = dataArray[i] || MIN_VALUE;
+                const clampedValue = Math.max(MIN_VALUE, Math.min(MAX_VALUE, rawValue));
+                const prevValue = previousFrequencyData[i] || MIN_VALUE;
+                const decayedValue = Math.min(MAX_VALUE, Math.max(MIN_VALUE,
+                    clampedValue * (1 - decaySmooth) + prevValue * decaySmooth
+                ));
+
+                previousFrequencyData[i] = decayedValue;
+                frequencyDecayArray[i] = decayedValue;
+                totalSum += decayedValue;
+
+                const y = drawHeight - Math.max(1, (decayedValue / MAX_VALUE) * drawHeight);
+                const realFreq = (i * sampleRate) / fftSize;
+                const displayFreq = Math.max(MIN_DISPLAY_FREQ, realFreq);
+                const normX = (Math.log10(displayFreq) - logMin) / logRange;
+                const x = normX * canvasWidth;
+
+                points.push({
+                    x, y, value: decayedValue, index: i
+                });
+            }
+
+            // ==========================
+            // TOP5 峰值
+            // ==========================
+            const topPoints = [...points]
+            .filter(p => p.value > 5)
+            .sort((a, b) => b.value - a.value)
+            .slice(0, CONFIG.topCount);
+
+            // ==========================
+            // 频谱填充
+            // ==========================
+            if (points.length < 2) return;
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(points[0].x, points[0].y);
+            for (const p of points) waveformCtx.lineTo(p.x, p.y);
+            waveformCtx.lineTo(points[points.length - 1].x, drawHeight);
+            waveformCtx.lineTo(points[0].x, drawHeight);
+            waveformCtx.closePath();
+
+            const fillGradient = waveformCtx.createLinearGradient(0, 0, 0, drawHeight);
+            fillGradient.addColorStop(0, freqColorStart);
+            fillGradient.addColorStop(1, freqColorEnd);
+            waveformCtx.fillStyle = fillGradient;
+            waveformCtx.fill();
+
+            // ==========================
+            // 平滑线
+            // ==========================
+            const lineGradient = waveformCtx.createLinearGradient(0, drawHeight, 0, 0);
+            lineGradient.addColorStop(0, '#000000');
+            lineGradient.addColorStop(0.5, '#00ff00');
+            lineGradient.addColorStop(1, '#ffffff');
+            waveformCtx.strokeStyle = lineGradient;
+            waveformCtx.lineWidth = 1.8;
+            waveformCtx.lineJoin = 'round';
+            waveformCtx.lineCap = 'round';
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(points[0].x, points[0].y);
+            for (const p of points) waveformCtx.lineTo(p.x, p.y);
+            waveformCtx.stroke();
+
+            // ==========================
+            // 红圈
+            // ==========================
+            waveformCtx.lineWidth = CONFIG.peakCircleWidth;
+            topPoints.forEach(p => {
+                waveformCtx.beginPath();
+                waveformCtx.arc(p.x, p.y, CONFIG.peakCircleRadius, 0, Math.PI * 2);
+                waveformCtx.strokeStyle = CONFIG.peakCircleColor;
+                waveformCtx.stroke();
+            });
+
+            // ==========================
+            // 右侧 TOP5 文字
+            // ==========================
+            waveformCtx.font = CONFIG.textFont;
+            const totalWidth = CONFIG.labelWidth + CONFIG.valueWidth + CONFIG.padding * 2;
+            const startX = canvasWidth - CONFIG.rightMargin - totalWidth;
+            let textY = CONFIG.padding + 5;
+
+            waveformCtx.fillStyle = CONFIG.textBgColor;
+            waveformCtx.fillRect(
+                startX - CONFIG.padding,
+                CONFIG.padding,
+                totalWidth + CONFIG.padding * 2,
+                CONFIG.lineHeight * CONFIG.topCount + CONFIG.padding * 2
+            );
+
+            waveformCtx.fillStyle = '#ffffff';
+            topPoints.forEach((p, idx) => {
+                const freq = Math.floor((p.index * sampleRate) / fftSize).toLocaleString();
+                waveformCtx.textAlign = 'left';
+                waveformCtx.fillText(`TOP${idx + 1}`, startX, textY);
+                waveformCtx.textAlign = 'right';
+                waveformCtx.fillText(`${freq}`, startX + CONFIG.labelWidth + CONFIG.valueWidth, textY);
+                textY += CONFIG.lineHeight;
+            });
+
+            if (topPoints.length === 0) {
+                waveformCtx.textAlign = 'center';
+                waveformCtx.fillText('NO PEAK', startX + totalWidth / 2, textY);
+            }
+
+            // ==========================
+            // ✅ 底部面板：左文字 + 中间分贝条 + 右数值
+            // ==========================
+            const bottomY = drawHeight;
+            waveformCtx.fillStyle = '#111111';
+            waveformCtx.fillRect(0, bottomY, canvasWidth, CONFIG.bottomPanelHeight);
+
+            waveformCtx.font = CONFIG.textFont;
+            waveformCtx.fillStyle = '#ffffff';
+            waveformCtx.textBaseline = 'middle';
+            const textYCenter = bottomY + CONFIG.bottomPanelHeight / 2;
+
+            const totalVal = Math.round(totalSum);
+            const avgEnergy = Math.round(totalSum / barCount);
+
+            // 1. 左边：总体系数文字
+            waveformCtx.textAlign = 'left';
+            waveformCtx.fillText(CONFIG.labelText, CONFIG.totalLineLeft, textYCenter);
+            const labelWidth = waveformCtx.measureText(CONFIG.labelText).width;
+
+            // 2. 右边：总体系数数值（右对齐）
+            waveformCtx.textAlign = 'right';
+            waveformCtx.fillText(totalVal, canvasWidth - CONFIG.totalLineRight, textYCenter);
+
+            // 3. 中间：分贝系数条（青色，占满中间区域）
+            const barX1 = CONFIG.totalLineLeft + labelWidth + 10;
+            const barX2 = canvasWidth - CONFIG.totalLineRight - waveformCtx.measureText(totalVal).width - 10;
+            const barWidth = barX2 - barX1;
+            const barY = bottomY + (CONFIG.bottomPanelHeight - CONFIG.dbBarHeight) / 2;
+
+            // 分贝条背景
+            waveformCtx.fillStyle = CONFIG.dbBgColor;
+            waveformCtx.fillRect(barX1, barY, barWidth, CONFIG.dbBarHeight);
+
+            // 分贝条填充（0~255 映射）
+            const fillWidth = (avgEnergy / 255) * barWidth;
+            waveformCtx.fillStyle = CONFIG.dbBarColor;
+            waveformCtx.fillRect(barX1, barY, fillWidth, CONFIG.dbBarHeight);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function drawWaveformGrid() {
+            const canvasWidth = WAVEFORM_CONFIG.WIDTH;
+            const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
+            waveformCtx.strokeStyle = WAVEFORM_CONFIG.COLORS.GRID;
+            waveformCtx.lineWidth = 0.5;
+            const verticalLines = WAVEFORM_CONFIG.GRID_LINES;
+            for (let i = 1; i < verticalLines; i++) {
+                const x = (canvasWidth / verticalLines) * i;
+                waveformCtx.beginPath();
+                waveformCtx.moveTo(x, 0);
+                waveformCtx.lineTo(x, canvasHeight);
+                waveformCtx.stroke();
+            }
+            const horizontalLines = WAVEFORM_CONFIG.GRID_LINES;
+            for (let i = 1; i < horizontalLines; i++) {
+                const y = (canvasHeight / horizontalLines) * i;
+                waveformCtx.beginPath();
+                waveformCtx.moveTo(0, y);
+                waveformCtx.lineTo(canvasWidth, y);
+                waveformCtx.stroke();
+            }
+            waveformCtx.strokeStyle = WAVEFORM_CONFIG.COLORS.CENTER_LINE;
+            waveformCtx.lineWidth = 1;
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(0, canvasHeight / 2);
+            waveformCtx.lineTo(canvasWidth, canvasHeight / 2);
+            waveformCtx.stroke();
+        }
+
+        function calculateWaveformStats(dataArray) {
+            let sum = 0;
+            let max = 0;
+            let min = 255;
+            for (let i = 0; i < dataArray.length; i++) {
+                const value = Math.max(WAVEFORM_CONFIG.MIN_FREQUENCY_VALUE,
+                    Math.min(WAVEFORM_CONFIG.MAX_FREQUENCY_VALUE, dataArray[i]));
+                sum += value;
+                if (value > max) max = value;
+                if (value < min) min = value;
+            }
+            waveformAmplitude = ((max - min) / 256) * 100;
+            waveformPeak = (max / 256) * 100;
+            waveformSignalDetected = waveformAmplitude > 1;
+            document.getElementById('waveformAmplitude').textContent = Math.min(100, waveformAmplitude.toFixed(6)) + '%';
+            document.getElementById('waveformPeak').textContent = Math.min(100, waveformPeak.toFixed(6)) + '%';
+            document.getElementById('waveformSignal').textContent = waveformSignalDetected ? '有信号...': '没信号!';
+            document.getElementById('waveformSignal').style.color = waveformSignalDetected ? '#ffffff': '#ff0000';
+        }
+
+        function toggleWaveform() {
+            waveformEnabled = !waveformEnabled;
+            const btn = document.getElementById('waveformToggleBtn');
+            if (waveformEnabled) {
+                btn.innerHTML = '<i class="fas fa-pause"></i> 暫停波形圖';
+                startWaveformAnimation();
+                updateStatus(false, '波形圖已開啟');
+            } else {
+                btn.innerHTML = '<i class="fas fa-play"></i> 播放波形圖';
+                if (waveformAnimationId) {
+                    cancelAnimationFrame(waveformAnimationId);
+                    waveformAnimationId = null;
+                }
+                drawEmptyWaveform();
+                updateStatus(false, '波形圖已暫停');
+            }
+        }
+
+        function changeWaveformScale(scale) {
+            waveformScale = scale;
+            document.getElementById('waveformTimeBtn').classList.toggle('active', scale === 'time');
+            document.getElementById('waveformFreqBtn').classList.toggle('active', scale === 'frequency');
+            updateStatus(false, `波形圖已切換為${scale === 'time' ? '時間域': '頻率域'}`);
+            if (waveformEnabled) {
+                if (waveformAnimationId) {
+                    cancelAnimationFrame(waveformAnimationId);
+                }
+                startWaveformAnimation();
+            }
+        }
+
+        function saveToStorage(key, value) {
+            try {
+                localStorage.setItem(key, value);
+                return true;
+            } catch (e) {
+                console.warn(`無法保存到 localStorage (${key}):`, e);
+                return false;
+            }
+        }
+
+        function getFromStorage(key, defaultValue = '') {
+            try {
+                const value = localStorage.getItem(key);
+                return value !== null ? value: defaultValue;
+            } catch (e) {
+                console.warn(`無法從 localStorage 讀取 (${key}):`, e);
+                return defaultValue;
+            }
+        }
+
+        function saveExpression() {
+            const exprText = codeEditorTextarea.value.trim();
+            saveToStorage(STORAGE_KEYS.EXPRESSION, exprText);
+            saveToStorage(STORAGE_KEYS.SPEED_MULTIPLIER, speedMultiplier.toString());
+            saveToStorage(STORAGE_KEYS.LAST_SAVE_TIME, new Date().toISOString());
+            showAutosaveIndicator();
+            updateLastSaveTime();
+        }
+
+        function updateCharStyleDisplays(langIndex) {
+            document.getElementById('charBoldStatus').textContent = charStyles.bold ? charTexts.on[langIndex]: charTexts.off[langIndex];
+            document.getElementById('charItalicStatus').textContent = charStyles.italic ? charTexts.on[langIndex]: charTexts.off[langIndex];
+            document.getElementById('charSmcpStatus').textContent = charStyles.smcp ? charTexts.on[langIndex]: charTexts.off[langIndex];
+            document.getElementById('charZeroStatus').textContent = charStyles.zero ? charTexts.on[langIndex]: charTexts.off[langIndex];
+            let numStatusText = '';
+            switch (charStyles.num) {
+                case 'tabular':
+                    numStatusText = charTexts.tabular[langIndex];
+                    break;
+                case 'proportional':
+                    numStatusText = charTexts.proportional[langIndex];
+                    break;
+                case 'oldstyle':
+                    numStatusText = charTexts.oldstyle[langIndex];
+                    break;
+            }
+            document.getElementById('charNumStatus').textContent = numStatusText;
+            document.getElementById('charSsStatus').textContent = charStyles.ss === 'default' ? '默認': charStyles.ss;
+        }
+
+        function updateCharDisplay() {
+            const charInput = document.getElementById('charInput');
+            charInput.style.fontWeight = charStyles.bold ? 'bold': 'normal';
+            charInput.style.fontStyle = charStyles.italic ? 'italic': 'normal';
+            applyFontFeatures(charInput);
+            updateTDisplayStyles();
+        }
+
+        function applyFontFeatures(element) {
+            let fontFeatures = [];
+            fontFeatures.push(charStyles.smcp ? '"smcp"': '"smcp" 0');
+            fontFeatures.push(charStyles.zero ? '"zero"': '"zero" 0');
+            switch (charStyles.num) {
+                case 'tabular':
+                    fontFeatures.push('"pnum" 0', '"onum" 0');
+                    break;
+                case 'proportional':
+                    fontFeatures.push('"pnum"', '"onum" 0');
+                    break;
+                case 'oldstyle':
+                    fontFeatures.push('"pnum" 0', '"onum"');
+                    break;
+            }
+            switch (charStyles.ss) {
+                case 'default':
+                    fontFeatures.push('"ss01" 0', '"ss02" 0', '"ss03" 0', '"ss04" 0');
+                    break;
+                case 'ss01':
+                    fontFeatures.push('"ss01"', '"ss02" 0', '"ss03" 0', '"ss04" 0');
+                    break;
+                case 'ss02':
+                    fontFeatures.push('"ss01" 0', '"ss02"', '"ss03" 0', '"ss04" 0');
+                    break;
+                case 'ss03':
+                    fontFeatures.push('"ss01" 0', '"ss02" 0', '"ss03"', '"ss04" 0');
+                    break;
+                case 'ss04':
+                    fontFeatures.push('"ss01" 0', '"ss02" 0', '"ss03" 0', '"ss04"');
+                    break;
+            }
+            element.style.fontFeatureSettings = fontFeatures.join(', ');
+        }
+
+        function initializePage() {
+            initCodeEditor();
+            restoreExpression();
+            restoreCharacterSettings();
+            updateStatus(false, '準備就緒');
+            // 不再直接调用 initExamples，而是先加载 JSON
+            initAudioContext();
+            initWaveform();
+            setupExpressionMonitoring();
+            validateExpression(true);
+            initCharacterDisplayer();
+            // 加载表达式 JSON
+            loadExpressionsFromJSON();
+
+            // 初始化采样率下拉框
+            initSampleRateSelector();
+
+            // 新增：初始化内存显示和排行榜
+            updateMemoryDisplay();
+            updateLeaderboard();
+
+            // 初始化上下滑动面板
+            initSwipePanel();
+        }
+
+        function initExamplesAfterLoad() {
+            // 清空现有的网格
+            const grids = {
+                'exampleGrid': EXAMPLE_EXPRESSIONS,
+                'advancedGrid': ADVANCED_EXPRESSIONS,
+                'stereoGrid': STEREO_EXPRESSIONS,
+                'virusGrid': VIRUS_EXPRESSIONS,
+                'specialGrid': SPECIAL_EXPRESSIONS,
+                'fixedGrid': FIXED_EXPRESSIONS,
+                'customGrid': CUSTOM_EXPRESSIONS
+            };
+            for (const [gridId, examples] of Object.entries(grids)) {
+                const grid = document.getElementById(gridId);
+                if (!grid) continue;
+                grid.innerHTML = ''; // 清空
+                examples.forEach(example => {
+                    const button = document.createElement('div');
+                    button.className = 'example-btn';
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'example-btn-content';
+                    contentDiv.title = '點擊加載此表達式到輸入框';
+                    const nameDiv = document.createElement('div');
+                    nameDiv.className = 'example-name';
+                    const channelIndicator = document.createElement('span');
+                    channelIndicator.className = `channel-indicator channel-${example.channel || 'mono'}`;
+                    channelIndicator.title = (example.channel === 'stereo' ? '立體聲': '單聲道');
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-music';
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = example.name;
+                    nameSpan.title = example.desc || '';
+                    nameDiv.appendChild(channelIndicator);
+                    nameDiv.appendChild(icon);
+                    nameDiv.appendChild(nameSpan);
+                    const exprDiv = document.createElement('div');
+                    exprDiv.className = 'example-expr';
+                    exprDiv.textContent = example.short ? example.short: example.expr;
+                    const fullExprDiv = document.createElement('div');
+                    fullExprDiv.className = 'example-expr-full';
+                    fullExprDiv.textContent = example.expr;
+                    contentDiv.appendChild(nameDiv);
+                    contentDiv.appendChild(exprDiv);
+                    contentDiv.appendChild(fullExprDiv);
+                    const buttonsDiv = document.createElement('div');
+                    buttonsDiv.className = 'example-buttons';
+                    const loadBtn = document.createElement('button');
+                    loadBtn.className = 'example-load-btn';
+                    loadBtn.title = '加載表達式到輸入框';
+                    loadBtn.innerHTML = '<i class="fas fa-arrow-right"></i>';
+                    loadBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        loadExpressionToInput(example);
+                    };
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'example-copy-btn';
+                    copyBtn.title = '複製表達式到剪貼板';
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                    copyBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        copyExpressionToClipboard(example.expr, copyBtn);
+                    };
+                    buttonsDiv.appendChild(loadBtn);
+                    buttonsDiv.appendChild(copyBtn);
+                    const copySuccess = document.createElement('span');
+                    copySuccess.className = 'copy-success';
+                    copySuccess.textContent = '已複製';
+                    button.appendChild(contentDiv);
+                    button.appendChild(buttonsDiv);
+                    button.appendChild(copySuccess);
+                    contentDiv.onclick = function() {
+                        loadExpressionToInput(example);
+                    };
+                    grid.appendChild(button);
+                });
+            }
+            updateCollectionDisplay();
+            // 新增：更新内存和排行榜
+            updateMemoryDisplay();
+            updateLeaderboard();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const tabBtn = document.querySelector(`[onclick="switchTab('${tabName}')"]`);
+            const tabContent = document.getElementById(`${tabName}-tab`);
+            if (tabBtn) tabBtn.classList.add('active');
+            if (tabContent) tabContent.classList.add('active');
+        }
+
+        function initAudioContext() {
+            document.body.addEventListener('click', function initAudio() {
+                if (!audioCtx) {
+                    try {
+                        audioCtx = new (window.AudioContext || window.webkitAudioContext)({
+                            sampleRate: TARGET_SAMPLE_RATE
+                        });
+                    } catch (e) {
+                        updateStatus(false, '音頻初始化失敗: ' + e.message);
+                    }
+                }
+                document.body.removeEventListener('click', initAudio);
+            });
+        }
+
+        function copyExpressionToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(function() {
+                const copySuccess = button.parentElement.nextElementSibling;
+                copySuccess.classList.add('show');
+                setTimeout(() => copySuccess.classList.remove('show'), 2000);
+            }).catch(function(err) {
+                console.error('複製失敗: ', err);
+                alert('複製失敗，請手動複製表達式');
+            });
+        }
+
+        async function startPlayback() {
+            if (isPlaying && !isReverse) return;
+            if (!validateExpression(false)) {
+                updateStatus(false, '表達式錯誤，無法播放');
+                return;
+            }
+            stopPlayback();
+            isReverse = false;
+            await startAudioPlayback();
+        }
+
+        async function reversePlayback() {
+            if (isPlaying && isReverse) return;
+            if (!validateExpression(false)) {
+                updateStatus(false, '表達式錯誤，無法播放');
+                return;
+            }
+            stopPlayback();
+            isReverse = true;
+            await startAudioPlayback();
+        }
+
+        function stopPlayback(force = false) {
+            // 如果不在播放且不强制，则返回
+            if (!isPlaying && !force) return;
+
+            // 先设置播放状态为false，防止后续操作再次触发
+            isPlaying = false;
+
+            // 取消动画帧
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+
+            // 断开并清理ScriptProcessorNode
+            if (scriptProcessor) {
+                try {
+                    // 先断开连接
+                    scriptProcessor.disconnect();
+                    // 清除处理函数
+                    scriptProcessor.onaudioprocess = null;
+                } catch (e) {
+                    console.warn('ScriptProcessor 断开连接时出错:', e);
+                }
+                scriptProcessor = null;
+            }
+
+            // 断开GainNode
+            if (gainNode) {
+                try {
+                    gainNode.disconnect();
+                } catch (e) {
+                    console.warn('GainNode 断开连接时出错:', e);
+                }
+                gainNode = null;
+            }
+
+            // 断开Analyser
+            if (analyser) {
+                try {
+                    analyser.disconnect();
+                } catch (e) {
+                    console.warn('Analyser 断开连接时出错:', e);
+                }
+                analyser = null;
+            }
+
+            updateStatus(false, '已停止 - T值保留为: ' + Math.floor(currentTValue).toLocaleString());
+            updateDirectionDisplay();
+            updateButtonStates();
+        }
+        function resetPlayback() {
+            if (Math.abs(currentTValue) < 1 && !isPlaying) return;
+            if (isPlaying) stopPlayback();
+            currentTValue = 0;
+            document.getElementById('currentT').textContent = '0';
+            document.getElementById('currentTime').textContent = '0';
+            isReverse = false;
+            updateDirectionDisplay();
+            updateStatus(false, 'T值已重置為0');
+            updateButtonStates();
+        }
+
+        function speedUp() {
+            speedMultiplier *= 2;
+            SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
+            SCALE *= 1;
+            updateSpeedDisplay();
+            updatePresetButtons();
+            // 同步滑动面板显示
+            syncSwipeFromSpeed();
+            updateStatus(true, `速度已提升至 ${speedMultiplier.toFixed(2)}x`);
+            saveExpression();
+            if (isPlaying) restartAudioPlayback();
+        }
+
+        function speedDown() {
+            speedMultiplier /= 2;
+            SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
+            SCALE /= 1;
+            updateSpeedDisplay();
+            updatePresetButtons();
+            syncSwipeFromSpeed();
+            updateStatus(true, `速度已降低至 ${speedMultiplier.toFixed(2)}x`);
+            saveExpression();
+            if (isPlaying) restartAudioPlayback();
+        }
+
+        function resetSpeed() {
+            speedMultiplier = 1.0;
+            SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE;
+            updateSpeedDisplay();
+            updatePresetButtons();
+            syncSwipeFromSpeed();
+            updateStatus(false, '速度已重置為 1.0x');
+            saveExpression();
+            if (isPlaying) restartAudioPlayback();
+        }
+
+        function restartAudioPlayback() {
+            if (!isPlaying) return;
+            const wasReverse = isReverse;
+            stopPlayback();
+            setTimeout(() => {
+                isReverse = wasReverse;
+                startAudioPlayback();
+            }, 1);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+
+            document.getElementById('volumeSlider').addEventListener('input', function(e) {
+                updateVolume(e.target.value);
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === ' ') {
+                    e.preventDefault();
+                    if (isPlaying) {
+                        stopPlayback();
+                    } else {
+                        startPlayback();
+                    }
+                }
+                if (e.ctrlKey && e.key === 'Enter') {
+                    e.preventDefault();
+                    startPlayback();
+                }
+                if (e.key === 'Escape') stopPlayback();
+                if (e.key === 'r' && e.ctrlKey) {
+                    e.preventDefault();
+                    reversePlayback();
+                }
+                if (e.key === '0' && e.ctrlKey) {
+                    e.preventDefault();
+                    resetPlayback();
+                }
+                if (e.key === '+' && e.ctrlKey) {
+                    e.preventDefault();
+                    speedUp();
+                }
+                if (e.key === '-' && e.ctrlKey) {
+                    e.preventDefault();
+                    speedDown();
+                }
+                if (e.key === '1' && e.ctrlKey) {
+                    e.preventDefault();
+                    resetSpeed();
+                }
+                if (e.key === 'w' && e.ctrlKey) {
+                    e.preventDefault();
+                    toggleWaveform();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key === 'F') {
+                    e.preventDefault();
+                    quickFixExpression();
+                }
+            });
+
+            setInterval(function() {
+                saveExpression();
+            },
+                2000);
+        });
+
+        function setupExpressionMonitoring() {}
+
+        function updateLastSaveTime() {
+            const savedTime = getFromStorage(STORAGE_KEYS.LAST_SAVE_TIME, '');
+            const lastSaveTimeEl = document.getElementById('lastSaveTime');
+            if (savedTime) {
+                try {
+                    const savedDate = new Date(savedTime);
+                    const now = new Date();
+                    const diffMs = now - savedDate;
+                    const diffMins = Math.floor(diffMs / (1000 * 60));
+                    let timeStr;
+                    if (diffMins < 1) timeStr = '剛剛';
+                    else if (diffMins < 60) timeStr = `${diffMins}分鐘前`;
+                    else if (diffMins < 24 * 60) timeStr = `${Math.floor(diffMins / 60)}小時前`;
+                    else timeStr = `${Math.floor(diffMins / (60 * 24))}天前`;
+                    lastSaveTimeEl.textContent = timeStr;
+                } catch (e) {
+                    lastSaveTimeEl.textContent = '未知時間';
+                }
+            } else {
+                lastSaveTimeEl.textContent = '從未保存';
+            }
+        }
+
+        function showAutosaveIndicator() {
+            const indicator = document.getElementById('autosaveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        function clearAllSavedData() {
+            if (confirm('確定要清除所有保存的數據嗎？這將清除所有表達式、速度設置和字符設置。')) {
+                try {
+                    Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+                    codeEditorTextarea.value = 't<<7';
+                    updateCodeHighlight();
+                    speedMultiplier = 1.0;
+                    BASE_SAMPLE_RATE = 8000; // 重置基础采样率
+                    SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE;
+                    currentVolume = DEFAULT_VOLUME;
+                    document.getElementById('volumeSlider').value = DEFAULT_VOLUME * 100;
+                    document.getElementById('volumeValue').textContent = DEFAULT_VOLUME * 100 + '%';
+                    document.getElementById('charInput').value = '';
+                    document.getElementById('charLang').value = 'zh-CN';
+                    document.getElementById('charLocal').value = 'en';
+                    charStyles = {
+                        bold: false,
+                        italic: false,
+                        smcp: false,
+                        zero: false,
+                        num: 'tabular',
+                        ss: 'default'
+                    };
+                    updateLastSaveTime();
+                    validateExpression(true);
+                    updateSpeedDisplay();
+                    updatePresetButtons();
+                    updateCharLanguage();
+                    updateCharLocalization();
+                    updateCharStyleDisplays(charLangbank.indexOf('zh-CN'));
+                    updateCharDisplay();
+                    // 重置采样率下拉框
+                    const selector = document.getElementById('sampleRateSelector');
+                    if (selector) {
+                        selector.value = '8000';
+                        document.getElementById('customSampleRateContainer').style.display = 'none';
+                    }
+                    // 重置滑动面板
+                    syncSwipeFromSpeed();
+                    alert('所有數據已清除並重置為默認值。');
+                } catch (e) {
+                    alert('清除數據時出錯: ' + e.message);
+                }
+            }
+        }
+
+        function updatePresetButtons() {
+            document.querySelectorAll('.speed-preset-btn').forEach(btn => {
+                const presetValue = parseFloat(btn.textContent.replace('x', ''));
+                btn.classList.toggle('active', Math.abs(presetValue - speedMultiplier) < 0.01);
+            });
+        }
+
+        function setSpeedPreset(multiplier) {
+            speedMultiplier = multiplier;
+            SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * multiplier;
+            updateSpeedDisplay();
+            updatePresetButtons();
+            syncSwipeFromSpeed();
+            saveExpression();
+            if (isPlaying) restartAudioPlayback();
+            updateStatus(false, `速度已設置為 ${multiplier.toFixed(2)}x`);
+        }
+
+        function initCharacterDisplayer() {
+            updateCharLanguage();
+            updateCollectionDisplay();
+        }
+
+        function restoreCharacterSettings() {
+            document.getElementById('charInput').value = getFromStorage(STORAGE_KEYS.CHAR_INPUT, '');
+            document.getElementById('charLang').value = getFromStorage(STORAGE_KEYS.CHAR_LANG, 'zh-CN');
+            document.getElementById('charLocal').value = getFromStorage(STORAGE_KEYS.CHAR_LOCAL, 'en');
+            const savedCharStyles = getFromStorage(STORAGE_KEYS.CHAR_STYLES, '');
+            if (savedCharStyles) {
+                try {
+                    Object.assign(charStyles, JSON.parse(savedCharStyles));
+                } catch (e) {
+                    console.warn('無法解析字符樣式:', e);
+                }
+            }
+            updateCharLanguage();
+            updateCharLocalization();
+            updateCharStyleDisplays(charLangbank.indexOf(getFromStorage(STORAGE_KEYS.CHAR_LANG, 'zh-CN')));
+            updateCharDisplay();
+        }
+
+        function updateCharLanguage() {
+            const lang = document.getElementById('charLang').value;
+            const langIndex = charLangbank.indexOf(lang);
+            if (langIndex === -1) return;
+            document.querySelector('.char-title').innerHTML = `<i class="fas fa-font"></i> ${lang === 'zh-CN' ? 'Unicode字符显示器': lang === 'zh-TW' ? 'Unicode字元顯示器': 'Unicode Character Displayer'}`;
+            const labels = document.querySelectorAll('.char-label');
+            labels[0].innerHTML = `<i class="fas fa-keyboard"></i> ${charTexts.inputLabel[langIndex]}`;
+            labels[1].innerHTML = `<i class="fas fa-language"></i> ${charTexts.interfaceLang[langIndex]}`;
+            labels[2].innerHTML = `<i class="fas fa-globe"></i> ${charTexts.localization[langIndex]}`;
+            const btnNames = document.querySelectorAll('.char-btn-name');
+            btnNames[0].textContent = charTexts.bold[langIndex];
+            btnNames[1].textContent = charTexts.italic[langIndex];
+            btnNames[2].textContent = charTexts.smcp[langIndex];
+            btnNames[3].textContent = charTexts.zero[langIndex];
+            btnNames[4].textContent = charTexts.num[langIndex];
+            btnNames[5].textContent = charTexts.ss[langIndex];
+            document.getElementById('charDescription').textContent = charTexts.description[langIndex];
+            updateCharStyleDisplays(langIndex);
+        }
+
+        function updateCharLocalization() {
+            const local = document.getElementById('charLocal').value;
+            const charInput = document.getElementById('charInput');
+            charInput.lang = local;
+            let fontFamily = 'Times, Hancom, TH-P0, TH-P2, TH-P3';
+            switch (local) {
+                case 'zh-CN':
+                case 'zh-HK':
+                case 'zh-TW':
+                    fontFamily = 'Times, TH-P0, Hancom, TH-P2, TH-P3';
+                    break;
+                case 'ja':
+                    fontFamily = 'Times, TH-MingJ, Hancom, TH-P0, TH-P3';
+                    break;
+                default:
+                    fontFamily = 'Times, Hancom, TH-P0, TH-P2, TH-P3';
+                }
+                charInput.style.fontFamily = fontFamily;
+                updateTDisplayStyles();
+            }
+
+            function toggleCharStyle(style) {
+                const langIndex = charLangbank.indexOf(document.getElementById('charLang').value);
+                switch (style) {
+                case 'bold':
+                    charStyles.bold = !charStyles.bold;
+                    break;
+                case 'italic':
+                    charStyles.italic = !charStyles.italic;
+                    break;
+                case 'smcp':
+                    charStyles.smcp = !charStyles.smcp;
+                    break;
+                case 'zero':
+                    charStyles.zero = !charStyles.zero;
+                    break;
+                case 'num':
+                    charStyles.num = charStyles.num === 'tabular' ? 'proportional':
+                    charStyles.num === 'proportional' ? 'oldstyle': 'tabular';
+                    break;
+                case 'ss':
+                    charStyles.ss = charStyles.ss === 'default' ? 'ss01':
+                    charStyles.ss === 'ss01' ? 'ss02':
+                    charStyles.ss === 'ss02' ? 'ss03':
+                    charStyles.ss === 'ss03' ? 'ss04': 'default';
+                    break;
+                }
+                updateCharStyleDisplays(langIndex);
+                updateCharDisplay();
+                saveCharacterSettings();
+            }
+
+            function updateTDisplayStyles() {
+                document.querySelectorAll('.t-display-value').forEach(element => {
+                    element.style.fontWeight = charStyles.bold ? 'bold': 'normal';
+                    element.style.fontStyle = charStyles.italic ? 'italic': 'normal';
+                    applyFontFeatures(element);
+                });
+            }
+
+            function saveCharacterSettings() {
+                saveToStorage(STORAGE_KEYS.CHAR_INPUT, document.getElementById('charInput').value);
+                saveToStorage(STORAGE_KEYS.CHAR_LANG, document.getElementById('charLang').value);
+                saveToStorage(STORAGE_KEYS.CHAR_LOCAL, document.getElementById('charLocal').value);
+                saveToStorage(STORAGE_KEYS.CHAR_STYLES, JSON.stringify(charStyles));
+            }
+
+            function updateCollectionDisplay() {
+                const basicCount = EXAMPLE_EXPRESSIONS.length;
+                const advancedCount = ADVANCED_EXPRESSIONS.length;
+                const stereoCount = STEREO_EXPRESSIONS.length;
+                const virusCount = VIRUS_EXPRESSIONS.length;
+                const specialCount = SPECIAL_EXPRESSIONS.length;
+                const fixedCount = FIXED_EXPRESSIONS.length;
+                const customCount = CUSTOM_EXPRESSIONS.length;
+                let monoCount = 0,
+                stereoChannelCount = 0;
+                const allExpressions = [...EXAMPLE_EXPRESSIONS,
+                    ...ADVANCED_EXPRESSIONS,
+                    ...STEREO_EXPRESSIONS,
+                    ...VIRUS_EXPRESSIONS,
+                    ...SPECIAL_EXPRESSIONS,
+                    ...FIXED_EXPRESSIONS,
+                    ...CUSTOM_EXPRESSIONS];
+                allExpressions.forEach(expr => expr.channel === 'mono' ? monoCount++: stereoChannelCount++);
+                const totalCount = basicCount + advancedCount + stereoCount + virusCount + specialCount + fixedCount + customCount;
+                document.getElementById('basicCount').textContent = basicCount + ' 個';
+                document.getElementById('advancedCount').textContent = advancedCount + ' 個';
+                document.getElementById('stereoCount').textContent = stereoCount + ' 個';
+                document.getElementById('virusCount').textContent = virusCount + ' 個';
+                document.getElementById('specialCount').textContent = specialCount + ' 個';
+                document.getElementById('fixedCount').textContent = fixedCount + ' 個';
+                document.getElementById('customCount').textContent = customCount + ' 個';
+                document.getElementById('monoCount').textContent = monoCount + ' 個';
+                document.getElementById('stereoChannelCount').textContent = stereoChannelCount + ' 個';
+                document.getElementById('totalCount').textContent = totalCount + ' 個';
+                const now = new Date();
+                const updateTime = now.toLocaleString('zh-CN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                document.getElementById('updateTime').textContent = updateTime;
+            }
+
+            function centerWaveform() {}
+
+            // ---------- 新增：采样率选择功能 ----------
+            function initSampleRateSelector() {
+                const selector = document.getElementById('sampleRateSelector');
+                const customContainer = document.getElementById('customSampleRateContainer');
+                const customInput = document.getElementById('customSampleRate');
+
+                // 从localStorage恢复上次选择的基础采样率
+                const savedRate = localStorage.getItem(STORAGE_KEYS.BASE_SAMPLE_RATE);
+                if (savedRate) {
+                    const rate = parseFloat(savedRate);
+                    if (!isNaN(rate) && rate > 0) {
+                        BASE_SAMPLE_RATE = rate;
+                        SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
+                        updateSpeedDisplay();
+
+                        // 设置下拉框选中项
+                        const options = Array.from(selector.options);
+                        const matchedOption = options.find(opt => Math.abs(parseFloat(opt.value) - rate) < 0.1 && opt.value !== 'custom');
+                        if (matchedOption) {
+                            selector.value = matchedOption.value;
+                            customContainer.style.display = 'none';
+                        } else {
+                            selector.value = 'custom';
+                            customContainer.style.display = 'block';
+                            customInput.value = rate;
+                        }
+                    }
+                } else {
+                    selector.value = '8000';
+                }
+
+                selector.addEventListener('change', function() {
+                    if (this.value === 'custom') {
+                        customContainer.style.display = 'block';
+                        // 如果有自定义值，立即应用
+                        if (customInput.value) {
+                            applyBaseSampleRate(parseFloat(customInput.value));
+                        }
+                    } else {
+                        customContainer.style.display = 'none';
+                        const rate = parseFloat(this.value);
+                        if (!isNaN(rate) && rate > 0) {
+                            applyBaseSampleRate(rate);
+                        }
+                    }
+                });
+
+                customInput.addEventListener('input',
+                    function() {
+                        const rate = parseFloat(this.value);
+                        if (!isNaN(rate) && rate > 0) {
+                            applyBaseSampleRate(rate);
+                        }
+                    });
+
+                function applyBaseSampleRate(rate) {
+                    if (rate <= 0 || isNaN(rate)) return;
+                    BASE_SAMPLE_RATE = rate;
+                    SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
+                    updateSpeedDisplay();
+                    // 保存到localStorage
+                    localStorage.setItem(STORAGE_KEYS.BASE_SAMPLE_RATE, rate.toString());
+                    // 如果正在播放，重启音频以应用新采样率（但不改变audioCtx的采样率）
+                    if (isPlaying) {
+                        restartAudioPlayback();
+                    }
+                    updateStatus(false, `基础采样率已设置为 ${rate} Hz`);
+                }
+            }
+
+            // ========== 新增：种子统计函数（按个数，不再显示字节） ==========
+            function updateMemoryDisplay() {
+                // 当前表达式种子数：就是1个（当前输入框的表达式）
+                document.getElementById('memoryCurrentExpr').textContent = '1 个';
+
+                // 所有示例种子数：所有示例的总个数
+                const allExamples = [
+                    ...EXAMPLE_EXPRESSIONS,
+                    ...ADVANCED_EXPRESSIONS,
+                    ...STEREO_EXPRESSIONS,
+                    ...VIRUS_EXPRESSIONS,
+                    ...SPECIAL_EXPRESSIONS,
+                    ...FIXED_EXPRESSIONS,
+                    ...CUSTOM_EXPRESSIONS
+                ];
+                document.getElementById('memoryTotalExamples').textContent = allExamples.length + ' 个';
+
+                // 本地存储种子数：当前存储了多少个表达式（粗略估计：根据EXPRESSION键的数量，但实际只有一条当前表达式）
+                // 这里我们统计 localStorage 中所有以 'bytebeat_' 开头的键的数量（粗略）
+                let seedCount = 0;
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && (key.startsWith('bytebeat_') || key.startsWith('char_'))) {
+                        seedCount++;
+                    }
+                }
+                document.getElementById('memoryLocalStorage').textContent = seedCount + ' 个';
+            }
+
+            // ========== 新增：排行榜函数（按种子数/个数，即表达式个数） ==========
+            function updateLeaderboard() {
+                // 将每个分类的表达式按个数排序（其实每个分类就是一组）
+                // 我们创建一个数组，元素为 { categoryName, count }
+                const categories = [{
+                    name: '基础示例',
+                    count: EXAMPLE_EXPRESSIONS.length
+                },
+                    {
+                        name: '高级示例',
+                        count: ADVANCED_EXPRESSIONS.length
+                    },
+                    {
+                        name: '立体声',
+                        count: STEREO_EXPRESSIONS.length
+                    },
+                    {
+                        name: '病毒主题',
+                        count: VIRUS_EXPRESSIONS.length
+                    },
+                    {
+                        name: '乱码波形',
+                        count: SPECIAL_EXPRESSIONS.length
+                    },
+                    {
+                        name: '修复表达式',
+                        count: FIXED_EXPRESSIONS.length
+                    },
+                    {
+                        name: '自编/其他人',
+                        count: CUSTOM_EXPRESSIONS.length
+                    }];
+
+                // 按个数降序排序
+                const sorted = categories.sort((a, b) => b.count - a.count);
+                const top10 = sorted.slice(0, 10); // 不足10个就全显示
+
+                const listEl = document.getElementById('leaderboardList');
+                listEl.innerHTML = '';
+
+                if (top10.length === 0) {
+                    listEl.innerHTML = '<div style="text-align:center; color:#aaa;">暂无数据</div>';
+                    return;
+                }
+
+                top10.forEach((item, idx) => {
+                    const row = document.createElement('div');
+                    row.className = 'leaderboard-item';
+                    row.innerHTML = `
+                    <span class="leaderboard-rank">#${idx + 1}</span>
+                    <span class="leaderboard-name" title="${item.name}">${item.name}</span>
+                    <span class="leaderboard-count">${item.count} 个</span>
+                    `;
+                    listEl.appendChild(row);
+                });
+            }
+
+            // 在适当位置调用更新（例如加载JSON后、添加自定义后）
+            // 已经在 initExamplesAfterLoad 末尾调用了 updateMemoryDisplay 和 updateLeaderboard
+
+            // ========== 新增：上下滑动面板相关函数（灵敏度0.001） ==========
+            let swipeStartY = null;
+            let swipeCurrentExponent = 0; // 当前指数值
+
+            function initSwipePanel() {
+                const swipeArea = document.getElementById('swipeArea');
+                if (!swipeArea) return;
+
+                // 从当前 speedMultiplier 计算初始指数
+                swipeCurrentExponent = Math.log10(speedMultiplier);
+                updateSwipeDisplay(swipeCurrentExponent);
+
+                // 鼠标事件
+                swipeArea.addEventListener('mousedown', handleSwipeStart);
+                window.addEventListener('mousemove', handleSwipeMove);
+                window.addEventListener('mouseup', handleSwipeEnd);
+
+                // 触摸事件
+                swipeArea.addEventListener('touchstart', handleSwipeStart, {
+                    passive: false
+                });
+                window.addEventListener('touchmove', handleSwipeMove, {
+                    passive: false
+                });
+                window.addEventListener('touchend', handleSwipeEnd);
+                window.addEventListener('touchcancel', handleSwipeEnd);
+            }
+
+            function handleSwipeStart(e) {
+                e.preventDefault(); // 防止页面滚动或选中
+                const clientY = e.type.startsWith('touch') ? e.touches[0].clientY: e.clientY;
+                swipeStartY = clientY;
+                swipeArea.style.background = '#545770'; // 视觉反馈
+            }
+
+            function handleSwipeMove(e) {
+                if (swipeStartY === null) return;
+                e.preventDefault();
+
+                const clientY = e.type.startsWith('touch') ? e.touches[0].clientY: e.clientY;
+                const deltaY = swipeStartY - clientY; // 向上为正（增加速度）
+
+                // 灵敏度 0.001 每像素
+                const exponentDelta = deltaY * sensitivity;
+                let newExponent = swipeCurrentExponent + exponentDelta;
+
+                // 限制范围 -3 到 300
+                newExponent = Math.max(-300, Math.min(300, newExponent));
+
+                // 更新速度
+                speedMultiplier = Math.pow(10, newExponent);
+                SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
+                updateSpeedDisplay();
+                updatePresetButtons();
+                updateSwipeDisplay(newExponent);
+                // 如果正在播放，无需重启
+            }
+
+            function handleSwipeEnd(e) {
+                if (swipeStartY === null) return;
+                e.preventDefault();
+
+                // 更新当前指数值
+                const clientY = e.type.startsWith('touch') && e.changedTouches ? e.changedTouches[0].clientY: (e.clientY || swipeStartY);
+                if (clientY) {
+                    const deltaY = swipeStartY - clientY;
+                    const exponentDelta = deltaY * sensitivity;
+                    swipeCurrentExponent = Math.max(-300, Math.min(300, swipeCurrentExponent + exponentDelta));
+                }
+
+                swipeStartY = null;
+                swipeArea.style.background = ''; // 恢复背景
+                saveExpression();
+            }
+
+            function updateSwipeDisplay(exponent) {
+                const speed = Math.pow(10, exponent);
+                document.getElementById('swipeSpeedValue').textContent = speed.toLocaleString("en-US", {
+                    maximumFractionDigits: 10
+
+                }) + 'x';
+                document.getElementById('swipeExponentValue').textContent = `10^${exponent.toLocaleString()}`;
+                // 同时更新指数显示
+                const exponentDisplay = document.querySelector('.exponent-value-display');
+                if (exponentDisplay) exponentDisplay.textContent = `10^${exponent.toLocaleString("en-US")}`;
+            }
+
+            function syncSwipeFromSpeed() {
+                const exponent = Math.log10(speedMultiplier);
+                swipeCurrentExponent = Math.max(-300, Math.min(300, exponent));
+                updateSwipeDisplay(swipeCurrentExponent);
+            }
+
+            function adjustExponentBy(delta) {
+                let newExponent = swipeCurrentExponent + delta;
+                newExponent = Math.max(-300, Math.min(300, newExponent));
+                swipeCurrentExponent = newExponent;
+                speedMultiplier = Math.pow(10, newExponent);
+                SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
+                updateSpeedDisplay();
+                updatePresetButtons();
+                updateSwipeDisplay(newExponent);
+                if (isPlaying) {
+                    // 无需重启
+                }
+                saveExpression();
+            }
+
+
+            const SyntaxValid = document.getElementById("error");
+
+            // 新增：字节数统计函数
+            function formatBytes(bytes) {
+                if (bytes === 0) return "0 字节";
+                const k = 1024;
+                const sizes = ["B",
+                    "KB",
+                    "MB",
+                    "GB"];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + "" + sizes[i];
+            }
+
+            (function syntaxCheck() {
+                setInterval(() => {
+                    try {
+                        const exprText = document.getElementById('expr')?.value || '';
+                        // 计算当前表达式字节数
+                        const byteCount = new Blob([exprText]).size;
+                        const byteStr = formatBytes(byteCount);
+
+                        if (!exprText) {
+                            SyntaxValid.textContent = `表达式为空 ${byteStr}`;
+                            return;
+                        }
+
+                        const mockT = Math.floor(performance.now() * 0.375);
+
+                        // 创建函数，不加内层 try-catch
+                        const testFunc = new Function('t', `${exprText};`);
+
+                        // 测试多个 t 值
+                        const testValues = [mockT,
+                            mockT + 100,
+                            mockT + 1000];
+                        for (const t of testValues) {
+                            const result = testFunc(t);
+                            // 检查结果是否有效
+                            if (result === undefined || isNaN(result)) {
+                                // 表达式可以直接通过，无需自己抛出
+                            }
+                        }
+
+                        SyntaxValid.innerHTML = `语法检查通过! ${byteStr}`;
+                    } catch (e) {
+                        // 捕获所有错误（包括语法错误和执行错误）
+                        const exprText = document.getElementById('expr')?.value || '';
+                        const byteCount = new Blob([exprText]).size;
+                        const byteStr = formatBytes(byteCount);
+                        SyntaxValid.innerHTML = `语法错误:Uncaught ${e}，所在行:${e.lineNumber || "未知"}，所在列:${e.columnNumber || "未知"}，请检查你的代码是否有拼写错误。${byteStr}`;
+                    }
+                },
+                    15);
+            })();
+
+
+            let isBlock = false;
+
+            // 整个代码只出现这 1 次 setTimeout
+            setTimeout(function tick() {
+                // 先卡死 1 秒
+                isBlock = false;
+                const start = Date.now();
+                while (Date.now() - start < 1) {}
+
+                // 1 秒后自动释放
+                isBlock = true;
+
+                // 关键：用函数自身引用，不写新的 setTimeout
+                setTimeout(tick, 6690);
+            }, 1000);
+
+
+
+            console.log("js所有逻辑加载完成");
+
+
+
+        </script>
+    </body>
+</html>
