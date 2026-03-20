@@ -21,7 +21,7 @@
     <title>音频字符双用工具 - Bytebeat生成器 + Unicode字符显示器</title>
 
     <!-- 添加Prism.js CSS和JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -41,8 +41,8 @@
 
         code[class*="language-"] {
             font-family: monospace !important;
-            font-size: 14px !important;
-            line-height: 15px !important;
+            font-size: 13px !important;
+            line-height: 14px !important;
             letter-spacing: 0px !important;
             word-break: break-all !important;
             overflow-wrap: break-word !important;
@@ -52,48 +52,42 @@
             text-shadow: none !important;
             box-shadow: none !important;
         }
-
+        /* ===================== 你原有样式 ===================== */
         .token.comment,
         .token.prolog,
-        .token.doctype,
         .token.cdata {
             color: #374966 !important;
             font-style: italic !important;
+        }
+        .token.doctype {
+            color: #4dabf7!important
         }
 
         .token.operator {
             color: #ffa9bc !important;
         }
-
         .token.keyword {
             color: #addcff !important;
             font-weight: bold !important;
         }
-
         .token.function {
             color: #fcf0b0 !important;
         }
-
         .token.number {
             color: #a2b8ff !important;
         }
-
         .token.string {
             color: #a0fcd0 !important;
         }
-
         .token.punctuation {
             color: #ffffff !important;
         }
-
         .token.boolean {
             color: #85ffff !important;
         }
-
         .token.builtin {
             color: #fc58dd !important;
         }
-
         .token.constant {
             color: #9890fc !important;
         }
@@ -102,120 +96,92 @@
             color: #ff9800 !important;
             font-weight: 900 !important;
         }
-
         .token.regex-delimiter {
             color: #8500ff !important;
         }
-
         .token.regex-flags {
             color: #ff3300 !important;
         }
-
         .token.charclass {
             color: #fc06fd !important;
         }
-
         .token.escape {
             color: #80ff00 !important;
         }
-
         .token.quantifier {
             color: #639927 !important;
         }
-
         .token.alternation {
             color: #fcfd55 !important;
         }
-
         .token.group {
             color: #ff0602 !important;
         }
-
         .token.assertion {
             color: #602bff !important;
         }
-        
-        /* ------------- 以下为新增扩展 token，只填 # 等你来上色 ------------- */
 
         .token.variable {
             color: #660fcc !important;
         }
-
         .token.property {
-            color: #f3000d !important;
+            color: #f0f0ff !important;
         }
-
         .token.class-name {
             color: #62fcdd !important;
         }
-
         .token.namespace {
             color: #dcdcdc !important;
         }
-
         .token.tag {
             color: #fcfccc !important;
         }
-
         .token.attr-name {
             color: #4dcdf5 !important;
         }
-
         .token.attr-value {
             color: #fcfd9f !important;
         }
-
         .token.selector {
             color: #ffd0fc !important;
         }
-
         .token.atrule {
             color: #fcff0000 !important;
         }
-
         .token.important {
             color: #303555 !important;
         }
-
         .token.deleted {
             color: #f33fff !important;
         }
-
         .token.inserted {
             color: #fff600 !important;
         }
-
         .token.changed {
             color: #72fc44 !important;
         }
-
         .token.symbol {
             color: #fcfcfc !important;
         }
-
         .token.interpolation {
             color: #9800ff !important;
         }
-
         .token.interpolation-punctuation {
             color: #ff9800 !important;
         }
-
         .token.url {
             color: #bc00ff !important;
         }
-
         .token.entity {
             color: #10dcdc !important;
         }
-
         .token.parameter {
             color: #85ff00 !important;
         }
-
         .token.label {
             color: #fcccfb !important;
         }
+
 
         @font-face {
             font-family: "Times";
@@ -266,10 +232,17 @@
             font-family: "mi";
             src: url(MiSans L3.otf);
         }
+        @font-face {
+            font-family: "hak";
+            src: url(TH-Hak.ttf);
+        }
 
 
 
         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             word-break: break-all;
         }
 
@@ -278,8 +251,8 @@
             color: #f0f0f0;
             font-family: Monospace, "Times", "TH-P2", "TH-P0", "TH-P3", Sans-Serif;
             max-width: 9999px;
-            margin: 0px 0;
-            padding: 0px;
+            margin: 6px 0;
+            padding: 0 6px;
             line-height: 1;
         }
 
@@ -405,8 +378,8 @@
             outline: none;
             resize: none;
             font-family: monospace, serif;
-            font-size: 14px;
-            line-height: 13px;
+            font-size: 13px;
+            line-height: 14px;
             letter-spacing: 0px;
             padding: 0px;
             z-index: 2;
@@ -415,7 +388,7 @@
 
         .code-editor-highlight {
             position: relative;
-            min-height: 300px;
+            min-height: 500px;
             padding: 0px;
             overflow: scroll;
             z-index: 1;
@@ -462,59 +435,36 @@
         }
 
         .active {
-            background: linear-gradient(135deg, #fcfc00, #fc0000);
+            background: linear-gradient(135deg, #141521, #16192d);
             display: block;
         }
-
         .example-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0px;
-            margin: 15px 0;
-        }
-
-        .example-btn {
-            background: linear-gradient(180deg, #15192f, #191822);
-            border: 2px solid #444;
-            width: 100%;
-            padding: 0px;
-            font-size: 16px;
-            text-align: left;
-            height: auto;
-            min-height: 30px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            overflow: hidden;
-            line-height: 0.8;
-            margin: 0;
-            border-radius: 4px;
-            flex-direction: row;
-            gap: 0px;
-            position: relative;
-        }
-
-        .example-btn:hover:not(:disabled) {
-            background: #852275;
-            border-color: #7800ff;
+            flex-direction: column;
+            gap: 0;
+            margin: 15px 0;
         }
 
         .example-btn-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            overflow: hidden;
+            gap: 4px;
+            overflow: visible;
             cursor: pointer;
+            position: relative;
+            padding: 8px 10px;
+            border-bottom: 1px solid #2a2d45;
+            background: #1a1a2e;
         }
 
         .example-name {
             font-weight: bold;
             color: #ffffff;
-            font-size: 12px;
+            font-size: 13px;
             display: flex;
             align-items: center;
-            gap: 2px;
+            gap: 1px;
             width: 100%;
             white-space: nowrap;
             overflow: hidden;
@@ -522,37 +472,99 @@
         }
 
         .example-expr {
-            color: #fffc56;
-            font-size: 12px;
-            font-family: monospace;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 150px;
-            line-height: 1.1;
-        }
-
-        .example-expr-full {
-            display: none;
-            position: absolute;
-            background: linear-gradient(135deg, #222222, #333333);
-            border: 1px solid #212121;
-            padding: 0px;
-            border-radius: 4px;
-            z-index: 100;
-            max-width: 300px;
+            color: #dddddd;
+            font-size: 15px;
+            width: 100%;
             word-break: break-all;
-            white-space: normal;
-            font-size: 11px;
-            color: #f0f0f0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            white-space: pre-wrap;
         }
 
-        .example-btn:hover .example-expr-full {
+        /* 强制完整显示表达式，黄色，无省略 */
+        .example-expr-full {
             display: block;
-            top: 100%;
-            left: 0;
-            margin-top: 5px;
+            color: #fffc56;
+            /* 黄色完整表达式 */
+            font-size: 16px;
+            font-family: monospace;
+            word-break: break-all;
+            white-space: pre-wrap;
+            line-height: 1.1;
+            width: 100%;
+            overflow: visible;
+            text-overflow: unset;
+            position: static;
+            /* 取消绝对定位，直接在流中显示 */
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
+            opacity: 1;
+            transform: none;
+            transition: none;
+            z-index: auto;
+            max-width: none;
+            max-height: none;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .example-copy-btn,
+        .example-load-btn {
+            background: #151628;
+            border: 1px solid #555;
+            padding: 4px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+        }
+
+        .example-copy-btn {
+            color: #4dabf7;
+        }
+
+        .example-load-btn {
+            color: #4CAF50;
+        }
+
+        .example-copy-btn:hover {
+            background: #2a2d45;
+            border-color: #4dabf7;
+            color: #6bb9ff;
+        }
+
+        .example-load-btn:hover {
+            background: #2a2d45;
+            border-color: #4CAF50;
+            color: #6dd470;
+        }
+
+        .copy-success {
+            color: #4CAF50;
+            font-size: 10px;
+            position: absolute;
+            top: 20px;
+            right: 0;
+            background: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid #4CAF50;
+            display: none;
+            white-space: nowrap;
+            z-index: 10000;
+        }
+
+        .copy-success.show {
+            display: block;
         }
 
         .example-buttons {
@@ -585,13 +597,15 @@
         }
 
         .example-copy-btn:hover {
-            background: #4a4a4a;
+            background: #2a2d45;
+            border-color: #4dabf7;
             color: #6bb9ff;
         }
 
         .example-load-btn:hover {
-            background: #4a4a4a;
-            color: #6bb9ff;
+            background: #2a2d45;
+            border-color: #4CAF50;
+            color: #6dd470;
         }
 
         .copy-success {
@@ -606,11 +620,33 @@
             border: 1px solid #4CAF50;
             display: none;
             white-space: nowrap;
+            z-index: 10000;
         }
 
         .copy-success.show {
             display: block;
+            animation: fade-in-out 1.5s ease forwards;
         }
+
+        @keyframes fade-in-out {
+            0% {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            80% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+        }
+
 
         .control-panel {
             display: flex;
@@ -900,7 +936,7 @@
         }
 
         .address-display {
-            color: #cccccc;
+            color: #ffffff;
         }
 
         .speed-controls {
@@ -1514,6 +1550,53 @@
             font-weight: bold;
             font-size: 16px;
         }
+
+        /* 金属质感外层容器 */
+        .error-box {
+            margin: 24px auto;
+            max-width: 520px;
+            border-radius: 8px;
+            /* 金属渐变背景 */
+            background: linear-gradient(145deg, #2a2e35, #111316);
+            /* 金属高光 + 内阴影 */
+            box-shadow:
+            inset 0 1px 2px rgba(255,255,255,0.12),
+            inset 0 -1px 2px rgba(0,0,0,0.5),
+            0 4px 8px rgba(0,0,0,0.4),
+            0 1px 3px rgba(0,0,0,0.3);
+            border: 1px solid rgba(180,180,190,0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 文字提示条 */
+        .error-tip {
+            margin: 0;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #ffffff;
+            /* 半透明金属内条 */
+            background: rgba(0,0,0,0.25);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 顶部细金属高光线 */
+        .error-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(220,220,240,0.25), transparent);
+            z-index: 2;
+        }
+
+
     </style>
 </head>
 <body>
@@ -1595,9 +1678,13 @@
             </button>
         </div>
 
-        <p id="error" style="text-align:center; background-color:#000000;color:#ffffff; font-size:18px;margin:20px; padding: 10px 0;">
-            表达式语法正确
-        </p>
+
+        <div class="error-box">
+            <p id="error" class="error-tip">
+                表达式语法正确
+            </p>
+        </div>
+
         <div id="exprValidation" class="status">
             <i class="fas fa-check-circle"></i>
             <span id="exprValidationText">表达式语法正确</span>
@@ -2032,7 +2119,7 @@
     </noscript>
     <script>
         console.warn("ScriptProcessorNode已废弃，但我们仍使用ScriptProcessorNode。");
-        /*
+
         // 防止页面被清空的保护机制 - 改进版，带有实时警告
         (function() {
             // 获取警告元素
@@ -2050,7 +2137,8 @@
                         if (angryNotice) {
                             angryNotice.classList.remove('show');
                         }
-                    }, 3000);
+                    },
+                        3000);
                 }
             }
 
@@ -2087,7 +2175,8 @@
 
             // 保护 body.innerHTML
             try {
-                const bodyDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'innerHTML');
+                const bodyDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype,
+                    'innerHTML');
                 if (bodyDescriptor) {
                     Object.defineProperty(document.body, 'innerHTML', {
                         set: function(value) {
@@ -2103,50 +2192,33 @@
                 }
 
                 // 保护 head.innerHTML
-                Object.defineProperty(document.head, 'innerHTML', {
-                    set: function(value) {
-                        if (value === '') {
-                            console.warn('检测到清空 head.innerHTML 的尝试，已阻止');
-                            showAngryNotice();
-                            return;
+                Object.defineProperty(document.head,
+                    'innerHTML',
+                    {
+                        set: function(value) {
+                            if (value === '') {
+                                console.warn('检测到清空 head.innerHTML 的尝试，已阻止');
+                                showAngryNotice();
+                                return;
+                            }
+                            if (bodyDescriptor) {
+                                bodyDescriptor.set.call(this, value);
+                            }
+                        },
+                        get: function() {
+                            return bodyDescriptor ? bodyDescriptor.get.call(this): '';
                         }
-                        if (bodyDescriptor) {
-                            bodyDescriptor.set.call(this, value);
-                        }
-                    },
-                    get: function() {
-                        return bodyDescriptor ? bodyDescriptor.get.call(this) : '';
-                    }
-                });
+                    });
             } catch (e) {
-                console.warn('无法设置属性保护:', e);
+                console.warn('无法设置属性保护:',
+                    e);
             }
 
             // 监控控制台输入
             const originalEval = window.eval;
-            window.eval = function(code) {
-                if (typeof code === 'string') {
-                    const dangerousPatterns = [
-                        'document.write',
-                        'document.writeln',
-                        'document.open',
-                        'document.close',
-                        'innerHTML =',
-                        '.innerHTML=',
-                        'body.innerHTML',
-                        'head.innerHTML'
-                    ];
-
-                    if (dangerousPatterns.some(pattern => code.includes(pattern))) {
-                        console.warn('检测到危险代码执行尝试，已阻止');
-                        showAngryNotice();
-                        return;
-                    }
-                }
-                return originalEval.apply(this, arguments);
-            };
+            window.eval = function(code) {};
         })();
-*/
+
         // 原有的所有 JavaScript 代码保持不变（包括变量定义、函数、事件监听等）
         // 但是需要修改 initExamples 函数从 expr.json 加载数据
 
@@ -2173,12 +2245,11 @@
         const DEFAULT_VOLUME = 0.5;
         const fft = 4096; // FFT大小
         const sensitivity = 0.001; // 滑动面板灵敏度
-        let sp = 1;
 
         const WAVEFORM_CONFIG = {
             WIDTH: 512,
             HEIGHT: 255,
-            FPS: 50,
+            FPS: 30,
             FREQUENCY_DECAY: 0,
             GRID_LINES: 32,
             FREQUENCY_BARS: 51200,
@@ -2414,25 +2485,13 @@
             codeEditorHighlight.innerHTML = code;
             Prism.highlightElement(codeEditorHighlight);
         }
-
         function rollbackToLastValid() {
-            const savedValid = getFromStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, 't<<7');
-            if (codeEditorTextarea.value.trim() !== savedValid) {
-                codeEditorTextarea.value = savedValid;
-                updateCodeHighlight();
-                try {
-                    const funcs = parseExpression(savedValid);
-                    currentValExpr = funcs.valFunc;
-                    currentAmpExpr = funcs.ampFunc;
-                    currentExprText = savedValid;
-                    lastValidExprText = savedValid;
-                } catch (e) {}
-                const validationEl = document.getElementById('exprValidation');
-                const validationText = document.getElementById('exprValidationText');
-                validationEl.className = 'status active';
-                validationText.innerHTML = '<i class="fas fa-exclamation-circle"></i> 表达式无效，已回滚到上一个正确版本';
-                updateButtonStates();
-            }
+            // 不再读取、不再回滚，仅做提示
+            const validationEl = document.getElementById('exprValidation');
+            const validationText = document.getElementById('exprValidationText');
+            validationEl.className = 'status active';
+            validationText.innerHTML = '<i class="fas fa-exclamation-circle"></i> 表达式无效，请修正后重试';
+            updateButtonStates();
         }
 
         function restoreExpression() {
@@ -2451,7 +2510,8 @@
             codeEditorTextarea.value = exprToUse;
             updateCodeHighlight();
 
-            const savedMultiplier = parseFloat(getFromStorage(STORAGE_KEYS.SPEED_MULTIPLIER, '1.0'));
+            const savedMultiplier = parseFloat(getFromStorage(STORAGE_KEYS.SPEED_MULTIPLIER,
+                '1.0'));
             if (!isNaN(savedMultiplier) && savedMultiplier > 0) {
                 speedMultiplier = savedMultiplier;
                 SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE * speedMultiplier;
@@ -2468,28 +2528,113 @@
             updatePresetButtons();
         }
 
+        // 添加这个函数 - 修复loadExpressionToInput未定义错误
+        // 加载表达式函数 - 符合所有要求
         function loadExpressionToInput(example) {
             const exprText = example.expr;
+
             try {
+                // 测试表达式是否有效
                 const testFunc = parseExpression(exprText);
                 testFunc.valFunc(0);
-                codeEditorTextarea.value = exprText;
-                updateCodeHighlight();
-                updateStatus(false, `已加载: ${example.name}`);
-                validateExpression(true);
-                updateButtonStates();
-                saveExpression();
-                lastValidExprText = exprText;
-                saveToStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, exprText);
-            } catch (e) {
-                updateStatus(false, `表达式错误，无法加载: ${e.message}`);
-            }
-            codeEditorTextarea.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest'
-            });
-        }
 
+                // 更新输入框内容
+                const textarea = document.getElementById('expr');
+                textarea.value = exprText;
+
+                // 更新代码高亮
+                if (typeof updateCodeHighlight === 'function') {
+                    updateCodeHighlight();
+                }
+
+                // 验证表达式
+                if (typeof validateExpression === 'function') {
+                    validateExpression(true);
+                }
+
+                // 更新状态
+                if (typeof updateStatus === 'function') {
+                    updateStatus(false, `已加载: ${example.name}`);
+                }
+
+                // 更新按钮状态
+                if (typeof updateButtonStates === 'function') {
+                    updateButtonStates();
+                }
+
+                // 保存到存储
+                if (typeof saveExpression === 'function') {
+                    saveExpression();
+                }
+
+                // 更新最后有效表达式
+                if (typeof lastValidExprText !== 'undefined') {
+                    lastValidExprText = exprText;
+                }
+                if (typeof saveToStorage === 'function') {
+                    saveToStorage(STORAGE_KEYS.LAST_VALID_EXPRESSION, exprText);
+                }
+
+                // === 核心逻辑：处理播放和T值 ===
+
+                // 无论之前是什么状态，都重置T值为0
+                if (typeof currentTValue !== 'undefined') {
+                    currentTValue = 0;
+                }
+
+                // 无论之前是正向还是倒放，都设置为正向播放
+                if (typeof isReverse !== 'undefined') {
+                    isReverse = false;
+                }
+
+                // 更新T值显示
+                const tDisplay = document.getElementById('currentT');
+                if (tDisplay) tDisplay.textContent = '0';
+
+                const timeDisplay = document.getElementById('currentTime');
+                if (timeDisplay) timeDisplay.textContent = '0';
+
+                // 更新方向显示
+                if (typeof updateDirectionDisplay === 'function') {
+                    updateDirectionDisplay();
+                }
+
+                // 判断播放状态并执行相应操作
+                if (typeof isPlaying !== 'undefined') {
+                    if (isPlaying) {
+                        // 情况1：正在播放中 - 停止当前播放，然后重新开始正向播放
+                        if (typeof stopPlayback === 'function') {
+                            stopPlayback();
+                        }
+
+                        // 短暂延迟后重新开始播放（正向）
+                        setTimeout(() => {
+                            if (typeof startAudioPlayback === 'function') {
+                                startAudioPlayback();
+                            }
+                        },
+                            50);
+                    } else {
+                        // 情况2：没有播放 - 直接开始正向播放
+                        if (typeof startAudioPlayback === 'function') {
+                            startAudioPlayback();
+                        }
+                    }
+                }
+
+                // 阻止默认滚动行为
+                if (window.event) {
+                    window.event.preventDefault?.();
+                    window.event.stopPropagation?.();
+                }
+
+            } catch (e) {
+                if (typeof updateStatus === 'function') {
+                    updateStatus(false, `表达式错误，无法加载: ${e.message}`);
+                }
+                console.error('加载表达式失败:', e);
+            }
+        }
         function quickFixExpression() {
             let expr = codeEditorTextarea.value.trim();
             if (!expr) {
@@ -2550,7 +2695,7 @@
         // 加载 expr.json 的函数
         async function loadExpressionsFromJSON() {
             try {
-                const response = await fetch('expr.json');
+                const response = await fetch('http://xiaohan800.github.io/expr.json');
                 if (!response.ok) {
                     throw new Error('加载时存在问题,请检查是否在同一目录下，或者是代码拼写错误问题');
                 }
@@ -2610,339 +2755,429 @@
 
 
 
+// ==================== ByteBeat解析器配置 ====================
+const BYTEBEAT_CONFIG = {
+    // 默认回退函数：当解析失败时使用的函数
+    DEFAULT_FALLBACK: function(t) {
+        return (t & 1) ? 255: 0;
+    },
+    // 是否启用详细日志
+    VERBOSE: false,
+    // 输出值范围限制 (0-255)
+    CLIP_OUTPUT: true,
+    // 测试用的t值数组 - 使用多个测试点
+    TEST_T_VALUES: [1, 100, 1000, 10000, 44100],
+    // 需要多少个测试点通过才算有效
+    REQUIRED_PASS_RATIO: 0.6 // 60%的测试点通过即可
+};
 
+// ==================== 工具函数 ====================
 
+/**
+* 检查值是否为有效的数字（包括0）
+*/
+function isValidNumber(value) {
+    return typeof value === 'number' && !isNaN(value) && isFinite(value);
+}
 
+/**
+* 安全的转换为数字
+*/
+function toValidNumber(value, t) {
+    if (isValidNumber(value)) {
+        return value;
+    }
+    return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t);
+}
 
-        // ==================== ByteBeat解析器配置 ====================
-        const BYTEBEAT_CONFIG = {
-            // 默认回退函数：当解析失败时使用的函数
-            // 当前配置：根据t的奇偶性返回255或0
-            DEFAULT_FALLBACK: function(t) {
-                return (t & 1) ? 255: 0;
-            },
-            // 是否启用详细日志
-            VERBOSE: true,
-            // 输出值范围限制 (0-255)
-            CLIP_OUTPUT: true
+/**
+* 使用多个t值测试函数是否有效
+*/
+function testFunction(func, exprText = '') {
+    if (BYTEBEAT_CONFIG.VERBOSE) {
+        console.log(`测试函数: ${exprText || '匿名函数'}`);
+    }
+    
+    const testValues = BYTEBEAT_CONFIG.TEST_T_VALUES;
+    let validCount = 0;
+    let totalTests = 0;
+    
+    for (const t of testValues) {
+        try {
+            const result = func(t);
+            if (isValidNumber(result)) {
+                validCount++;
+                if (BYTEBEAT_CONFIG.VERBOSE) {
+                    console.log(`  t=${t}: 有效 (${result})`);
+                }
+            } else {
+                if (BYTEBEAT_CONFIG.VERBOSE) {
+                    console.log(`  t=${t}: 无效 (NaN/Infinity)`);
+                }
+            }
+        } catch (e) {
+            if (BYTEBEAT_CONFIG.VERBOSE) {
+                console.log(`  t=${t}: 错误 (${e.message})`);
+            }
+        }
+        totalTests++;
+    }
+    
+    const passRatio = validCount / totalTests;
+    const isValid = passRatio >= BYTEBEAT_CONFIG.REQUIRED_PASS_RATIO;
+    
+    if (BYTEBEAT_CONFIG.VERBOSE) {
+        console.log(`  通过率: ${(passRatio * 100).toFixed(1)}% - ${isValid ? '✅ 有效' : '❌ 无效'}`);
+    }
+    
+    return isValid;
+}
+
+// ==================== 策略实现 ====================
+
+/**
+* 策略0: 检测是否包含分号，如果包含则使用多语句执行
+*/
+function strategy0(exprText) {
+    try {
+        // 如果包含分号，使用多语句策略
+        if (exprText.includes(';')) {
+            const statements = exprText.split(';').filter(s => s.trim());
+
+            if (statements.length > 0) {
+                // 构建函数体：先执行所有语句，然后返回最后一个表达式的值
+                let funcBody = '';
+
+                // 执行所有语句（除了最后一个）
+                for (let i = 0; i < statements.length - 1; i++) {
+                    funcBody += statements[i] + ';\n';
+                }
+
+                // 最后一个语句作为返回值
+                const lastStmt = statements[statements.length - 1];
+                funcBody += 'return ' + lastStmt + ';\n';
+
+                const func = new Function('t', funcBody);
+                
+                // 使用多t值测试
+                if (testFunction(func, exprText)) {
+                    return {
+                        valFunc: function(t) {
+                            try {
+                                return func(t) & 255;
+                            } catch(e) {
+                                return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                            }
+                        },
+                        ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                    };
+                }
+            }
+        } else {
+            // 没有分号，直接作为表达式返回
+            const func = new Function('t', 'return ' + exprText + ';');
+            
+            // 使用多t值测试
+            if (testFunction(func, exprText)) {
+                return {
+                    valFunc: function(t) {
+                        try {
+                            return func(t) & 255;
+                        } catch(e) {
+                            return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                        }
+                    },
+                    ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                };
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略0错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略1: 多语句执行（专门处理带分号的表达式）
+*/
+function strategy1(exprText) {
+    try {
+        if (exprText.includes(';')) {
+            const statements = exprText.split(';').filter(s => s.trim());
+
+            if (statements.length > 0) {
+                // 构建完整的执行环境
+                let funcBody = '';
+
+                // 执行所有赋值语句
+                for (let i = 0; i < statements.length - 1; i++) {
+                    funcBody += statements[i] + ';\n';
+                }
+
+                // 最后一个语句作为返回值
+                const lastStmt = statements[statements.length - 1];
+                funcBody += 'return ' + lastStmt + ';\n';
+
+                const func = new Function('t', funcBody);
+                
+                // 使用多t值测试
+                if (testFunction(func, exprText)) {
+                    return {
+                        valFunc: function(t) {
+                            try {
+                                return func(t) & 255;
+                            } catch(e) {
+                                return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                            }
+                        },
+                        ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                    };
+                }
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略1错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略2: 函数定义处理
+*/
+function strategy2(exprText) {
+    try {
+        if (exprText.includes('function') || exprText.includes('=>')) {
+            const func = eval('(' + exprText + ')');
+            if (typeof func === 'function') {
+                // 使用多t值测试
+                if (testFunction(func, exprText)) {
+                    return {
+                        valFunc: function(t) {
+                            try {
+                                return func(t) & 255;
+                            } catch(e) {
+                                return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                            }
+                        },
+                        ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                    };
+                }
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略2错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略3: IIFE处理
+*/
+function strategy3(exprText) {
+    try {
+        if (exprText.includes('})(t)') || exprText.includes('})(')) {
+            const func = new Function('t', `return (${exprText});`);
+            
+            // 使用多t值测试
+            if (testFunction(func, exprText)) {
+                return {
+                    valFunc: function(t) {
+                        try {
+                            return func(t) & 255;
+                        } catch(e) {
+                            return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                        }
+                    },
+                    ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+                };
+            }
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略3错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略4: 通用执行器
+*/
+function strategy4(exprText) {
+    try {
+        const func = new Function('t', `
+            try {
+                // 先尝试作为表达式执行
+                try {
+                    return eval(${JSON.stringify(exprText)});
+                } catch(e) {
+                    // 如果失败，尝试作为语句执行
+                    let result;
+                    ${exprText};
+
+                    // 尝试获取最后一个语句的值
+                    const statements = ${JSON.stringify(exprText)}.split(';').filter(s => s.trim());
+                    const lastStmt = statements[statements.length - 1];
+                    if (lastStmt) {
+                        result = eval(lastStmt);
+                    }
+
+                    return result !== undefined ? result : t;
+                }
+            } catch(e) {
+                return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t);
+            }
+        `);
+
+        // 使用多t值测试
+        if (testFunction(func, exprText)) {
+            return {
+                valFunc: function(t) {
+                    try {
+                        return func(t) & 255;
+                    } catch(e) {
+                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                    }
+                },
+                ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+            };
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略4错误:', e);
+    }
+    return null;
+}
+
+/**
+* 策略5: 终极回退
+*/
+function strategy5(exprText) {
+    try {
+        // 最简单的执行方式
+        const func = new Function('t', `
+            try {
+                let result;
+                ${exprText};
+                return result !== undefined ? result : t;
+            } catch(e) {
+                return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t);
+            }
+        `);
+
+        // 使用多t值测试
+        if (testFunction(func, exprText)) {
+            return {
+                valFunc: function(t) {
+                    try {
+                        return func(t) & 255;
+                    } catch(e) {
+                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
+                    }
+                },
+                ampFunc: (val) => BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val
+            };
+        }
+    } catch(e) {
+        if (BYTEBEAT_CONFIG.VERBOSE) console.error('策略5错误:', e);
+    }
+    return null;
+}
+
+// ==================== 主函数 ====================
+function parseExpression(exprText) {
+    try {
+        exprText = exprText.trim();
+
+        // 默认回退函数
+        const defaultFunc = {
+            valFunc: BYTEBEAT_CONFIG.DEFAULT_FALLBACK,
+            ampFunc: (val) => val
         };
 
-        // ==================== 主函数 ====================
-        function parseExpression(exprText) {
+        if (!exprText) {
+            return defaultFunc;
+        }
+
+        // 立体声处理
+        if (exprText.startsWith('[') && exprText.includes(',')) {
             try {
-                exprText = exprText.trim();
-
-                // 默认回退函数 - 使用配置中的函数
-                const defaultFunc = {
-                    valFunc: BYTEBEAT_CONFIG.DEFAULT_FALLBACK,
-                    ampFunc: function(val) {
-                        return val;
-                    }
-                };
-
-                if (!exprText) {
-                    if (BYTEBEAT_CONFIG.VERBOSE) console.log('表达式为空，使用默认回退函数');
-                    return defaultFunc;
-                }
-
-                const isStereo = exprText.startsWith('[') && exprText.includes(',');
-
-                // 立体声处理
-                if (isStereo) {
+                const stereoFunc = new Function('t', `
                     try {
-                        const stereoFunc = new Function('t', `
-                            try {
-                            const result = ${exprText};
-                            return [
-                            Number(result?.[0] || 0) || 0,
-                            Number(result?.[1] || 0) || 0
-                            ];
-                            } catch(e) {
-                            return [${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t), ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t)];
-                            }
-                            `);
+                        const result = ${exprText};
+                        let left, right;
 
-                        return {
-                            valFunc: function(t) {
-                                try {
-                                    return stereoFunc(t);
-                                } catch(e) {
-                                    const fallback = BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t);
-                                    return [fallback,
-                                        fallback];
-                                }
-                            },
-                            ampFunc: function(val) {
-                                return val;
-                            }
-                        };
-                    } catch (e) {
-                        if (BYTEBEAT_CONFIG.VERBOSE) console.log('立体声解析失败，使用默认函数');
-                        return defaultFunc;
-                    }
-                }
-
-                // ========== 单声道处理 - 修复版本 ==========
-
-                // 清理表达式，但保留特殊字符
-                let cleanExpr = exprText.replace(/\n/g, ' ').replace(/\s+/g, ' ');
-
-                try {
-                    // 检查是否包含箭头函数
-                    const hasArrowFunc = cleanExpr.includes('=>');
-
-                    // 策略0: 直接使用原始表达式，用eval但包装在函数中
-                    try {
-                        // 创建一个函数，返回原始表达式的eval结果
-                        const rawFunc = new Function('t', `
-                            try {
-                            // 保存原始表达式的字符串
-                            const expr = ${JSON.stringify(cleanExpr)};
-
-                            // 使用Function构造器动态创建函数，这样可以处理箭头函数
-                            let result;
-
-                            // 方法1: 尝试直接作为表达式执行
-                            try {
-                            // 创建一个新函数来执行表达式
-                            const exprFunc = new Function('t', 'return ' + expr);
-                            result = exprFunc(t);
-                            } catch(e1) {
-                            // 方法2: 可能是函数定义或复杂语句
-                            try {
-                            // 包装成函数调用
-                            const wrappedFunc = new Function('t', 'return (' + expr + ')(t)');
-                            result = wrappedFunc(t);
-                            } catch(e2) {
-                            // 方法3: 作为语句执行
-                            const stmtFunc = new Function('t', expr + '; return t;');
-                            result = stmtFunc(t);
-                            }
-                            }
-
-                            // 处理结果
-                            if (Array.isArray(result)) {
-                            // 如果是数组，返回第一个元素或0
-                            return Number(result[0] || 0) & 255 || 0;
-                            } else if (typeof result === 'function') {
-                            // 如果结果是函数，调用它
-                            result = result(t);
-                            }
-
-                            // 确保返回数值
-                            const numResult = Number(result);
-                            return (isNaN(numResult) ? ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) : numResult) & 255;
-                            } catch(e) {
-                            // 任何错误返回默认值
-                            return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) & 255;
-                            }
-                            `);
-
-                        // 测试一下
-                        const testResult = rawFunc(0);
-                        if (typeof testResult === 'number' && !isNaN(testResult)) {
-                            if (BYTEBEAT_CONFIG.VERBOSE) console.log('使用策略0: 原始表达式');
-                            return {
-                                valFunc: function(t) {
-                                    try {
-                                        const result = rawFunc(t);
-                                        return Number(result) & 255 || 0;
-                                    } catch(e) {
-                                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
-                                    }
-                                },
-                                ampFunc: function(val) {
-                                    return val;
-                                }
-                            };
+                        if (Array.isArray(result)) {
+                            left = Number(result[0]);
+                            right = Number(result[1]);
+                        } else {
+                            const val = Number(result);
+                            left = val;
+                            right = val;
                         }
+
+                        left = isNaN(left) ? ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) : left;
+                        right = isNaN(right) ? ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) : right;
+
+                        return [left & 255, right & 255];
                     } catch(e) {
-                        if (BYTEBEAT_CONFIG.VERBOSE) console.log('策略0失败:', e.message);
+                        const fallback = ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t);
+                        return [fallback, fallback];
                     }
+                `);
 
-                    // 策略1: 处理箭头函数和立即执行函数
-                    if (hasArrowFunc || cleanExpr.includes('=>') || cleanExpr.includes('(') && cleanExpr.includes(')(')) {
-                        try {
-                            const arrowFunc = new Function('t', `
-                                try {
-                                // 将整个表达式包裹在立即执行函数中
-                                const result = (function() {
-                                try {
-                                // 直接执行表达式
-                                return eval(${JSON.stringify(cleanExpr)});
-                                } catch(e) {
-                                // 如果是函数定义，尝试调用它
-                                const fn = eval('(' + ${JSON.stringify(cleanExpr)} + ')');
-                                if (typeof fn === 'function') {
-                                return fn(t);
-                                }
-                                throw e;
-                                }
-                                })();
-
-                                // 处理结果
-                                if (Array.isArray(result)) {
-                                return Number(result[0] || 0) & 255;
-                                } else if (typeof result === 'function') {
-                                return Number(result(t)) & 255;
-                                } else {
-                                return Number(result) & 255;
-                                }
-                                } catch(e) {
-                                return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) & 255;
-                                }
-                                `);
-
-                            arrowFunc(0); // 测试
-                            if (BYTEBEAT_CONFIG.VERBOSE) console.log('使用策略1: 箭头函数/立即执行函数');
-                            return {
-                                valFunc: function(t) {
-                                    try {
-                                        return arrowFunc(t) & 255;
-                                    } catch(e) {
-                                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
-                                    }
-                                },
-                                ampFunc: function(val) {
-                                    return val;
-                                }
-                            };
-                        } catch(e) {
-                            if (BYTEBEAT_CONFIG.VERBOSE) console.log('策略1失败:', e.message);
-                        }
-                    }
-
-                    // 策略2: 直接作为表达式执行
-                    try {
-                        const directFunc = new Function('t', `
+                // 测试立体声函数
+                if (testFunction((t) => stereoFunc(t)[0], exprText)) {
+                    return {
+                        valFunc: function(t) {
                             try {
-                            // 直接计算表达式
-                            const result = ${cleanExpr};
-                            // 确保返回数值并限制在0-255
-                            const numResult = Number(result);
-                            return (isNaN(numResult) ? ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) : numResult) & 255;
+                                return stereoFunc(t);
                             } catch(e) {
-                            return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) & 255;
+                                const fallback = BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t);
+                                return [fallback, fallback];
                             }
-                            `);
-
-                        // 测试一下
-                        const testResult = directFunc(0);
-                        if (typeof testResult === 'number' && !isNaN(testResult)) {
-                            if (BYTEBEAT_CONFIG.VERBOSE) console.log('使用策略2: 直接表达式');
-                            return {
-                                valFunc: function(t) {
-                                    try {
-                                        const result = directFunc(t);
-                                        return Number(result) & 255 || 0;
-                                    } catch(e) {
-                                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
-                                    }
-                                },
-                                ampFunc: function(val) {
-                                    return val;
-                                }
-                            };
-                        }
-                    } catch(e) {
-                        if (BYTEBEAT_CONFIG.VERBOSE) console.log('策略2失败:', e.message);
-                    }
-
-                    // 策略3: 多语句表达式（包含等号或分号）
-                    if (cleanExpr.includes('=') || cleanExpr.includes(';')) {
-                        try {
-                            // 将整个表达式包装成立即执行的函数
-                            const wrappedExpr = `(function(t){ ${cleanExpr.replace(/,$/, '')}; return ${cleanExpr.split(',').pop() || cleanExpr}; })(t)`;
-
-                            const multiStmtFunc = new Function('t', `
-                                try {
-                                const result = ${wrappedExpr};
-                                return Number(result) & 255 || 0;
-                                } catch(e) {
-                                return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) & 255;
-                                }
-                                `);
-
-                            multiStmtFunc(0); // 测试
-                            if (BYTEBEAT_CONFIG.VERBOSE) console.log('使用策略3: 多语句表达式');
-                            return {
-                                valFunc: function(t) {
-                                    try {
-                                        return multiStmtFunc(t) & 255;
-                                    } catch(e) {
-                                        return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
-                                    }
-                                },
-                                ampFunc: function(val) {
-                                    return val;
-                                }
-                            };
-                        } catch(e) {
-                            if (BYTEBEAT_CONFIG.VERBOSE) console.log('策略3失败:', e.message);
-                        }
-                    }
-
-                    // 策略4: 终极方案 - 创建一个完整的作用域
-                    try {
-                        const ultimateFunc = new Function('t', `
-                            try {
-                            let result;
-
-                            // 创建一个安全的作用域
-                            const __t = t;
-
-                            // 直接执行原始代码
-                            ${cleanExpr}
-
-                            // 尝试获取最后一个表达式的值
-                            result = eval('(' + ${JSON.stringify(cleanExpr.split(';').pop() || cleanExpr)} + ')');
-
-                            // 处理结果
-                            if (typeof result === 'function') {
-                            result = result(__t);
-                            }
-
-                            return Number(result) & 255 || ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(__t) & 255;
-                            } catch(e) {
-                            return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK.toString()}(t) & 255;
-                            }
-                            `);
-
-                        ultimateFunc(0); // 测试
-                        if (BYTEBEAT_CONFIG.VERBOSE) console.log('使用策略4: 终极方案');
-                        return {
-                            valFunc: function(t) {
-                                try {
-                                    return ultimateFunc(t) & 255;
-                                } catch(e) {
-                                    return BYTEBEAT_CONFIG.DEFAULT_FALLBACK(t) & 255;
-                                }
-                            },
-                            ampFunc: function(val) {
-                                return BYTEBEAT_CONFIG.CLIP_OUTPUT ? (val & 255): val;
-                            }
-                        };
-                    } catch(e) {
-                        if (BYTEBEAT_CONFIG.VERBOSE) console.log('策略4失败:', e.message);
-                    }
-
-                    // 所有策略都失败，返回默认函数
-                    if (BYTEBEAT_CONFIG.VERBOSE) console.warn('所有策略都失败，使用默认函数');
-                    return defaultFunc;
-
-                } catch (e) {
-                    if (BYTEBEAT_CONFIG.VERBOSE) console.error('创建函数失败，使用默认函数:', e.message);
-                    return defaultFunc;
+                        },
+                        ampFunc: (val) => val
+                    };
                 }
-
-            } catch (error) {
-                if (BYTEBEAT_CONFIG.VERBOSE) console.error('解析失败，使用默认函数');
+            } catch (e) {
                 return defaultFunc;
             }
         }
 
-        // ==================== validateExpression 函数 ====================
+        // ========== 按顺序尝试所有策略 ==========
 
+        const strategies = [
+            { name: '策略0', fn: strategy0 },
+            { name: '策略1', fn: strategy1 },
+            { name: '策略2', fn: strategy2 },
+            { name: '策略3', fn: strategy3 },
+            { name: '策略4', fn: strategy4 },
+            { name: '策略5', fn: strategy5 }
+        ];
+
+        for (const strategy of strategies) {
+            const result = strategy.fn(exprText);
+            if (result) {
+                if (BYTEBEAT_CONFIG.VERBOSE) {
+                    console.log(`✅ 使用 ${strategy.name} 成功解析: ${exprText}`);
+                }
+                return result;
+            }
+        }
+
+        if (BYTEBEAT_CONFIG.VERBOSE) {
+            console.log(`⚠️ 所有策略失败，使用默认回退: ${exprText}`);
+        }
+        return defaultFunc;
+
+    } catch (error) {
+        if (BYTEBEAT_CONFIG.VERBOSE) {
+            console.error('解析错误:', error);
+        }
+        return {
+            valFunc: BYTEBEAT_CONFIG.DEFAULT_FALLBACK,
+            ampFunc: (val) => val
+        };
+    }
+}
         function createAudioProcessor(isStereoExpr) {
             // 内部配置：所有参数都在这里调整
             const config = {
@@ -3043,7 +3278,7 @@
 
                     // 时间轴步进
                     currentTValue = isReverse
-                    ? currentTValue - samplesPerBuffer*sp: currentTValue + samplesPerBuffer*sp;
+                    ? currentTValue - samplesPerBuffer: currentTValue +samplesPerBuffer;
 
                     // 防溢出
                     if (Math.abs(currentTValue) > config.maxT) {
@@ -3065,7 +3300,6 @@
         function validateExpression(updateUI = true) {
             const exprText = codeEditorTextarea.value.trim();
 
-            // 将 exprText 赋值给全局变量，方便调试
             window.lastExprText = exprText;
             window.lastValidationTime = new Date().toISOString();
 
@@ -3076,22 +3310,19 @@
 
             try {
                 if (!exprText) {
-                    throw new Error('表达式不能为空');
-                }
-
-                // 先进行语法检查（不执行）
-                try {
-                    // 简单的括号匹配检查
-                    let parenCount = 0;
-                    let braceCount = 0;
-                    let bracketCount = 0;
-                    let inString = false;
-                    let stringChar = '';
+                    errorMessage = '表达式不能为空';
+                    isValid = false;
+                } else {
+                    // 基础括号匹配检查
+                    let parenCount = 0,
+                    braceCount = 0,
+                    bracketCount = 0;
+                    let inString = false,
+                    stringChar = '';
 
                     for (let i = 0; i < exprText.length; i++) {
                         const char = exprText[i];
 
-                        // 处理字符串
                         if ((char === '"' || char === "'" || char === '`') && !inString) {
                             inString = true;
                             stringChar = char;
@@ -3101,11 +3332,8 @@
                                 inString = false;
                             }
                             continue;
-                        } else if (inString) {
-                            continue;
-                        }
+                        } else if (inString) continue;
 
-                        // 检查括号
                         if (char === '(') parenCount++;
                         if (char === ')') parenCount--;
                         if (char === '{') braceCount++;
@@ -3114,51 +3342,53 @@
                         if (char === ']') bracketCount--;
                     }
 
-                    if (parenCount !== 0) throw new Error('括号不匹配');
-                    if (braceCount !== 0) throw new Error('花括号不匹配');
-                    if (bracketCount !== 0) throw new Error('方括号不匹配');
+                    if (parenCount !== 0) errorMessage = '语法错误: 括号不匹配';
+                    else if (braceCount !== 0) errorMessage = '语法错误: 花括号不匹配';
+                    else if (bracketCount !== 0) errorMessage = '语法错误: 方括号不匹配';
+                    else {
+                        // 使用 new Function 检查语法
+                        try {
+                            // 构造一个函数体，只做语法校验，不执行逻辑
+                            const checkSyntax = new Function('t', exprText);
+                            // 语法通过，再尝试轻量执行
+                            const funcs = parseExpression(exprText);
+                            const testPoints = [0,
+                                100];
+                            let testPassed = true;
 
-                } catch (e) {
-                    throw new Error(`语法错误: ${e.message}`);
-                }
+                            for (const t of testPoints) {
+                                try {
+                                    funcs.valFunc(t);
+                                } catch (e) {
+                                    testPassed = false;
+                                    errorMessage = `执行错误: ${e.message}`;
+                                    break;
+                                }
+                            }
 
-                // 尝试解析但不严格验证返回值
-                const funcs = parseExpression(exprText);
-
-                // 轻量级测试：只检查是否能执行而不报错
-                const testPoints = [0,
-                    100];
-                let testPassed = true;
-
-                for (const t of testPoints) {
-                    try {
-                        const result = funcs.valFunc(t);
-                        // 只检查是否执行成功，不检查返回值类型
-                        // 只要不抛出异常就算通过
-                    } catch (e) {
-                        testPassed = false;
-                        errorMessage = `执行错误: ${e.message}`;
-                        break;
+                            if (testPassed) {
+                                isValid = true;
+                            }
+                        } catch (e) {
+                            // 语法错误只记录，不抛错回滚
+                            errorMessage = `语法错误: ${e.message}`;
+                            isValid = false;
+                        }
                     }
                 }
-
-                isValid = testPassed;
-                if (!isValid && !errorMessage) {
-                    errorMessage = '表达式执行失败';
-                }
-
-            } catch (error) {
+            } catch (unexpectedErr) {
+                // 极端意外错误，不回滚流程，只记录
+                errorMessage = `校验异常: ${unexpectedErr.message}`;
                 isValid = false;
-                errorMessage = error.message;
             }
 
             if (updateUI) {
                 validationEl.className = 'status active';
-                validationText.innerHTML = isValid ?
-                '<i class="fas fa-check-circle"></i> 表达式语法正确':
-                `<i class="fas fa-exclamation-circle"></i> ${errorMessage}`;
+                validationText.innerHTML = isValid
+                ? '<i class="fas fa-check-circle"></i> 表达式语法正确': `<i class="fas fa-exclamation-circle"></i> ${errorMessage}`;
                 updateButtonStates();
             }
+
             return isValid;
         }
 
@@ -3168,6 +3398,12 @@
         }
 
         async function startAudioPlayback() {
+            // 关键：先确保完全停止当前播放
+            if (isPlaying) {
+                // 如果已经在播放，先完全停止
+                await stopPlayback(true); // 传入true表示强制停止
+            }
+
             try {
                 if (!audioCtx || audioCtx.state === 'closed') {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)({
@@ -3206,7 +3442,13 @@
 
                 isPlaying = true;
                 updateDirectionDisplay();
+
+                // 取消旧的动画帧
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
                 animationFrameId = requestAnimationFrame(updateTDisplay);
+
                 updateStatus(true, isReverse ? '倒放中...': '正在播放...');
                 updateButtonStates();
 
@@ -3218,10 +3460,9 @@
             } catch (error) {
                 console.error('音频播放启动失败:', error);
                 updateStatus(false, '启动失败: ' + error.message);
-                stopPlayback();
+                stopPlayback(true);
             }
         }
-
         function updateStatus(active, text) {
             const statusEl = document.getElementById('status');
             const statusText = document.getElementById('statusText');
@@ -3424,7 +3665,6 @@
 
 
 
-
         // 全局状态管理
         let waveformCounterTimer = null;
         let lastBaseSampleRate = BASE_SAMPLE_RATE; // 保留采样率监测
@@ -3434,21 +3674,24 @@
 
         // ========== 【全局配置区 - 可自由修改】 ==========
         const WAVEFORM_UI_CONFIG = {
-            FONT_FAMILY: 'tshyn, TH-P0, feon, mi, TH-P2, TH-P3, Times',
+            FONT_FAMILY: 'tshyn, TH-P0, hak, mi, TH-P2, TH-P3',
             FONT_SIZE_TITLE: 17,
-            // 左上角无信号字体
-            FONT_SIZE_CENTER: 35,
-            // 居中Unicode字符字体大小
+            FONT_SIZE_CENTER: 175,
+            // 田字格内字符大小
             FONT_SIZE_TIME: 16,
-            // 右下角时间字体
             FONT_SIZE_UNICODE: 17,
-            // 左下角Unicode编码字体
             UNICODE_START: 0x21777,
-            // 起始编码：2A6df（十六进制）
+            // 起始编码
             UNICODE_MAX: 0x33479,
             // Unicode 上限
             TEXT_COLOR: '#FFFFFF',
-            PADDING: 2 // 四边内边距
+            PADDING: 2,
+            // 新增：田字格配置
+            GRID_SIZE: 255,
+            // 左侧大田字格 350×350
+            GRID_LINE_COLOR: '#444444',
+            // 田字格线条颜色
+            GRID_BG_COLOR: '#111111' // 田字格背景
         };
         // ========== 【配置区结束】 ==========
 
@@ -3466,17 +3709,13 @@
             const minutes = date.getMinutes().toString().padStart(2, '0');
             const seconds = date.getSeconds().toString().padStart(2, '0');
 
-            // 毫秒：只保留 3 位，格式 .XXX
             const milliseconds = (now % 1000).toString().padStart(3, '0');
 
             return `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}.${milliseconds}`;
         }
 
         /**
-        * Unicode 计算：
-        * - 从配置起始码 0x2A6DF 开始
-        * - 递增后超出上限则回到起始码循环
-        * - 永远不会回到 0
+        * Unicode 计算：循环显示
         */
         function getCycleUnicode() {
             const {
@@ -3486,11 +3725,9 @@
             const elapsedSeconds = (performance.now() - waveformBaseTime) / 1000;
             const codeIndex = Math.floor(elapsedSeconds * 30);
 
-            // 计算区间长度，实现循环：START ~ MAX → 回到 START
             const range = UNICODE_MAX - UNICODE_START + 1;
             const unicodeCode = UNICODE_START + (codeIndex % range);
 
-            // 不足四位补0，满足格式要求
             const codeStr = `U+${unicodeCode.toString(16).toUpperCase().padStart(4, '0')}`;
 
             let unicodeChar;
@@ -3515,59 +3752,104 @@
         }
 
         /**
-        * 绘制无信号波形
+        * 绘制左侧 350×350 大田字格
+        */
+        function drawCharacterGrid() {
+            const cfg = WAVEFORM_UI_CONFIG;
+            const size = cfg.GRID_SIZE;
+
+            // 田字格背景
+            waveformCtx.fillStyle = cfg.GRID_BG_COLOR;
+            waveformCtx.fillRect(0, 0, size, size);
+
+            // 外框
+            waveformCtx.strokeStyle = cfg.GRID_LINE_COLOR;
+            waveformCtx.lineWidth = 2;
+            waveformCtx.strokeRect(0, 0, size, size);
+
+            // 十字线（大田字格）
+            waveformCtx.lineWidth = 1;
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(size / 2, 0);
+            waveformCtx.lineTo(size / 2, size);
+            waveformCtx.moveTo(0, size / 2);
+            waveformCtx.lineTo(size, size / 2);
+            waveformCtx.stroke();
+
+            // 中间绘制 Unicode 字符
+            const unicodeData = getCycleUnicode();
+            waveformCtx.fillStyle = cfg.TEXT_COLOR;
+            waveformCtx.font = `${cfg.FONT_SIZE_CENTER}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.textAlign = 'center';
+            waveformCtx.textBaseline = 'middle';
+            waveformCtx.fillText(unicodeData.char, size / 2, size / 2);
+        }
+
+        /**
+        * 绘制右侧信息：无信号、Unicode、时间
+        */
+        function drawRightInfo() {
+            const canvasWidth = WAVEFORM_CONFIG.WIDTH;
+            const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
+            const cfg = WAVEFORM_UI_CONFIG;
+            const gridSize = cfg.GRID_SIZE;
+
+            waveformCtx.fillStyle = cfg.TEXT_COLOR;
+
+            // 右侧顶部：无信号
+            waveformCtx.font = `${cfg.FONT_SIZE_TITLE}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.textAlign = 'left';
+            waveformCtx.textBaseline = 'top';
+            waveformCtx.fillText('无信号', gridSize + 10, cfg.PADDING);
+
+            // 右侧中部：Unicode 编码
+            const unicodeData = getCycleUnicode();
+            waveformCtx.font = `${cfg.FONT_SIZE_UNICODE}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.fillText(unicodeData.code, gridSize + 10, canvasHeight / 2);
+
+            // 右侧底部：当前时间
+            waveformCtx.font = `${cfg.FONT_SIZE_TIME}px ${cfg.FONT_FAMILY}`;
+            waveformCtx.textAlign = 'left';
+            waveformCtx.textBaseline = 'bottom';
+            const timeStr = formatSignalTime();
+            waveformCtx.fillText(timeStr, gridSize + 10, canvasHeight - cfg.PADDING);
+        }
+
+        /**
+        * 绘制无信号界面（左侧田字格 + 右侧信息）
         */
         function drawEmptyWaveform() {
             const canvasWidth = WAVEFORM_CONFIG.WIDTH;
             const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
             const cfg = WAVEFORM_UI_CONFIG;
 
+            // 清空整个画布
             waveformCtx.clearRect(0, 0, canvasWidth, canvasHeight);
             waveformCtx.fillStyle = WAVEFORM_CONFIG.COLORS.BACKGROUND;
             waveformCtx.fillRect(0, 0, canvasWidth, canvasHeight);
 
+            // 绘制网格（保留你原有波形网格，不需要可删掉 drawWaveformGrid()）
             drawWaveformGrid();
-            waveformCtx.fillStyle = cfg.TEXT_COLOR;
 
-            // 左上角：无信号
-            waveformCtx.font = `${cfg.FONT_SIZE_TITLE}px ${cfg.FONT_FAMILY}`;
-            waveformCtx.textAlign = 'left';
-            waveformCtx.textBaseline = 'top';
-            waveformCtx.fillText('无信号', cfg.PADDING, cfg.PADDING);
+            // 左侧：350×350 田字格 + 字符
+            drawCharacterGrid();
 
-            // 获取Unicode数据
-            const unicodeData = getCycleUnicode();
+            // 右侧：文字信息
+            drawRightInfo();
 
-            // 居中：Unicode对应字符（字号100）
-            waveformCtx.font = `${cfg.FONT_SIZE_CENTER}px ${cfg.FONT_FAMILY}`;
-            waveformCtx.textAlign = 'center';
-            waveformCtx.textBaseline = 'middle';
-            waveformCtx.fillText(unicodeData.char, canvasWidth / 2, canvasHeight / 2);
-
-            // 左下角：Unicode 编码
-            waveformCtx.font = `${cfg.FONT_SIZE_UNICODE}px ${cfg.FONT_FAMILY}`;
-            waveformCtx.textAlign = 'left';
-            waveformCtx.textBaseline = 'bottom';
-            waveformCtx.fillText(unicodeData.code, cfg.PADDING, canvasHeight - cfg.PADDING);
-
-            // 右下角：当前时间
-            waveformCtx.font = `${cfg.FONT_SIZE_TIME}px ${cfg.FONT_FAMILY}`;
-            waveformCtx.textAlign = 'right';
-            waveformCtx.textBaseline = 'bottom';
-            const timeStr = formatSignalTime();
-            waveformCtx.fillText(timeStr, canvasWidth - cfg.PADDING, canvasHeight - cfg.PADDING);
-
+            // 采样率监测
             if (typeof lastBaseSampleRate !== 'undefined' && BASE_SAMPLE_RATE !== lastBaseSampleRate) {
                 lastBaseSampleRate = BASE_SAMPLE_RATE;
             }
 
+            // 底部状态文本
             document.getElementById('waveformAmplitude').textContent = '0%';
             document.getElementById('waveformPeak').textContent = '0%';
             document.getElementById('waveformSignal').textContent = '靜音';
         }
 
         /**
-        * 启动更新（修复重复声明问题）
+        * 启动更新
         */
         function startEmptyWaveform() {
             if (waveformCounterTimer) {
@@ -3668,225 +3950,227 @@
 
 
 
-/**
- * 【TOP5 峰值 + 完美表格排版 + 文字纯白可见】频谱图
- * @param {Uint8Array|number[]} dataArray
- */
-function drawFrequencyWaveform(dataArray) {
-  // ==========================
-  // 🎯 统一可配置
-  // ==========================
-  const CONFIG = {
-    topCount: 5,
-    peakCircleRadius: 12,
-    peakCircleWidth: 4,
-    peakCircleColor: '#ff0000',
-    textFont: '10px TH-P0',
-    textColor: '#ffffff',
-    textBgColor: 'rgba(0,0,0,0.7)',
-    lineHeight: 10,
-    padding: 0,
-    rightMargin: 0,
-    labelWidth: 44,
-    valueWidth: 43,
+        /**
+        * 【TOP5 峰值 + 完美表格排版 + 文字纯白可见】频谱图
+        * @param {Uint8Array|number[]} dataArray
+        */
+        function drawFrequencyWaveform(dataArray) {
+            // ==========================
+            // 🎯 统一可配置
+            // ==========================
+            const CONFIG = {
+                topCount: 5,
+                peakCircleRadius: 12,
+                peakCircleWidth: 4,
+                peakCircleColor: '#ff0000',
+                textFont: '10px TH-P0',
+                textColor: '#ffffff',
+                textBgColor: 'rgba(0,0,0,0.7)',
+                lineHeight: 10,
+                padding: 0,
+                rightMargin: 0,
+                labelWidth: 44,
+                valueWidth: 43,
 
-    // 底部面板
-    bottomPanelHeight: 28,
-    bottomPadding: 4,
-    dbBarWidth: 120,
-    dbBarHeight: 11,
-    dbBarColor: '#ff00ff',
-    dbBgColor: '#222222',
+                // 底部面板
+                bottomPanelHeight: 28,
+                bottomPadding: 4,
+                dbBarWidth: 120,
+                dbBarHeight: 11,
+                dbBarColor: '#ff00ff',
+                dbBgColor: '#222222',
 
-    // 总体系数一行布局：左文字 + 中间分贝条 + 右数值
-    totalLineLeft: 8,
-    totalLineRight: 8,
-    labelText: "总体系数:"
-  };
+                // 总体系数一行布局：左文字 + 中间分贝条 + 右数值
+                totalLineLeft: 8,
+                totalLineRight: 8,
+                labelText: "总体系数:"
+            };
 
-  // ==========================
-  // 1. 复用你原有全局配置
-  // ==========================
-  const canvasWidth = WAVEFORM_CONFIG.WIDTH;
-  const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
-  const barCount = Math.min(dataArray.length, WAVEFORM_CONFIG.FREQUENCY_BARS);
-  const decaySmooth = decaySmoothing;
-  const freqColorStart = WAVEFORM_CONFIG.COLORS.FREQUENCY_START;
-  const freqColorEnd = WAVEFORM_CONFIG.COLORS.FREQUENCY_END;
-  const sampleRate = TARGET_SAMPLE_RATE;
-  const fftSize = fft;
-  const MIN_VALUE = 0;
-  const MAX_VALUE = 255;
-  const MIN_DISPLAY_FREQ = 1;
+            // ==========================
+            // 1. 复用你原有全局配置
+            // ==========================
+            const canvasWidth = WAVEFORM_CONFIG.WIDTH;
+            const canvasHeight = WAVEFORM_CONFIG.HEIGHT;
+            const barCount = Math.min(dataArray.length, WAVEFORM_CONFIG.FREQUENCY_BARS);
+            const decaySmooth = decaySmoothing;
+            const freqColorStart = WAVEFORM_CONFIG.COLORS.FREQUENCY_START;
+            const freqColorEnd = WAVEFORM_CONFIG.COLORS.FREQUENCY_END;
+            const sampleRate = TARGET_SAMPLE_RATE;
+            const fftSize = fft;
+            const MIN_VALUE = 0;
+            const MAX_VALUE = 255;
+            const MIN_DISPLAY_FREQ = 1;
 
-  // 🔥 频谱高度让出底部面板
-  const drawHeight = canvasHeight - CONFIG.bottomPanelHeight;
+            // 🔥 频谱高度让出底部面板
+            const drawHeight = canvasHeight - CONFIG.bottomPanelHeight;
 
-  // 画布重置
-  waveformCtx.setTransform(1, 0, 0, 1, 0, 0);
-  waveformCtx.fillStyle = '#000000';
-  waveformCtx.fillRect(0, 0, canvasWidth, canvasHeight);
+            // 画布重置
+            waveformCtx.setTransform(1, 0, 0, 1, 0, 0);
+            waveformCtx.fillStyle = '#000000';
+            waveformCtx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-  if (typeof drawWaveformGrid === 'function') drawWaveformGrid();
+            if (typeof drawWaveformGrid === 'function') drawWaveformGrid();
 
-  // 历史数据
-  if (!previousFrequencyData || previousFrequencyData.length !== barCount) {
-    previousFrequencyData = new Array(barCount).fill(MIN_VALUE);
-  }
-  if (!frequencyDecayArray || frequencyDecayArray.length !== barCount) {
-    frequencyDecayArray = new Array(barCount).fill(MIN_VALUE);
-  }
+            // 历史数据
+            if (!previousFrequencyData || previousFrequencyData.length !== barCount) {
+                previousFrequencyData = new Array(barCount).fill(MIN_VALUE);
+            }
+            if (!frequencyDecayArray || frequencyDecayArray.length !== barCount) {
+                frequencyDecayArray = new Array(barCount).fill(MIN_VALUE);
+            }
 
-  const logMin = Math.log10(MIN_DISPLAY_FREQ);
-  const logMax = Math.log10(sampleRate / 2);
-  const logRange = Math.max(1e-10, logMax - logMin);
+            const logMin = Math.log10(MIN_DISPLAY_FREQ);
+            const logMax = Math.log10(sampleRate / 2);
+            const logRange = Math.max(1e-10, logMax - logMin);
 
-  const points = [];
-  let totalSum = 0;
+            const points = [];
+            let totalSum = 0;
 
-  for (let i = 0; i < barCount; i++) {
-    const rawValue = dataArray[i] || MIN_VALUE;
-    const clampedValue = Math.max(MIN_VALUE, Math.min(MAX_VALUE, rawValue));
-    const prevValue = previousFrequencyData[i] || MIN_VALUE;
-    const decayedValue = Math.min(MAX_VALUE, Math.max(MIN_VALUE,
-      clampedValue * (1 - decaySmooth) + prevValue * decaySmooth
-    ));
+            for (let i = 0; i < barCount; i++) {
+                const rawValue = dataArray[i] || MIN_VALUE;
+                const clampedValue = Math.max(MIN_VALUE, Math.min(MAX_VALUE, rawValue));
+                const prevValue = previousFrequencyData[i] || MIN_VALUE;
+                const decayedValue = Math.min(MAX_VALUE, Math.max(MIN_VALUE,
+                    clampedValue * (1 - decaySmooth) + prevValue * decaySmooth
+                ));
 
-    previousFrequencyData[i] = decayedValue;
-    frequencyDecayArray[i] = decayedValue;
-    totalSum += decayedValue;
+                previousFrequencyData[i] = decayedValue;
+                frequencyDecayArray[i] = decayedValue;
+                totalSum += decayedValue;
 
-    const y = drawHeight - Math.max(1, (decayedValue / MAX_VALUE) * drawHeight);
-    const realFreq = (i * sampleRate) / fftSize;
-    const displayFreq = Math.max(MIN_DISPLAY_FREQ, realFreq);
-    const normX = (Math.log10(displayFreq) - logMin) / logRange;
-    const x = normX * canvasWidth;
+                const y = drawHeight - Math.max(1, (decayedValue / MAX_VALUE) * drawHeight);
+                const realFreq = (i * sampleRate) / fftSize;
+                const displayFreq = Math.max(MIN_DISPLAY_FREQ, realFreq);
+                const normX = (Math.log10(displayFreq) - logMin) / logRange;
+                const x = normX * canvasWidth;
 
-    points.push({ x, y, value: decayedValue, index: i });
-  }
+                points.push({
+                    x, y, value: decayedValue, index: i
+                });
+            }
 
-  // ==========================
-  // TOP5 峰值
-  // ==========================
-  const topPoints = [...points]
-    .filter(p => p.value > 5)
-    .sort((a, b) => b.value - a.value)
-    .slice(0, CONFIG.topCount);
+            // ==========================
+            // TOP5 峰值
+            // ==========================
+            const topPoints = [...points]
+            .filter(p => p.value > 5)
+            .sort((a, b) => b.value - a.value)
+            .slice(0, CONFIG.topCount);
 
-  // ==========================
-  // 频谱填充
-  // ==========================
-  if (points.length < 2) return;
-  waveformCtx.beginPath();
-  waveformCtx.moveTo(points[0].x, points[0].y);
-  for (const p of points) waveformCtx.lineTo(p.x, p.y);
-  waveformCtx.lineTo(points[points.length - 1].x, drawHeight);
-  waveformCtx.lineTo(points[0].x, drawHeight);
-  waveformCtx.closePath();
+            // ==========================
+            // 频谱填充
+            // ==========================
+            if (points.length < 2) return;
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(points[0].x, points[0].y);
+            for (const p of points) waveformCtx.lineTo(p.x, p.y);
+            waveformCtx.lineTo(points[points.length - 1].x, drawHeight);
+            waveformCtx.lineTo(points[0].x, drawHeight);
+            waveformCtx.closePath();
 
-  const fillGradient = waveformCtx.createLinearGradient(0, 0, 0, drawHeight);
-  fillGradient.addColorStop(0, freqColorStart);
-  fillGradient.addColorStop(1, freqColorEnd);
-  waveformCtx.fillStyle = fillGradient;
-  waveformCtx.fill();
+            const fillGradient = waveformCtx.createLinearGradient(0, 0, 0, drawHeight);
+            fillGradient.addColorStop(0, freqColorStart);
+            fillGradient.addColorStop(1, freqColorEnd);
+            waveformCtx.fillStyle = fillGradient;
+            waveformCtx.fill();
 
-  // ==========================
-  // 平滑线
-  // ==========================
-  const lineGradient = waveformCtx.createLinearGradient(0, drawHeight, 0, 0);
-  lineGradient.addColorStop(0, '#000000');
-  lineGradient.addColorStop(0.5, '#00ff00');
-  lineGradient.addColorStop(1, '#ffffff');
-  waveformCtx.strokeStyle = lineGradient;
-  waveformCtx.lineWidth = 1.8;
-  waveformCtx.lineJoin = 'round';
-  waveformCtx.lineCap = 'round';
-  waveformCtx.beginPath();
-  waveformCtx.moveTo(points[0].x, points[0].y);
-  for (const p of points) waveformCtx.lineTo(p.x, p.y);
-  waveformCtx.stroke();
+            // ==========================
+            // 平滑线
+            // ==========================
+            const lineGradient = waveformCtx.createLinearGradient(0, drawHeight, 0, 0);
+            lineGradient.addColorStop(0, '#000000');
+            lineGradient.addColorStop(0.5, '#00ff00');
+            lineGradient.addColorStop(1, '#ffffff');
+            waveformCtx.strokeStyle = lineGradient;
+            waveformCtx.lineWidth = 1.8;
+            waveformCtx.lineJoin = 'round';
+            waveformCtx.lineCap = 'round';
+            waveformCtx.beginPath();
+            waveformCtx.moveTo(points[0].x, points[0].y);
+            for (const p of points) waveformCtx.lineTo(p.x, p.y);
+            waveformCtx.stroke();
 
-  // ==========================
-  // 红圈
-  // ==========================
-  waveformCtx.lineWidth = CONFIG.peakCircleWidth;
-  topPoints.forEach(p => {
-    waveformCtx.beginPath();
-    waveformCtx.arc(p.x, p.y, CONFIG.peakCircleRadius, 0, Math.PI * 2);
-    waveformCtx.strokeStyle = CONFIG.peakCircleColor;
-    waveformCtx.stroke();
-  });
+            // ==========================
+            // 红圈
+            // ==========================
+            waveformCtx.lineWidth = CONFIG.peakCircleWidth;
+            topPoints.forEach(p => {
+                waveformCtx.beginPath();
+                waveformCtx.arc(p.x, p.y, CONFIG.peakCircleRadius, 0, Math.PI * 2);
+                waveformCtx.strokeStyle = CONFIG.peakCircleColor;
+                waveformCtx.stroke();
+            });
 
-  // ==========================
-  // 右侧 TOP5 文字
-  // ==========================
-  waveformCtx.font = CONFIG.textFont;
-  const totalWidth = CONFIG.labelWidth + CONFIG.valueWidth + CONFIG.padding * 2;
-  const startX = canvasWidth - CONFIG.rightMargin - totalWidth;
-  let textY = CONFIG.padding + 5;
+            // ==========================
+            // 右侧 TOP5 文字
+            // ==========================
+            waveformCtx.font = CONFIG.textFont;
+            const totalWidth = CONFIG.labelWidth + CONFIG.valueWidth + CONFIG.padding * 2;
+            const startX = canvasWidth - CONFIG.rightMargin - totalWidth;
+            let textY = CONFIG.padding + 5;
 
-  waveformCtx.fillStyle = CONFIG.textBgColor;
-  waveformCtx.fillRect(
-    startX - CONFIG.padding,
-    CONFIG.padding,
-    totalWidth + CONFIG.padding * 2,
-    CONFIG.lineHeight * CONFIG.topCount + CONFIG.padding * 2
-  );
+            waveformCtx.fillStyle = CONFIG.textBgColor;
+            waveformCtx.fillRect(
+                startX - CONFIG.padding,
+                CONFIG.padding,
+                totalWidth + CONFIG.padding * 2,
+                CONFIG.lineHeight * CONFIG.topCount + CONFIG.padding * 2
+            );
 
-  waveformCtx.fillStyle = '#ffffff';
-  topPoints.forEach((p, idx) => {
-    const freq = Math.floor((p.index * sampleRate) / fftSize).toLocaleString();
-    waveformCtx.textAlign = 'left';
-    waveformCtx.fillText(`TOP${idx + 1}`, startX, textY);
-    waveformCtx.textAlign = 'right';
-    waveformCtx.fillText(`${freq}`, startX + CONFIG.labelWidth + CONFIG.valueWidth, textY);
-    textY += CONFIG.lineHeight;
-  });
+            waveformCtx.fillStyle = '#ffffff';
+            topPoints.forEach((p, idx) => {
+                const freq = Math.floor((p.index * sampleRate) / fftSize).toLocaleString();
+                waveformCtx.textAlign = 'left';
+                waveformCtx.fillText(`TOP${idx + 1}`, startX, textY);
+                waveformCtx.textAlign = 'right';
+                waveformCtx.fillText(`${freq}`, startX + CONFIG.labelWidth + CONFIG.valueWidth, textY);
+                textY += CONFIG.lineHeight;
+            });
 
-  if (topPoints.length === 0) {
-    waveformCtx.textAlign = 'center';
-    waveformCtx.fillText('NO PEAK', startX + totalWidth / 2, textY);
-  }
+            if (topPoints.length === 0) {
+                waveformCtx.textAlign = 'center';
+                waveformCtx.fillText('NO PEAK', startX + totalWidth / 2, textY);
+            }
 
-  // ==========================
-  // ✅ 底部面板：左文字 + 中间分贝条 + 右数值
-  // ==========================
-  const bottomY = drawHeight;
-  waveformCtx.fillStyle = '#111111';
-  waveformCtx.fillRect(0, bottomY, canvasWidth, CONFIG.bottomPanelHeight);
+            // ==========================
+            // ✅ 底部面板：左文字 + 中间分贝条 + 右数值
+            // ==========================
+            const bottomY = drawHeight;
+            waveformCtx.fillStyle = '#111111';
+            waveformCtx.fillRect(0, bottomY, canvasWidth, CONFIG.bottomPanelHeight);
 
-  waveformCtx.font = CONFIG.textFont;
-  waveformCtx.fillStyle = '#ffffff';
-  waveformCtx.textBaseline = 'middle';
-  const textYCenter = bottomY + CONFIG.bottomPanelHeight / 2;
+            waveformCtx.font = CONFIG.textFont;
+            waveformCtx.fillStyle = '#ffffff';
+            waveformCtx.textBaseline = 'middle';
+            const textYCenter = bottomY + CONFIG.bottomPanelHeight / 2;
 
-  const totalVal = Math.round(totalSum);
-  const avgEnergy = Math.round(totalSum / barCount);
+            const totalVal = Math.round(totalSum);
+            const avgEnergy = Math.round(totalSum / barCount);
 
-  // 1. 左边：总体系数文字
-  waveformCtx.textAlign = 'left';
-  waveformCtx.fillText(CONFIG.labelText, CONFIG.totalLineLeft, textYCenter);
-  const labelWidth = waveformCtx.measureText(CONFIG.labelText).width;
+            // 1. 左边：总体系数文字
+            waveformCtx.textAlign = 'left';
+            waveformCtx.fillText(CONFIG.labelText, CONFIG.totalLineLeft, textYCenter);
+            const labelWidth = waveformCtx.measureText(CONFIG.labelText).width;
 
-  // 2. 右边：总体系数数值（右对齐）
-  waveformCtx.textAlign = 'right';
-  waveformCtx.fillText(totalVal, canvasWidth - CONFIG.totalLineRight, textYCenter);
+            // 2. 右边：总体系数数值（右对齐）
+            waveformCtx.textAlign = 'right';
+            waveformCtx.fillText(totalVal, canvasWidth - CONFIG.totalLineRight, textYCenter);
 
-  // 3. 中间：分贝系数条（青色，占满中间区域）
-  const barX1 = CONFIG.totalLineLeft + labelWidth + 10;
-  const barX2 = canvasWidth - CONFIG.totalLineRight - waveformCtx.measureText(totalVal).width - 10;
-  const barWidth = barX2 - barX1;
-  const barY = bottomY + (CONFIG.bottomPanelHeight - CONFIG.dbBarHeight) / 2;
+            // 3. 中间：分贝系数条（青色，占满中间区域）
+            const barX1 = CONFIG.totalLineLeft + labelWidth + 10;
+            const barX2 = canvasWidth - CONFIG.totalLineRight - waveformCtx.measureText(totalVal).width - 10;
+            const barWidth = barX2 - barX1;
+            const barY = bottomY + (CONFIG.bottomPanelHeight - CONFIG.dbBarHeight) / 2;
 
-  // 分贝条背景
-  waveformCtx.fillStyle = CONFIG.dbBgColor;
-  waveformCtx.fillRect(barX1, barY, barWidth, CONFIG.dbBarHeight);
+            // 分贝条背景
+            waveformCtx.fillStyle = CONFIG.dbBgColor;
+            waveformCtx.fillRect(barX1, barY, barWidth, CONFIG.dbBarHeight);
 
-  // 分贝条填充（0~255 映射）
-  const fillWidth = (avgEnergy / 255) * barWidth;
-  waveformCtx.fillStyle = CONFIG.dbBarColor;
-  waveformCtx.fillRect(barX1, barY, fillWidth, CONFIG.dbBarHeight);
-}
+            // 分贝条填充（0~255 映射）
+            const fillWidth = (avgEnergy / 255) * barWidth;
+            waveformCtx.fillStyle = CONFIG.dbBarColor;
+            waveformCtx.fillRect(barX1, barY, fillWidth, CONFIG.dbBarHeight);
+        }
 
 
 
@@ -4244,43 +4528,56 @@ function drawFrequencyWaveform(dataArray) {
             await startAudioPlayback();
         }
 
-        function stopPlayback() {
-            if (Math.abs(currentTValue) < 1 && !isPlaying) return;
+        function stopPlayback(force = false) {
+            // 如果不在播放且不强制，则返回
+            if (!isPlaying && !force) return;
+
+            // 先设置播放状态为false，防止后续操作再次触发
             isPlaying = false;
+
+            // 取消动画帧
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
                 animationFrameId = null;
             }
+
+            // 断开并清理ScriptProcessorNode
             if (scriptProcessor) {
                 try {
+                    // 先断开连接
                     scriptProcessor.disconnect();
+                    // 清除处理函数
                     scriptProcessor.onaudioprocess = null;
                 } catch (e) {
-                    console.warn('ScriptProcessor 斷開連接時出錯:', e);
+                    console.warn('ScriptProcessor 断开连接时出错:', e);
                 }
                 scriptProcessor = null;
             }
+
+            // 断开GainNode
             if (gainNode) {
                 try {
                     gainNode.disconnect();
                 } catch (e) {
-                    console.warn('GainNode 斷開連接時出錯:', e);
+                    console.warn('GainNode 断开连接时出错:', e);
                 }
                 gainNode = null;
             }
+
+            // 断开Analyser
             if (analyser) {
                 try {
                     analyser.disconnect();
                 } catch (e) {
-                    console.warn('Analyser 斷開連接時出錯:', e);
+                    console.warn('Analyser 断开连接时出错:', e);
                 }
                 analyser = null;
             }
-            updateStatus(false, '已停止 - T值保留為: ' + Math.floor(currentTValue).toLocaleString());
+
+            updateStatus(false, '已停止 - T值保留为: ' + Math.floor(currentTValue).toLocaleString());
             updateDirectionDisplay();
             updateButtonStates();
         }
-
         function resetPlayback() {
             if (Math.abs(currentTValue) < 1 && !isPlaying) return;
             if (isPlaying) stopPlayback();
@@ -4967,23 +5264,23 @@ function drawFrequencyWaveform(dataArray) {
                 },
                     15);
             })();
-            
-            
+
+
             let isBlock = false;
 
-// 整个代码只出现这 1 次 setTimeout
-setTimeout(function tick() {
-  // 先卡死 1 秒
-  isBlock = false;
-  const start = Date.now();
-  while (Date.now() - start < 1) {}
+            // 整个代码只出现这 1 次 setTimeout
+            setTimeout(function tick() {
+                // 先卡死 1 秒
+                isBlock = false;
+                const start = Date.now();
+                while (Date.now() - start < 1) {}
 
-  // 1 秒后自动释放
-  isBlock = true;
+                // 1 秒后自动释放
+                isBlock = true;
 
-  // 关键：用函数自身引用，不写新的 setTimeout
-  setTimeout(tick, 6690);
-}, 1000);
+                // 关键：用函数自身引用，不写新的 setTimeout
+                setTimeout(tick, 6690);
+            }, 1000);
 
 
 
