@@ -1,0 +1,1962 @@
+{
+    "basic": [{
+        "name": "t",
+        "short": "t",
+        "expr": "t",
+        "desc": "t",
+        "channel": "mono"
+    },
+        {
+            "name": "t<<7",
+            "short": "t<<7",
+            "expr": "t<<7",
+            "desc": "基础表达式",
+            "channel": "mono"
+        },
+        {
+            "name": "t*128",
+            "short": "Consistent with t<<7",
+            "expr": "t*128",
+            "desc": "刺耳声音",
+            "channel": "mono"
+        },
+        {
+            "name": "旋律节奏",
+            "short": "旋律",
+            "expr": "(t>>9^(t>>9)-1^1)%13*t",
+            "desc": "旋律的节奏表达式",
+            "channel": "mono"
+        },
+        {
+            "name": "bear @ celephais",
+            "short": "bear",
+            "expr": "t+(t&t^t>>6)-t*(t>>9&(t%16?2:6)&t>>9)",
+            "desc": "较常见的表达式",
+            "channel": "mono"
+        },
+        {
+            "name": "经典节奏",
+            "short": "经典",
+            "expr": "t&t>>8",
+            "desc": "经典Bytebeat节奏",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂节奏",
+            "short": "复杂",
+            "expr": "t*t/(t>>12&t>>8)<<7",
+            "desc": "复杂节奏示例",
+            "channel": "mono"
+        },
+        {
+            "name": "旋律模式",
+            "short": "旋律",
+            "expr": "(t>>5|t<<4)&255",
+            "desc": "复杂旋律模式",
+            "channel": "mono"
+        },
+        {
+            "name": "数字噪声",
+            "short": "噪声",
+            "expr": "t * (42 & t >> 10)",
+            "desc": "数字噪声旋律",
+            "channel": "mono"
+        },
+        {
+            "name": "双重调制",
+            "short": "双重",
+            "expr": "t * ((t >> 9 | t >> 13) & 63)",
+            "desc": "双重频率调制",
+            "channel": "mono"
+        },
+        {
+            "name": "分步计算",
+            "short": "分步",
+            "expr": "v = t >> 8; v * 63",
+            "desc": "分步计算示例",
+            "channel": "mono"
+        },
+        {
+            "name": "音频节奏",
+            "short": "节奏",
+            "expr": "(t - (t >> 4 & t >> 8) & t >> 12) - 1",
+            "desc": "病毒计算通过位运算",
+            "channel": "mono"
+        },
+        {
+            "name": "渐变音调",
+            "short": "渐变",
+            "expr": "t * ((t >> 12) & 63)",
+            "desc": "渐变音调",
+            "channel": "mono"
+        },
+        {
+            "name": "正弦波",
+            "short": "正弦",
+            "expr": "Math.sin(t/100)*127+128",
+            "desc": "正弦波",
+            "channel": "mono"
+        },
+        {
+            "name": "方波",
+            "short": "方波",
+            "expr": "t&128",
+            "desc": "方波",
+            "channel": "mono"
+        },
+        {
+            "name": "三角波",
+            "short": "三角",
+            "expr": "(t&255)<128?(t&127)*2:255-(t&127)*2",
+            "desc": "三角波",
+            "channel": "mono"
+        },
+        {
+            "name": "锯齿波",
+            "short": "锯齿",
+            "expr": "t&255",
+            "desc": "锯齿波",
+            "channel": "mono"
+        },
+        {
+            "name": "和声效果",
+            "short": "和声",
+            "expr": "(t>>6|t|t>>6)*10+4*(t&t>>13|t>>6)",
+            "desc": "和声效果",
+            "channel": "mono"
+        },
+        {
+            "name": "心跳节奏",
+            "short": "心跳",
+            "expr": "t*(t>>11&t>>8)&255",
+            "desc": "心跳节奏",
+            "channel": "mono"
+        },
+        {
+            "name": "相位调制",
+            "short": "相位",
+            "expr": "(-t-1^t>>5)+t*((t>>14&14)+1)",
+            "desc": "相位调制",
+            "channel": "mono"
+        },
+        {
+            "name": "电子鼓",
+            "short": "电子鼓",
+            "expr": "(t>>7|t|t>>6)*10+4*(t&t>>13|t>>6)",
+            "desc": "电子鼓",
+            "channel": "mono"
+        },
+        {
+            "name": "噪声纹理",
+            "short": "纹理",
+            "expr": "t>>4|t>>5|t%255*(t>>16)",
+            "desc": "噪声纹理",
+            "channel": "mono"
+        },
+        {
+            "name": "循环节奏",
+            "short": "循环",
+            "expr": "(t>>2)*(t>>5)|t>>5",
+            "desc": "循环节奏",
+            "channel": "mono"
+        },
+        {
+            "name": "基础调制",
+            "short": "基础调制",
+            "expr": "t * ((t >> 9) & 31)",
+            "desc": "简单频率调制",
+            "channel": "mono"
+        },
+        {
+            "name": "脉冲波",
+            "short": "脉冲波",
+            "expr": "t & 64",
+            "desc": "脉冲波形",
+            "channel": "mono"
+        },
+        {
+            "name": "频率分频",
+            "short": "分频",
+            "expr": "t >> 4",
+            "desc": "频率分频效果",
+            "channel": "mono"
+        },
+        {
+            "name": "和声调制",
+            "short": "和声调制",
+            "expr": "t * ((t >> 8) & 15) + t * ((t >> 11) & 7)",
+            "desc": "和声调制效果",
+            "channel": "mono"
+        },
+        {
+            "name": "随机节奏",
+            "short": "随机节奏",
+            "expr": "t * (t >> 8) & 255",
+            "desc": "随机节奏生成",
+            "channel": "mono"
+        },
+        {
+            "name": "低频振荡",
+            "short": "LFO",
+            "expr": "t * ((t >> 13) & 3)",
+            "desc": "低频振荡器效果",
+            "channel": "mono"
+        },
+        {
+            "name": "相位失真",
+            "short": "相位失真",
+            "expr": "t ^ (t >> 3)",
+            "desc": "相位失真效果",
+            "channel": "mono"
+        },
+        {
+            "name": "振幅调制",
+            "short": "AM调制",
+            "expr": "t & ((t >> 7) * 15)",
+            "desc": "振幅调制效果",
+            "channel": "mono"
+        },
+        {
+            "name": "频率调制",
+            "short": "FM调制",
+            "expr": "t * ((t >> 10) & 7)",
+            "desc": "频率调制基础",
+            "channel": "mono"
+        },
+        {
+            "name": "位反转",
+            "short": "位反转",
+            "expr": "~t & 255",
+            "desc": "位反转效果",
+            "channel": "mono"
+        },
+        {
+            "name": "平滑噪声",
+            "short": "平滑噪声",
+            "expr": "t * ((t >> 9) & 15) & 127",
+            "desc": "平滑白噪声",
+            "channel": "mono"
+        },
+        {
+            "name": "节奏序列",
+            "short": "节奏序列",
+            "expr": "(t >> 4) & (t >> 8) & 63",
+            "desc": "节奏序列生成",
+            "channel": "mono"
+        },
+        {
+            "name": "和弦基础",
+            "short": "和弦",
+            "expr": "t * 3 & 128 | t * 5 & 64",
+            "desc": "基础和弦效果",
+            "channel": "mono"
+        },
+        {
+            "name": "回声效果",
+            "short": "回声",
+            "expr": "t + (t >> 4)",
+            "desc": "简单回声效果",
+            "channel": "mono"
+        },
+        {
+            "name": "滤波器效果",
+            "short": "滤波器",
+            "expr": "t & (t >> 6) & (t >> 9)",
+            "desc": "数字滤波器效果",
+            "channel": "mono"
+        },
+        {
+            "name": "波形变形",
+            "short": "波形变形",
+            "expr": "(t >> 2) * (t >> 7) & 255",
+            "desc": "波形变形效果",
+            "channel": "mono"
+        },
+        {
+            "name": "包络生成",
+            "short": "包络",
+            "expr": "t * (255 - (t >> 8)) >> 8",
+            "desc": "简单包络生成",
+            "channel": "mono"
+        },
+        {
+            "name": "共振峰",
+            "short": "共振峰",
+            "expr": "t * ((t >> 10) & 3) * ((t >> 12) & 3)",
+            "desc": "共振峰效果",
+            "channel": "mono"
+        },
+        {
+            "name": "脉冲序列",
+            "short": "脉冲序列",
+            "expr": "(t >> 3) & 1 ? 255 : 0",
+            "desc": "脉冲序列生成",
+            "channel": "mono"
+        },
+        {
+            "name": "扫频效果",
+            "short": "扫频",
+            "expr": "t * ((t >> 16) & 31)",
+            "desc": "频率扫描效果",
+            "channel": "mono"
+        }],
+    "advanced": [{
+        "name": "复杂算法1",
+        "short": "复杂1",
+        "expr": "t*((t&4096?t%65536<59392?7:t&7:16)+(1&t>>14))>>(3&-t>>(t&2048?2:10))|t>>(t&16384?t&4096?10:3:2)",
+        "desc": "复杂条件算法",
+        "channel": "mono"
+    },
+        {
+            "name": "复杂算法2",
+            "short": "复杂2",
+            "expr": "t*((t&4096?t%65536<59392?7:t&7:16)+(1&t>>14))>>(3&-t>>(t&2048?2:10))",
+            "desc": "简化版复杂算法",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法3",
+            "short": "复杂3",
+            "expr": "t*((t&4096?6:16)+(1&t>>14))>>(3&t>>8)|t>>(t&4096?3:4)",
+            "desc": "多条件位运算",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法4",
+            "short": "复杂4",
+            "expr": "t*(t>>8*(t>>15|t>>8)&(20|5*(t>>19)>>t|t>>3))",
+            "desc": "嵌套移位运算",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法5",
+            "short": "复杂5",
+            "expr": "t>>5|t<<4|t&1023^1981|t-67>>4",
+            "desc": "混合位运算",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法6",
+            "short": "复杂6",
+            "expr": "(1+(t>>10)%7)*(t*(1+(t>>13)%4)%(24+9*(t>>14)%8)&16)*10",
+            "desc": "模运算旋律",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法7",
+            "short": "复杂7",
+            "expr": "t*t/(1+(t>>9&t>>8))&128",
+            "desc": "复杂结合运算",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法8",
+            "short": "复杂8",
+            "expr": "t*((t>>12|t>>8)&63&t>>4)",
+            "desc": "第一个表达式",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法9",
+            "short": "复杂9",
+            "expr": "t*((t>>10|t%16*t>>8)&8*t>>12&18)",
+            "desc": "像猫一样的旋律",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法12",
+            "short": "复杂12",
+            "expr": "10*(t>>6|t|t>>(t>>16))+(7&t>>11)",
+            "desc": "viznut",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法17",
+            "short": "SthephanShi",
+            "expr": "t*(t&16384?6:5)*(4-(1&t>>8))>>(3&t>>9)|(t|t*3)>>5",
+            "desc": "CC123",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法31",
+            "short": "不是噪声但是噪声",
+            "expr": "w=t>>9,k=32,m=2048,a=1-t/m%1,d=(14*t*t^t)%m*a,y=[3,3,4.7,2][p=w/k&3]*t/4,h=\"IQNNNN!!]]!Q!IW]WQNN??!!W]WQNNN?\".charCodeAt(w/2&15|p/3<<4)/33*t-t,s=y*.98%80+y%80+(w>>7&&a*((5*t%m*a&128)*(0x53232323>>w/4&1)+(d&127)*(0xa444c444>>w/4&1)*1.5+(d*w&1)+(h%k+h*1.99%k+h*.49%k+h*.97%k-64)*(4-a-a))),s*s>>14?127:s",
+            "desc": "音乐。",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法34",
+            "short": "( ͡° ͜ʖ ͡°) by rubi",
+            "expr": "([Math.sin(t>>3),2,Math.sin(t),'2223'[3&t>>13]][3&t>>11]*t&t>>3)-20",
+            "desc": "rubi",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法35",
+            "short": "???",
+            "expr": "125E3<t?4.238*t:124375<t?.01*t:125E3<t?4.238*t:122500<t?4.757*t:12E4<t?3.364*t:118750<t?.01*t:115E3<t?3.364*t:113750<t?3.564*t:11E4<t?4*t:108750<t?.01*t:106250<t?4.757*t:105E3<t?.01*t:102500<t?4.238*t:101250<t?3.564*t:1E5<t?4.238*t:98750<t?3.564*t:97500<t?3.175*t:95E3<t?3.564*t:93750<t?4*t:91250<t?4.238*t:9E4<t?.01*t:87500<t?4.757*t:86250<t?.01*t:83750<t?4.757*t:82500<t?3.564*t:81250<t?4.238*t:8E4<t?3.564*t:78750<t?3.175*t:77500<t?.01*t:72500<t?4.757*t:71250<t?.01*t:68750<t?5.339*t:67500<t?.01*t:65E3<t?5.339*t:63750<t?3.564*t:62500<t?4.238*t:61250<t?3.564*t:6E4<t?3.175*t:52500<t?3.175*t:45E3<t?4.757*t:36250<t?4.283*t:35E3<t?5.339*t:33750<t?5.657*t:32500<t?6.35*t:25E3<t?5.656*t:2E4<t?5.04*t:18500<t?3.36*t:7500<t?5.04*t:4.236*t",
+            "desc": "音乐。",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法44",
+            "short": "viznut 1st",
+            "expr": "t*(((t>>12)|(t>>8))&(63&(t>>4)))",
+            "desc": "viznut 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法45",
+            "short": "tejeez 1st",
+            "expr": "(t*(t>>5|t>>8))>>(t>>16)",
+            "desc": "tejeez 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法46",
+            "short": "visy 1st",
+            "expr": "t*(((t>>9)|(t>>13))&(25&(t>>6)))",
+            "desc": "visy 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法47",
+            "short": "tejeez 2nd",
+            "expr": "t*(((t>>11)&(t>>8))&(123&(t>>3)))",
+            "desc": "tejeez 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法48",
+            "short": "visy 2nd",
+            "expr": "t*(t>>8*((t>>15)|(t>>8))&(20|(t>>19)*5>>t|(t>>3)))",
+            "desc": "visy 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法49",
+            "short": "tejeez 3rd",
+            "expr": "((-t&4095)*(255&t*(t&(t>>13)))>>12)+(127&t*(234&t>>8&t>>3)>>(3&t>>14))",
+            "desc": "tejeez 2011-09-18 修复：补全缺失的左括号，原表达式缺少开头的 '('",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法50",
+            "short": "Space Invaders vs Pong",
+            "expr": "t*(t>>((t>>9)|(t>>8))&(63&(t>>4)))",
+            "desc": "visy 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法51",
+            "short": "viznut 2nd",
+            "expr": "(t>>6|t|t>>(t>>16))*10+((t>>11)&7)",
+            "desc": "viznut 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法52",
+            "short": "pyryp",
+            "expr": "(function(v,t){return (v>>1)+(v>>4)+t*(((t>>16)|(t>>6))&(69&(t>>9)));})(0,t)",
+            "desc": "pyryp 2011-09-30 修复：原表达式依赖变量v的递归，现用IIFE模拟初始状态",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法53",
+            "short": "red-",
+            "expr": "(t|(t>>9|t>>7))*t&(t>>11|t>>9)",
+            "desc": "red- 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法54",
+            "short": "miiro",
+            "expr": "t*5&(t>>7)|t*3&(t*4>>10)",
+            "desc": "miiro 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法55",
+            "short": "xpansive+varjohukka",
+            "expr": "(t>>7|t|t>>6)*10+4*(t&t>>13|t>>6)",
+            "desc": "viznut 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法56",
+            "short": "skurk+raer",
+            "expr": "((t&4096)?((t*(t^t%255)|(t>>4))>>1):(t>>3)|((t&8192)?t<<2:t))",
+            "desc": "skurk+raer 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法57",
+            "short": "Lost in Space",
+            "expr": "((t*(t>>8|t>>9)&46&t>>8))^(t&t>>13|t>>6)",
+            "desc": "xpansive 2011-09-29",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法58",
+            "short": "viznut 3rd",
+            "expr": "(t*5&t>>7)|(t*3&t>>10)",
+            "desc": "viznut 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法59",
+            "short": "bst",
+            "expr": "(Math.floor(t/1e7*t*t+t)%127|t>>4|t>>5|t%127+(t>>16)|t)",
+            "desc": "bst 2011-10-10 修复：将C语言的(int)强制转换替换为Math.floor",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法60",
+            "short": "kb 44kHz",
+            "expr": "((t/2*(15&(0x234568a0>>(t>>8&28))))|t/2>>(t>>11)^t>>12)+(t/16&t&24)",
+            "desc": "kb 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法61",
+            "short": "viznut 4th",
+            "expr": "(t&t%255)-(t*3&t>>13&t>>6)",
+            "desc": "viznut 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法62",
+            "short": "droid",
+            "expr": "t>>4|t&((t>>5)/((t>>7-(t>>15))&(-t>>7-(t>>15))))",
+            "desc": "droid 2011-10-10 修复：添加括号明确除法与位运算的优先级",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法63",
+            "short": "ryg 44.1kHz",
+            "expr": "((t*(\"36364689\"[t>>13&7]&15))/12&128)+(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127)",
+            "desc": "ryg 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法64",
+            "short": "stephth",
+            "expr": "(t*9&t>>4|t*5&t>>7|t*3&t/1024)-1",
+            "desc": "stephth 2011-10-03",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法65",
+            "short": "Dante's Inferno short",
+            "expr": "((t*(t>>12)&(201*t/100)&(199*t/100))&(t*(t>>14)&(t*301/100)&(t*399/100)))+((t*(t>>16)&(t*202/100)&(t*198/100))-(t*(t>>17)&(t*302/100)&(t*298/100)))",
+            "desc": "viznut+oasiz 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法66",
+            "short": "Dante's Inferno long",
+            "expr": "((t*(t>>12)&(201*t/100)&(199*t/100))&(t*(t>>14)&(t*301/100)&(t*399/100)))+((t*(t>>16)&(t*202/100)&(t*198/100))-(t*(t>>18)&(t*302/100)&(t*298/100)))",
+            "desc": "viznut+oasiz 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法67",
+            "short": "216",
+            "expr": "t*(t^t+(t>>15|1)^(t-1280^t)>>10)",
+            "desc": "216 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法68",
+            "short": "mu6k 32kHz",
+            "expr": "(3e3/(y=t&16383)&1)*35 +(x=t*\"6689\"[t>>16&3]/24&127)*y/4e4 +((t>>8^t>>10|t>>14|x)&63)",
+            "desc": "mu6k",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法69",
+            "short": "harism",
+            "expr": "((t>>1%128)+20)*3*t>>14*t>>18",
+            "desc": "harism 2011-10-09",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法70",
+            "short": "tangent128",
+            "expr": "t*(((t>>9)&10)|((t>>11)&24)^((t>>10)&15&(t>>15)))",
+            "desc": "tangent128 2011-10-09",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法71",
+            "short": "ultrageranium",
+            "expr": "(t*t/256)&(t>>((t/1024)%16))^t%64*(0xC0D3DE4D69>>(t>>9&30)&t%32)*t>>18",
+            "desc": "ultrageranium 2011-10-12",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法72",
+            "short": "plain sawtooth",
+            "expr": "t",
+            "desc": "trivial minimum",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法73",
+            "short": "minimal sierpinski",
+            "expr": "t&t>>8",
+            "desc": "minimal sierpinski harmony",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法74",
+            "short": "the 42 melody",
+            "expr": "t*(42&t>>10)",
+            "desc": "separately discovered by several people",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法75",
+            "short": "fractal trees",
+            "expr": "t|t%255|t%257",
+            "desc": "danharaj 2011-10-03, 216's version",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法76",
+            "short": "droid",
+            "expr": "t>>6&1?t>>5:-t>>4",
+            "desc": "droid 2011-10-05",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法77",
+            "short": "Niklas_Roy",
+            "expr": "t*(t>>9|t>>13)&16",
+            "desc": "Niklas_Roy 2011-10-14",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法78",
+            "short": "krcko",
+            "expr": "(t&t>>12)*(t>>4|t>>8)",
+            "desc": "krcko 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法79",
+            "short": "viznut 5th",
+            "expr": "(t*5&t>>7)|(t*3&t>>10)",
+            "desc": "viznut 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法80",
+            "short": "tejeez 4th",
+            "expr": "(t*(t>>5|t>>8))>>(t>>16)",
+            "desc": "tejeez 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法81",
+            "short": "miiro",
+            "expr": "t*5&(t>>7)|t*3&(t*4>>10)",
+            "desc": "miiro 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法82",
+            "short": "robert",
+            "expr": "(t>>13|t%24)&(t>>7|t%19)",
+            "desc": "robert 2011-10-11",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法83",
+            "short": "Niklas_Roy 2nd",
+            "expr": "(t*((t>>9|t>>13)&15))&129",
+            "desc": "Niklas_Roy 2011-10-14",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法84",
+            "short": "viznut 6th",
+            "expr": "(t&t%255)-(t*3&t>>13&t>>6)",
+            "desc": "viznut 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法85",
+            "short": "krcko 2nd",
+            "expr": "(t&t>>12)*(t>>4|t>>8)^t>>6",
+            "desc": "krcko 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法86",
+            "short": "blueberry 11kHz",
+            "expr": "t*(((t>>9)^((t>>9)-1)^1)%13)",
+            "desc": "blueberry 2011-10-05",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法87",
+            "short": "rrola optimized",
+            "expr": "t*(0xCA98>>(t>>9&14)&15)|t>>8",
+            "desc": "rrola 2011-10-04 optimized by ryg",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法88",
+            "short": "mr. arpeggiator",
+            "expr": "(t/8)>>(t>>9)*t/((t>>14&3)+4)",
+            "desc": "tonic 2011-10-01",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法89",
+            "short": "FreeFull",
+            "expr": "(~t/100|(t*3))^(t*3&(t>>5))&t",
+            "desc": "FreeFull 2011-10-12",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法90",
+            "short": "red-",
+            "expr": "(t|(t>>9|t>>7))*t&(t>>11|t>>9)",
+            "desc": "red- 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法91",
+            "short": "harism",
+            "expr": "((t>>1%128)+20)*3*t>>14*t>>18",
+            "desc": "harism 2011-10-09",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法92",
+            "short": "droid",
+            "expr": "t&(Math.sin(t&t&3)*t>>5)/(t>>3&t>>6)",
+            "desc": "droid 2011-10-04 修复：将sin函数加上Math.前缀",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法93",
+            "short": "viznut 1st",
+            "expr": "t*(((t>>12)|(t>>8))&(63&(t>>4)))",
+            "desc": "viznut 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法94",
+            "short": "visy 1st",
+            "expr": "t*(((t>>9)|(t>>13))&(25&(t>>6)))",
+            "desc": "visy 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法95",
+            "short": "216",
+            "expr": "t*(t^t+(t>>15|1)^(t-1280^t)>>10)",
+            "desc": "216 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法96",
+            "short": "tejeez 2nd",
+            "expr": "t*(((t>>11)&(t>>8))&(123&(t>>3)))",
+            "desc": "tejeez 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法97",
+            "short": "xpansive+varjohukka",
+            "expr": "(t>>7|t|t>>6)*10+4*(t&t>>13|t>>6)",
+            "desc": "viznut 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法98",
+            "short": "stephth",
+            "expr": "(t*9&t>>4|t*5&t>>7|t*3&t/1024)-1",
+            "desc": "stephth 2011-10-03",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法99",
+            "short": "Space Invaders vs Pong",
+            "expr": "t*(t>>((t>>9)|(t>>8))&(63&(t>>4)))",
+            "desc": "visy 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法100",
+            "short": "viznut 2nd",
+            "expr": "(t>>6|t|t>>(t>>16))*10+((t>>11)&7)",
+            "desc": "viznut 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法101",
+            "short": "yumeji",
+            "expr": "(t>>1)*(0xbad2dea1>>(t>>13)&3)|t>>5",
+            "desc": "yumeji 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法102",
+            "short": "ryg",
+            "expr": "(t>>4)*(13&(0x8898a989>>(t>>11&30)))",
+            "desc": "ryg 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法103",
+            "short": "marmakoide",
+            "expr": "(t>>(t&7))|(t<<(t&42))|(t>>7)|(t<<5)",
+            "desc": "marmakoide 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法104",
+            "short": "robert",
+            "expr": "(t>>7|t%45)&(t>>8|t%35)&(t>>11|t%20)",
+            "desc": "robert 2011-10-11",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法105",
+            "short": "lucasvb",
+            "expr": "(t>>6|t<<1)+(t>>5|t<<3|t>>3)|t>>2|t<<1",
+            "desc": "lucasvb 2011-10-03",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法106",
+            "short": "bear @ celephais",
+            "expr": "t+(t&t^t>>6)-t*((t>>9)&(t%16?2:6)&t>>9)",
+            "desc": "bear @ celephais",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法107",
+            "short": "Lost in Space",
+            "expr": "((t*(t>>8|t>>9)&46&t>>8))^(t&t>>13|t>>6)",
+            "desc": "xpansive 2011-09-29",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法108",
+            "short": "rez js-only optimized",
+            "expr": "t*(1+\"4451\"[t>>13&3]/10)&t>>9+(t*0.003&3)",
+            "desc": "rez 2011-10-05 optimized by ryg",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法109",
+            "short": "Lemmings March",
+            "expr": "(t>>5)|(t<<4)|((t&1023)^1981)|((t-67)>>4)",
+            "desc": "marmakoide 2011-10-03",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法110",
+            "short": "droid",
+            "expr": "t>>4|t&((t>>5)/((t>>7-(t>>15))&(-t>>7-(t>>15))))",
+            "desc": "droid 2011-10-04 修复：添加括号明确除法优先级",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法111",
+            "short": "rez",
+            "expr": "t*(t/256)-t*(t/255)+t*(t>>5|t>>6|t<<2&t>>1)",
+            "desc": "rez 2011-10-03",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法112",
+            "short": "moon scanner generalization",
+            "expr": "((t>>5&t)-(t>>5)+(t>>5&t))+(t*((t>>14)&14))",
+            "desc": "viznut 2011-10-06 based on jaffa's formula",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法113",
+            "short": "viznut",
+            "expr": "(t*((3+(1^t>>10&5))*(5+(3&t>>14))))>>(t>>8&3)",
+            "desc": "viznut 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法114",
+            "short": "droid",
+            "expr": "t>>4|t&((t>>5)/((t>>7-(t>>15))&(-t>>7-(t>>15))))",
+            "desc": "droid 2011-10-10 修复：将DIV替换为标准除法/",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法115",
+            "short": "pyryp",
+            "expr": "(function(v,t){return (v>>1)+(v>>4)+t*(((t>>16)|(t>>6))&(69&(t>>9)));})(0,t)",
+            "desc": "pyryp 2011-09-30 修复：用IIFE处理递归变量v",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法116",
+            "short": "bst",
+            "expr": "(Math.floor(t/1e7*t*t+t)%127|t>>4|t>>5|t%127+(t>>16)|t)",
+            "desc": "bst 2011-10-10 修复：将(int)替换为Math.floor",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法117",
+            "short": "tangent128",
+            "expr": "t*(((t>>9)&10)|((t>>11)&24)^((t>>10)&15&(t>>15)))",
+            "desc": "tangent128 2011-10-09",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法118",
+            "short": "tejeez",
+            "expr": "(~t>>2)*((127&t*(7&t>>10))<(245&t*(2+(5&t>>14))))",
+            "desc": "tejeez 2011-10-05",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法119",
+            "short": "lokori",
+            "expr": "(t+(t>>2)|(t>>5))+(t>>3)|((t>>13)|(t>>7)|(t>>11))",
+            "desc": "lokori 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法120",
+            "short": "visy",
+            "expr": "t*(t>>8*((t>>15)|(t>>8))&(20|(t>>19)*5>>t|(t>>3)))",
+            "desc": "visy 2011-09-18",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法121",
+            "short": "Aaron_Krister_Johnson",
+            "expr": "(t>>4)|(t%10)|(((t%101)|(t>>14))&((t>>7)|(t*t%17)))",
+            "desc": "Aaron_Krister_Johnson 2011-10-14",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法122",
+            "short": "jounim",
+            "expr": "((t&((t>>5)))+(t|((t>>7))))&(t>>6)|(t>>5)&(t*(t>>7))",
+            "desc": "jounim 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法123",
+            "short": "spikey",
+            "expr": "((t&((t>>23)))+(t|(t>>2)))&(t>>3)|(t>>5)&(t*(t>>7))",
+            "desc": "spikey 2011-10-04 based on jounim's formula",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法124",
+            "short": "akx",
+            "expr": "(((((t*((t>>9|t>>13)&15))&255/15)*9)%(1<<7))<<2)%6<<4",
+            "desc": "akx 2011-10-05",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法125",
+            "short": "bst",
+            "expr": "((t%42)*(t>>4)|(0x15483113)-(t>>4))/(t>>16)^(t|(t>>4))",
+            "desc": "bst 2011-10-05",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法126",
+            "short": "skurk",
+            "expr": "t*(t>>((t&4096)?((t*t)/4096):(t/4096)))|(t<<(t/256))|(t>>4)",
+            "desc": "skurk 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法127",
+            "short": "skurk+raer",
+            "expr": "((t&4096)?((t*(t^t%255)|(t>>4))>>1):(t>>3)|((t&8192)?t<<2:t))",
+            "desc": "skurk+raer 2011-09-30",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法128",
+            "short": "badbeats & safe",
+            "expr": "t*((0xbadbea75>>((t>>12)&30)&3)*0.25*(0x5afe5>>((t>>16)&28)&3))",
+            "desc": "yumeji 2011-10-06",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法129",
+            "short": "bst",
+            "expr": "t>>16|((t>>4)%16)|((t>>4)%192)|(t*t%64)|(t*t%96)|(t>>16)*(t|t>>5)",
+            "desc": "bst 2011-10-11",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法130",
+            "short": "bear @ celephais",
+            "expr": "t>>6^t&37|t+(t^t>>11)-t*((t%24?2:6)&t>>11)^t<<1&(t&598?t>>4:t>>10)",
+            "desc": "bear @ celephais",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法131",
+            "short": "kb 44kHz",
+            "expr": "((t/2*(15&(0x234568a0>>(t>>8&28))))|t/2>>(t>>11)^t>>12)+(t/16&t&24)",
+            "desc": "kb 2011-10-04",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法132",
+            "short": "bst",
+            "expr": "(t>>5)|(t>>4)|((t%42)*(t>>4)|(0x15483113)-(t>>4))/(t>>16)^(t|(t>>4))",
+            "desc": "bst 2011-10-05",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法133",
+            "short": "tejeez 3rd",
+            "expr": "((-t&4095)*(255&t*(t&(t>>13)))>>12)+(127&t*(234&t>>8&t>>3)>>(3&t>>14))",
+            "desc": "tejeez 2011-09-18 修复：补全缺失的左括号",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法134",
+            "short": "ultrageranium",
+            "expr": "(t*t/256)&(t>>((t/1024)%16))^t%64*(0xC0D3DE4D69>>(t>>9&30)&t%32)*t>>18",
+            "desc": "ultrageranium 2011-10-12",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法135",
+            "short": "visy",
+            "expr": "(t%25-(t>>2|t*15|t%227)-t>>3)|((t>>5)&(t<<5)*1663|(t>>3)%1544)/(t%17|t%2048)",
+            "desc": "visy 2011-10-06",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法136",
+            "short": "ryg 44.1kHz",
+            "expr": "((t*(\"36364689\"[t>>13&7]&15))/12&128)+(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127)",
+            "desc": "ryg 2011-10-10",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法137",
+            "short": "mu6k 32kHz",
+            "expr": "(3e3/(y=t&16383)&1)*35 +(x=t*\"6689\"[t>>16&3]/24&127)*y/4e4 +((t>>8^t>>10|t>>14|x)&63)",
+            "desc": "mu6k",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法138",
+            "short": "Ola",
+            "expr": "((1-(((t+10)>>((t>>9)&((t>>14))))&(t>>4&-2)))*2)*(((t>>10)^((t+((t>>6)&127))>>10))&1)*32+128",
+            "desc": "Ola 2011-10-11",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法140",
+            "short": "Zara1287",
+            "expr": "t>>2|(0xC098C098>>(t>>10))*t|t>>10",
+            "desc": "Zara1287 2024-02-27",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法141",
+            "short": "ryg",
+            "expr": "((t>>4)*(13&(0x8898a989>>(t>>11&30)))&255)+((((t>>9|(t>>2)|t>>8)*10+4*((t>>2)&t>>15|t>>8))&255)>>1)",
+            "desc": "ryg 2011-10-04 (mono output)",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法142",
+            "short": "gasman js-only",
+            "expr": "(t<<3)*[8/9,1,9/8,6/5,4/3,3/2,0][[0xd2d2c8,0xce4088,0xca32c8,0x8e4009][t>>14&3]>>(0x3dbe4688>>((t>>10&15)>9?18:t>>10&15)*3&7)*3&7]",
+            "desc": "gasman 2011-10-05",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法143",
+            "short": "a1k0n js-only",
+            "expr": "(function(t){var SS=function(s,o,r,p){var c=s.charCodeAt((t>>r)%p);return c==32?0:31&t*Math.pow(2,c/12-o)}; return SS(\"0 0     7 7     037:<<\",6,10,32) + (t&4096?SS(\"037\",4,8,3)*(4096-(t&4095))>>12 : 0);})(t)",
+            "desc": "a1k0n 修复：将SS函数封装在IIFE内，避免全局变量污染",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法144",
+            "short": "mu6k Long-line Theory",
+            "expr": "w=t>>9,k=32,m=2048,a=1-t/m%1,d=(14*t*t^t)%m*a,y=[3,3,4.7,2][p=w/k&3]*t/4,h=\"IQNNNN!!]]!Q!IW]WQNN??!!W]WQNNN?\".charCodeAt(w/2&15|p/3<<4)/33*t-t,s=y*.98%80+y%80+(w>>7&&a*((5*t%m*a&128)*(0x53232323>>w/4&1)+(d&127)*(0xa444c444>>w/4&1)*1.5+(d*w&1)+(h%k+h*1.99%k+h*.49%k+h*.97%k-64)*(4-a-a))),s*s>>14?127:s",
+            "desc": "mu6k 2011-10-10 optimized by ryg, p01",
+            "channel": "mono"
+        }],
+    "stereo": [{
+        "name": "立体声1",
+        "short": "立体声1",
+        "expr": "[t*((t>>12)&15)&255,(t*((t>>10)&31))&255]",
+        "desc": "左右声道分离",
+        "channel": "stereo"
+    },
+        {
+            "name": "立体声2",
+            "short": "立体声2",
+            "expr": "[t*(t>>8&t>>4)&127,(t*(t>>7&t>>3))&127]",
+            "desc": "立体声节奏",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声3",
+            "short": "立体声3",
+            "expr": "[(t>>5|t<<4)&255,((t>>4|t<<5)&255)^127]",
+            "desc": "相位立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声4",
+            "short": "立体声4",
+            "expr": "[Math.sin(t/200)*127+128,Math.sin(t/201)*127+128]",
+            "desc": "立体声正弦波",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声5",
+            "short": "立体声5",
+            "expr": "[t & (t >> 8), (t >> 4) & (t >> 12)]",
+            "desc": "左右声道不同节奏",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声6",
+            "short": "立体声6",
+            "expr": "[t*5, t*6]",
+            "desc": "立体声声音",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声7",
+            "short": "立体声7",
+            "expr": "[t, -t]",
+            "desc": "相互抵消",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声音乐",
+            "short": "立体声音乐",
+            "expr": "[(u=10^t>>15&7,u+=3,y=(t>>11&7)/u,f=8*t*y,z=16*t/u&99|f|1.01*f,2*z),z*4]",
+            "desc": "立体",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声8",
+            "short": "立体声8",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>10^(t>>10)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+            "desc": "相位差正弦波立体声1",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声9",
+            "short": "立体声9",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>8^(t>>8)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+            "desc": "相位差正弦波立体声2",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声10",
+            "short": "立体声10",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>11^(t>>11)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+            "desc": "频率差立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声11",
+            "short": "立体声11",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%17*t)*(Math.PI)/128)*127+128]",
+            "desc": "调制参数差异立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声12",
+            "short": "立体声12",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>7^(t>>7)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+            "desc": "不同位移立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声13",
+            "short": "立体声13",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%11*t)*(Math.PI)/128)*127+128]",
+            "desc": "不同模数立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声14",
+            "short": "立体声14",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/256)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+            "desc": "不同PI系数立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声15",
+            "short": "立体声15",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t*1.1)*(Math.PI)/128)*127+128]",
+            "desc": "频率比例立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声16",
+            "short": "立体声16",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t+1000)*(Math.PI)/128)*127+128]",
+            "desc": "相位延迟立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声17",
+            "short": "立体声17",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/64)*127+128]",
+            "desc": "倍频立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声18",
+            "short": "立体声18",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>10^(t>>10)-1^1)%13*t)*(Math.PI)/256)*127+128]",
+            "desc": "双参数差异立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声19",
+            "short": "立体声19",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*63+64]",
+            "desc": "振幅差异立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声20",
+            "short": "立体声20",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>12^(t>>12)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+            "desc": "位移差异立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声21",
+            "short": "立体声21",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%19*t)*(Math.PI)/128)*127+128]",
+            "desc": "模数差异立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "立体声22",
+            "short": "立体声22",
+            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t*0.9)*(Math.PI)/128)*127+128]",
+            "desc": "轻微频率差立体声",
+            "channel": "stereo"
+        },
+        {
+            "name": "复杂算法139",
+            "short": "raer stereo 11kHz",
+            "expr": "[((t&4096)?((t*(t^t%255)|(t>>4))>>1):(t>>3)|((t&8192)?t<<2:t)), t*(((t>>9)^((t>>9)-1)^1)%13)]",
+            "desc": "raer 2011-10-07 stereo",
+            "channel": "stereo"
+        }],
+    "virus": [{
+        "name": "CIH病毒",
+        "short": "CIH",
+        "expr": "t*(t>>(t>>12&7))&63|t>>4",
+        "desc": "CIH病毒破坏音效",
+        "channel": "mono"
+    },
+        {
+            "name": "Melissa",
+            "short": "Melissa",
+            "expr": "(t>>6|t|t>>5)*23+4*(t&t>>13|t>>7)",
+            "desc": "Melissa宏病毒",
+            "channel": "mono"
+        },
+        {
+            "name": "ILOVEYOU",
+            "short": "ILOVEYOU",
+            "expr": "t*(t>>9|t>>13)&15",
+            "desc": "ILOVEYOU情书病毒",
+            "channel": "mono"
+        },
+        {
+            "name": "WannaCry",
+            "short": "WannaCry",
+            "expr": "t>>5|t>>7|t>>9|t>>11|t>>13",
+            "desc": "WannaCry勒索病毒",
+            "channel": "mono"
+        },
+        {
+            "name": "Stuxnet",
+            "short": "Stuxnet",
+            "expr": "t*(t>>7&t>>12)|t>>4&t>>9|t>>2",
+            "desc": "Stuxnet工业病毒",
+            "channel": "mono"
+        },
+        {
+            "name": "卖猴肉",
+            "short": "卖猴肉",
+            "expr": "t*((t/2>>10|t%16*t>>8)&8*t>>12&18)|-(t/16)+64",
+            "desc": "经典老牌病毒",
+            "channel": "mono"
+        },
+        {
+            "name": "Morris Worm",
+            "short": "Morris",
+            "expr": "t*(t>>12|t>>8)&63|t>>6",
+            "desc": "史上第一个蠕虫病毒，1988年",
+            "channel": "mono"
+        },
+        {
+            "name": "Mydoom",
+            "short": "Mydoom",
+            "expr": "t*(t>>8&t>>12)|t>>5&t>>9|t>>3",
+            "desc": "Mydoom史上最快传播蠕虫，2004年",
+            "channel": "mono"
+        },
+        {
+            "name": "Sasser",
+            "short": "Sasser",
+            "expr": "t>>4&t>>8|t>>6&t>>10|t>>2",
+            "desc": "Sasser振荡波蠕虫，2004年",
+            "channel": "mono"
+        },
+        {
+            "name": "Conficker",
+            "short": "Conficker",
+            "expr": "t*(t>>5|t>>8)&31|t>>4",
+            "desc": "Conficker Downadup蠕虫，2008年",
+            "channel": "mono"
+        },
+        {
+            "name": "Zeus",
+            "short": "Zeus",
+            "expr": "t>>5|t>>7|t>>9|t>>11|t>>13|t>>15",
+            "desc": "Zeus Zbot金融木马",
+            "channel": "mono"
+        },
+        {
+            "name": "Code Red",
+            "short": "CodeRed",
+            "expr": "t*(t>>(t>>10&5))&47|t>>3",
+            "desc": "Code Red红色代码蠕虫，2001年",
+            "channel": "mono"
+        },
+        {
+            "name": "Nimda",
+            "short": "Nimda",
+            "expr": "(t>>4|t|t>>6)*19+3*(t&t>>11|t>>8)",
+            "desc": "Nimda尼姆达蠕虫，2001年",
+            "channel": "mono"
+        },
+        {
+            "name": "SQL Slammer",
+            "short": "Slammer",
+            "expr": "t>>3|t>>5|t>>7|t>>9|t>>11",
+            "desc": "SQL Slammer蠕虫王，2003年",
+            "channel": "mono"
+        },
+        {
+            "name": "Blaster",
+            "short": "Blaster",
+            "expr": "t*(t>>6&t>>10)|t>>4&t>>8|t>>2",
+            "desc": "Blaster冲击波蠕虫，2003年",
+            "channel": "mono"
+        },
+        {
+            "name": "Sobig",
+            "short": "Sobig",
+            "expr": "t>>5&t>>9|t>>7&t>>11|t>>3",
+            "desc": "Sobig超级蠕虫，2003年",
+            "channel": "mono"
+        },
+        {
+            "name": "CryptoLocker",
+            "short": "Crypto",
+            "expr": "t*(t>>4|t>>8)&23|t>>2",
+            "desc": "CryptoLocker现代勒索病毒鼻祖，2013年",
+            "channel": "mono"
+        },
+        {
+            "name": "熊猫烧香",
+            "short": "熊猫",
+            "expr": "t*((t/3>>9|t%14*t>>7)&6*t>>11&15)|-(t/12)+48",
+            "desc": "熊猫烧香蠕虫，2007年",
+            "channel": "mono"
+        },
+        {
+            "name": "Mammer",
+            "short": "Mammer",
+            "expr": "(t>>6|t|t>>4)*17^(t>>8&t>>5)",
+            "desc": "Mammer病毒，尝试用麦克风录音做随机数",
+            "channel": "mono"
+        },
+        {
+            "name": "Careto",
+            "short": "Careto",
+            "expr": "t*(t>>11&t>>10)|(t>>4)^(t>>7)",
+            "desc": "Careto面具APT攻击平台",
+            "channel": "mono"
+        },
+        {
+            "name": "Duqu",
+            "short": "Duqu",
+            "expr": "t>>6^(t>>9)|t>>7&t>>11|t>>2",
+            "desc": "Duqu超级工厂病毒变种",
+            "channel": "mono"
+        },
+        {
+            "name": "Flame",
+            "short": "Flame",
+            "expr": "t*((t>>9|t>>13)&25|t>>6)",
+            "desc": "Flame火焰蠕虫，情报收集工具",
+            "channel": "mono"
+        },
+        {
+            "name": "REvil",
+            "short": "REvil",
+            "expr": "t*(t>>7|t>>8)&47|t>>5",
+            "desc": "REvil勒索软件即服务",
+            "channel": "mono"
+        },
+        {
+            "name": "Conti",
+            "short": "Conti",
+            "expr": "t>>3|t>>6|t>>9|t>>12|t>>15",
+            "desc": "Conti勒索病毒",
+            "channel": "mono"
+        },
+        {
+            "name": "Sub7",
+            "short": "Sub7",
+            "expr": "(t>>7|t>>10)&(t>>5|t>>15)",
+            "desc": "Sub7老牌后门木马",
+            "channel": "mono"
+        }],
+    "special": [{
+        "name": "乱码波形1",
+        "short": "乱码1",
+        "expr": "\"音频字符双用工具\".charCodeAt(t%8)*4",
+        "desc": "中文字符波形",
+        "channel": "mono"
+    },
+        {
+            "name": "乱码波形2",
+            "short": "乱码2",
+            "expr": "(\"字节\"+t).charCodeAt((t>>8)%4)",
+            "desc": "字符转音频",
+            "channel": "mono"
+        },
+        {
+            "name": "乱码波形3",
+            "short": "乱码3",
+            "expr": "\"音频字符双用工具\".charCodeAt(t%10)",
+            "desc": "中文字符波形",
+            "channel": "mono"
+        },
+        {
+            "name": "乱码波形4",
+            "short": "乱码4",
+            "expr": "Math.sin(t/50)*64+\"Bytebeat\".charCodeAt(t%8)",
+            "desc": "混合波形",
+            "channel": "mono"
+        }],
+    "fixed": [{
+        "name": "简单变量",
+        "short": "h=t/4",
+        "expr": "h=t/4; h",
+        "desc": "简单的变量声明",
+        "channel": "mono"
+    },
+        {
+            "name": "正弦波变量",
+            "short": "sin",
+            "expr": "freq=t/100; Math.sin(freq)*127+128",
+            "desc": "使用变量的正弦波",
+            "channel": "mono"
+        },
+        {
+            "name": "多个变量",
+            "short": "多变量",
+            "expr": "a=t>>8, b=t&255; a*b",
+            "desc": "多个变量声明",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂变量",
+            "short": "复杂变量",
+            "expr": "x=t>>10, y=t>>8, z=t>>6; (x*y+z)&255",
+            "desc": "复杂的变量计算",
+            "channel": "mono"
+        },
+        {
+            "name": "正弦波优化",
+            "short": "正弦优化",
+            "expr": "Math.sin(t*0.01)*127+128",
+            "desc": "优化的正弦波",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂正弦",
+            "short": "复杂正弦",
+            "expr": "f=t>>8; Math.sin(f*0.1)*63+128",
+            "desc": "频率可调正弦波",
+            "channel": "mono"
+        },
+        {
+            "name": "混合波形",
+            "short": "混合",
+            "expr": "a=t>>9; b=t&63; Math.sin(a*0.05)*b+128",
+            "desc": "混合正弦和位运算",
+            "channel": "mono"
+        },
+        {
+            "name": "正弦脉冲",
+            "short": "正弦脉冲",
+            "expr": "Math.sin(t*0.02)*((t>>10)&31)+128",
+            "desc": "正弦波带脉冲调制",
+            "channel": "mono"
+        }],
+    "custom": [{
+        "name": "My horror 20 giltch 1999",
+        "short": "Horror 20",
+        "expr": "(512/((t%16384)>>2&t%16384))<1?0:(t*2*((t>>7)&127&t>>3))",
+        "desc": "自编",
+        "channel": "mono"
+    },
+        {
+            "name": "复杂算法10",
+            "short": "复杂10",
+            "expr": "t*(42&t>>10)%4096<3072?t<<4^t*t^t>>5:t<<2^t+t^t>>2%256<128?t<<5^t<<2*t&t>>8:t&t>>8*t>>11",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法11",
+            "short": "复杂11",
+            "expr": "(t*(42&t>>10)%4096<3072?t<<4^t*t^t>>5:t<<2^t+t^t>>2%256<128?t<<5^t<<2*t&t>>8:t&t>>8*t>>11)|(t*(42&t>>10))>>4",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法13",
+            "short": "复杂13",
+            "expr": "t&4096?(t>>8&t>>7)*6:(t%231)*649",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法14",
+            "short": "chaos",
+            "expr": "t>>5*(t+(29*(t&25)?27:19)-(t^t>>7)*2)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法15",
+            "short": "42 is chaos",
+            "expr": "t>>5*(t+(29*(t&25)?27:19)-(t^t>>7)*2)|(t*(42&t>>10))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法16",
+            "short": "复杂16",
+            "expr": "t*(339*(t&19?24:37)^t>>8)^(3&72*t)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法18",
+            "short": "复杂18",
+            "expr": "t * (t >> 4 & t >> (t % 5) ^ t % 9 ? t * 9 : t ^ (5 * t)) | t >> 2 ^ ((t >> 5) % 17 ? t << 7 : t | 9)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法19",
+            "short": "复杂19",
+            "expr": "(t>>6|t)*10+4*(t|t>>13|t>>6)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法20",
+            "short": "复杂20",
+            "expr": "(t-67*(t%5?t/(t&5?34:14):(t^t*(t%2?7:6)-(29-t*(45/9|t)*39)/t-(t%27?27:97)))*3)^t>>20",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "音乐",
+            "short": "stereo pulse24",
+            "expr": "[((1+(t>>10)%7)*(t*(1+(t>>13)%4)%(24+25*(t>>14)%24)&16)*10), (167-((1+(t>>9)%8)*(t*(1+(t>>12)%4)%(24+25*(t>>14)%24)&16)*11))]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "音乐",
+            "short": "stereo Neurofunk",
+            "expr": "[t*((t&4096?7:16)+(1&t>>14))>>(3&-t>>(t&2048?2:10)), t*(t&7)+(1&t>>14)>>(3&-t>>(t&2048?2:10))]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "音乐",
+            "short": "Phase modulation stereo",
+            "expr": "[(-t-1^t>>5)+t*((t>>14&14)+1), (t+1^t>>5)+t*((t>>14&14)+1)]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "音乐2",
+            "short": "no stereo?",
+            "expr": "[93*(5^t*(6*(t|t>>7)-4*t)^4), 93*(5^t*(6*(t|t>>7)-4*t)^3)]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "复杂算法21",
+            "short": "Melody",
+            "expr": "t*(((t&32768?4:9)<<(1&t>>11))>>(3&t>>8))|t>>2",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法22",
+            "short": "Melody",
+            "expr": "t*(((t&32768?4:9)<<(1&t>>10))>>(3&t>>8))|t>>2",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法23",
+            "short": "salinewin.exe",
+            "expr": "t*((t&4096?t%65536<59392?(t&16384?5:7):t&7:16)+(1&t>>14))>>(3&-t>>(t&2048?2:10))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法24",
+            "short": "Chaos, so annoying!!!",
+            "expr": "t*((9|t)&6?8:(t&27?t/103:t<<7)/(t&25?t/103:t/173)*t>>8)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法25",
+            "short": "It's over!!!!! Still chaotic!!!!!",
+            "expr": "(((t>>10|t)<<(t&1040?t&(t>>20):t*(!((t>>2)%128))?t>>8:t*3))>>(t&0xCC99))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法26",
+            "short": "???",
+            "expr": "t*(((t>>16)&(t>>8))&(t>>4))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "Lv5(1)",
+            "short": "???",
+            "expr": "t^2",
+            "desc": "Lv5自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法27",
+            "short": "???",
+            "expr": "[t*(((t>>16)&(t>>8))&(t>>4)),t*(((t>>16)|(t>>8))&(t>>4))]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "复杂算法28",
+            "short": "Melody",
+            "expr": "t*(((t&32768?4:9)<<(1&t>>10))>>(3&t>>8))|t>>3",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法29",
+            "short": "waiiaw",
+            "expr": "(((t%(24+(t>>14)%8))<<3)*(t>>9))&128",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法30",
+            "short": "waiiaw(2)",
+            "expr": "(((t%(24+(t>>14)%8))<<3)*(t>>10))&128",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法32",
+            "short": "???",
+            "expr": "(t&16)*((1+((t>>10)%7)))*10",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "二进制",
+            "short": "binary",
+            "expr": "t>2199023255552||t<0?t&4096?t<<5:0:(Math.floor((t/4))/Math.floor(2**(((Math.floor(-t/16))&31))))&128",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法33",
+            "short": "waiiaw(3)",
+            "expr": "((((t%(24+(t>>14)%8)))*(t>>9))&16)*(1+((t>>10)%7))*10",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法36",
+            "short": "ťǝĵǝǝƶ",
+            "expr": "(t>>(t^t>>t)^t<<3)+((t*(t>>5|t>>8))>>(t>>16))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法37",
+            "short": "sine melody: B1",
+            "expr": "Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法38",
+            "short": "Two people say waiiaw mix with waiiaw(4)",
+            "expr": "[(((t%(24+(t>>14)%8))<<3)*(t>>9))&128, (((t%(24+(t>>14)%8))<<3)*(t>>10))&128]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "Emergency Alert System",
+            "short": "American standard emergency alert system.",
+            "expr": "(Math.sin(t*Math.PI/4000*853)*63)+(Math.sin(t*Math.PI/4000*960)*63)+128",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法39",
+            "short": "??????",
+            "expr": "(((((((t&4096?(((t>>5*(t&17?39:29)-32)^(t>>9)*(t&29?45:7)-(3*(t&128?37:17))+((t&1)*t>>7)%t>>5*t+(t*(t>>12&t>>8)&63&t>>4))^(t*(t>>12&t>>8)&63&t>>4))|t*((t>>12&t>>8)&63&t>>4)+(t&129?37:(t&29?184:(365*(t&(t&593?44:27)?14:1109))?406:227))*(t&33?(t>>27):116):t*(t>>(t>>10)*t))|t>>3)*(t*(t>>12&t>>8)&t>>4))|((-t-1^t>>5)+t*((t>>14&14)+1)))|((1+(t>>10)%7)*(t*(1+(t>>13)%4)%(24+9*(t>>14)%8)&16)*10)))|((t>>9^(t>>9)-1^1)%13*t))|(w=t>>9,k=32,m=2048,a=1-t/m%1,d=(14*t*t^t)%m*a,y=[3,3,4.7,2][p=w/k&3]*t/4,h=\"IQNNNN!!]]!Q!IW]WQNN??!!W]WQNNN?\".charCodeAt(w/2&15|p/3<<4)/33*t-t,s=y*.98%80+y%80+(w>>7&&a*((5*t%m*a&128)*(0x53232323>>w/4&1)+(d&127)*(0xa444c444>>w/4&1)*1.5+(d*w&1)+(h%k+h*1.99%k+h*.49%k+h*.97%k-64)*(4-a-a))),s*s>>14?127:s)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法40",
+            "short": "Melody",
+            "expr": "s=t*((((t-582&t))>>9)%14),s*(t%114688<57344?1:2)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法41",
+            "short": "SthephanShinkufag melody remix",
+            "expr": "t*(t&16384?t&262144?7:6:t&262144?8:5)*((t&524288?4:3)+(3&t>>(t&2048?7:(t&131072?12:14))))>>(3&t>>9)|t>>(t&65536?2:3)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法42",
+            "short": "AHHAHAAHAAHHAHAAH!!!!!!!!!!!!!!",
+            "expr": "(((t&256?t<<7:0)+(t>>4)+(t&2048?t&32:0)|(t&16384?t*3:0))+(t&65536?t<<7:0)|(t&131072?t*8:0))&(~t&266240?255:(t*([4, 4.8, 6, 7.1][(t>>13)&3])))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法43",
+            "short": "Melody",
+            "expr": "(t*\"6689\"[(t>>16)%4]/24*4)|t>>6^t>>8|t>>12",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "苏尔克病毒",
+            "short": "suierku",
+            "expr": "t>0?(t<100000?t+(t&t^t>>6)-t*(t>>9&(t%16?2:6)&t>>9):(h1=(t-=100000,(t<143000?(10*(t>>6|t|t>>(t>>16))+(7&t>>11)):(h2=(t-=143000,(t<128000?(t*(t&16384?6:5)*(3+(3&t>>(t&2048?7:14)))>>(3&t>>9)|t>>2):(h3=(t-=128000,(t<138000?(t*((t&4096?t%65536<59392?7:t&7:16)+(1&t>>14))>>(3&-t>>(t&2048?2:10))|t>>(t&16384?t&4096?10:3:2)):(h4=(t-=138000,(t<129000?((t>>7|t|t>>6)*10+4*(t&t>>13|t>>6)):(h5=(t-=129000,t<127000?(t*((t>>13|t>>9)&25&t>>6)):0))))))))))))))):127",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "来自bytebeat的压迫感",
+            "short": "???",
+            "expr": "(t&1024?(str=\"ffefg\\u0000feffefd\\u0000de\",(t*2**(str.charCodeAt((t>>11)%(str.length))/12-7))):0)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法145",
+            "short": "???",
+            "expr": "(25*(t<<(t&18?3:4)^t>>(t^t>>7)))>>t",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法146",
+            "short": "???",
+            "expr": "((((t*(1+(t>>13)%4)%(24+((t>>14)%8)))&16))*(t&1?5:10))*(1+(t>>10)%7)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法147",
+            "short": "???",
+            "expr": "((((t*'01343022553428281'[t>>9&15])|(t&65536?(t<<5):0))&(t&131072?(t*([4,4.8,6,7.1,3,4.5,6,7.5][(t>>13)&7])):255))^(t&262144?t>>2:0)+(t&524288?Math.sin(t/100|t>>6)*129:0)|(t&1048576 ?t>>2:0))+(t&2097152?t&t>>12|t>>6:0)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法148",
+            "short": "??? 384kHz",
+            "expr": "t%(t/((t>>9)+1))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法149",
+            "short": "Scream!!! 2026-03-07",
+            "expr": "t*(t&7)>>(3&-t>>(t&2048?2:10))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法150",
+            "short": "??? 2026-03-07",
+            "expr": "(1+((t>>10)*2^(t>>13))%15)*t|t>>5",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法151",
+            "short": "??? 2026-03-07",
+            "expr": "[4*t^(8*(t>>13))^(3*(t>>9)), (2^t*(5+(t>>7)%16)*3)^(t>>8)]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "复杂算法152",
+            "short": "remix of viznut 2026-03-07",
+            "expr": "(t>>6|t|t>>(t>>16))*2+t*8",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "AI分辨专用表达式",
+            "short": "AI thinks it is power operation, hahaha, this is too coincidental! 2026-03-07",
+            "expr": "t^t-(t>>8)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法153",
+            "short": "??? 2026-03-09",
+            "expr": "t>>(t&25?t*3:t>>10)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法154",
+            "short": "1 and (1+(t>>7)) 2026-03-09",
+            "expr": "(t|(1+(t>>7)))+1",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法155",
+            "short": "??? 2026-03-10",
+            "expr": "t*(t-((t>>19)*10)%242)*(t&4096?t%4:320)|t>>3",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法156",
+            "short": "t<<7? 2026-03-10",
+            "expr": "t&1?255:0",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法157",
+            "short": "Neurofunk remix 2026-03-10",
+            "expr": "(t*((t&4096?t%65536<59392?7:t&7:16)+(1&t>>14))>>(3&-t>>(t&2048?2:10))&(t>>3))-20",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法158",
+            "short": "i 2026-03-12",
+            "expr": "(t&4095)<2304? (((t%(24+(t>>14)%8))<<3)*(6+(t>>8&15)))&128:0",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法159",
+            "short": "Melody 2026-03-13",
+            "expr": "[(t>>9&2*t&10*t|t>>5&6*t&(t>>4|t>>5)), t&131072?(t*[8,9,10,12][(t>>11)%4]):0]",
+            "desc": "自编",
+            "channel": "stereo"
+        },
+        {
+            "name": "复杂算法160",
+            "short": "??? 2026-03-16",
+            "expr": "t*((t>>12&t>>8)&53&t>>4)^(t&t>>14|t>>6)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法161",
+            "short": "??? 2026-03-16",
+            "expr": "t&31?(t>>6&t|t>>9):(t&t>>(t&1024?t&256?5:6:8))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法162",
+            "short": "The time is running out!!! remix 2026-03-17",
+            "expr": "(t*(2&t>>13?7:5)*(3-(3&t>>9)+(3&t>>8))>>(3&-t>>(t&4096|(t>>11)%32>28?2:16))&t>>3)-20",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法163",
+            "short": "Melody 2026-03-17",
+            "expr": "t*(t&16384? 4.25: 4)*(1+(3&t>>16))|(t >>6^t>>3)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法164",
+            "short": "??? 2026-03-17",
+            "expr": "((t*(1+(t>>13)%4))%(24+((t>>14)%8))&16)*(t>>9&t>>12)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法165",
+            "short": "??? 2026-03-18",
+            "expr": "(t+(t>>(2*(t*(t&4096?16:6)%4+(24*(t%65)>>6))>>5*(t>>3&13?12:5)))^(t-(t>>4))&t>>3)>>t",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法166",
+            "short": "wiretapped remix 2026-03-20",
+            "expr": "((t>>(t>>12)%4)+t*(1+(1+(t>>16)%6)*(t>>10)*(t>>11)%8)&t>>3)-20",
+            "desc": "自编",
+            "channel": "mono"
+        }]
+}
