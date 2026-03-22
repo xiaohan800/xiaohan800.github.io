@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ------------- 以下为你原有样式，完全不动 ------------- */
+
+
         .prism-wrapper {
             position: relative;
         }
@@ -379,6 +380,40 @@
             transform: none !important;
             box-shadow: none !important;
         }
+        /* 纯CSS圆形开关 · 无JS */
+input[type="checkbox"] {
+  appearance: none;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #333; /* 关闭状态背景 */
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* 圆形白色滑块 */
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s ease;
+}
+
+/* 开启状态 */
+input[type="checkbox"]:checked {
+  background: #4DABF7; /* 开启状态背景 */
+}
+
+input[type="checkbox"]:checked::before {
+  transform: translateX(20px);
+}
+
 
         .status {
             margin-top: 19px;
@@ -1571,7 +1606,7 @@
         We have included over 100 expressions
     </p>
     <div class="img-container">
-        <img src="xuanhan800.github.io/creator.png" alt="xuanhan800">
+        <img src="xiaohan800.github.io/creator.png" alt="xiaohan800">
     </div>
 
     <div class="container">
@@ -1727,7 +1762,7 @@
         <div class="t-display-container">
             <div class="t-display-row">
                 <div class="t-display-label">
-                    当前T值（采样地址）
+                    当前t
                 </div>
                 <div class="t-display-value address-display" id="currentT">
                     0
@@ -1735,7 +1770,7 @@
             </div>
             <div class="t-display-row">
                 <div class="t-display-label">
-                    播放时间（秒）
+                    播放时间<input type="checkbox" id="timeFormat">格式化日期
                 </div>
                 <div class="t-display-value time-display" id="currentTime">
                     0
@@ -1807,7 +1842,7 @@
                 <span>振幅: <span id="waveformAmplitude">0%</span></span>
                 <span>峰值: <span id="waveformPeak">0%</span></span>
                 <span>信号: <span id="waveformSignal">静音</span></span>
-                <span>尺寸: <span id="waveformSizeDisplay" style="color: #4dabf7;">512×256</span></span>
+                <span>尺寸: <span id="waveformSizeDisplay" style="color: #4dabf7;">512×256</span></span><br>
             </div>
             <div class="waveform-controls">
                 <button onclick="toggleWaveform()" class="waveform-btn" id="waveformToggleBtn">
@@ -2068,7 +2103,7 @@
         </div>
         <div class="char-footer">
             <p>
-                <i class="fas fa-code"></i>项目版本：3.7.1
+                <i class="fas fa-code"></i>项目版本：3.8.0
             </p>
             <p>
                 <i class="fas fa-calendar"></i>最后更新：2026 年 3 月 22 日
@@ -2356,11 +2391,23 @@
         const sensitivity = 0.001;
 
         const WAVEFORM_CONFIG = {
-            WIDTH: 512, HEIGHT: 255, FPS: 30, FREQUENCY_DECAY: 0, GRID_LINES: 32, FREQUENCY_BARS: 51200,
-            MAX_FREQUENCY_VALUE: 256, MIN_FREQUENCY_VALUE: 0, SMOOTHING_TIME_CONSTANT: 0,
+            WIDTH: 512,
+            HEIGHT: 255,
+            FPS: 30,
+            FREQUENCY_DECAY: 0,
+            GRID_LINES: 32,
+            FREQUENCY_BARS: 51200,
+            MAX_FREQUENCY_VALUE: 256,
+            MIN_FREQUENCY_VALUE: 0,
+            SMOOTHING_TIME_CONSTANT: 0,
             COLORS: {
-                BACKGROUND: '#000000', WAVEFORM: '#ffffff', FREQUENCY_START: '#000000', FREQUENCY_END: '#010101',
-                GRID: '#000000', CENTER_LINE: 'rgba(255, 255, 255, 0)', TEXT: '#ffffff'
+                BACKGROUND: '#000000',
+                WAVEFORM: '#ffffff',
+                FREQUENCY_START: '#000000',
+                FREQUENCY_END: '#010101',
+                GRID: '#000000',
+                CENTER_LINE: 'rgba(255, 255, 255, 0)',
+                TEXT: '#ffffff'
             }
         };
 
@@ -3071,46 +3118,77 @@
                 }).replace(/\.?0+$/, '');
             }
         }
-        function formatFullTime(seconds) {
-            const isNegative = seconds < 0;
-            const totalMs = Math.abs(seconds) * 1000;
-            const msPerSecond = 1000,
-            msPerMinute = msPerSecond*60,
-            msPerHour = msPerMinute*60,
-            msPerDay = msPerHour*24,
-            msPerMonth = msPerDay*30,
-            msPerYear = msPerMonth*12;
-            let remain = totalMs;
-            const years = Math.floor(remain / msPerYear); remain %= msPerYear;
-            const months = Math.floor(remain / msPerMonth); remain %= msPerMonth;
-            const days = Math.floor(remain / msPerDay); remain %= msPerDay;
-            const hours = Math.floor(remain / msPerHour); remain %= msPerHour;
-            const minutes = Math.floor(remain / msPerMinute); remain %= msPerMinute;
-            const secs = Math.floor(remain / msPerSecond); remain %= msPerSecond;
-            const ms = Math.floor(remain);
-            const us = Math.round((remain - ms) * 1000);
-            const parts = [];
-            if (years > 0) parts.push(`${years}年`);
-            if (months > 0) parts.push(`${months}个月`);
-            if (days > 0) parts.push(`${days}天`);
-            if (hours > 0) parts.push(`${hours}小时`);
-            if (minutes > 0) parts.push(`${minutes}分`);
-            if (secs > 0) parts.push(`${secs}秒`);
-            if (ms > 0) parts.push(`${ms}毫秒`);
-            if (us > 0 && parts.length === 0) parts.push(`${us}微秒`);
-            let timeStr = parts.join('') || '0秒';
-            if (isNegative) timeStr = `-${timeStr}`;
-            return timeStr;
-        }
-        function updateTDisplay() {
-            if (!isPlaying) return;
-            const tValue = Math.floor(currentTValue / T_STEP) * T_STEP;
-            document.getElementById('currentT').textContent = toSmartNumber(tValue) + "t";
-            const timeInSeconds = tValue / BASE_SAMPLE_RATE;
-            if (CONFIG_DISP.ENABLED) document.getElementById('currentTime').textContent = formatFullTime(timeInSeconds);
-            else document.getElementById('currentTime').textContent = toSmartNumber(timeInSeconds);
-            animationFrameId = requestAnimationFrame(updateTDisplay);
-        }
+        // ========== 你原来的时间格式化函数不动 ==========
+function formatFullTime(seconds) {
+  const isNegative = seconds < 0;
+  const totalMs = Math.abs(seconds) * 1000;
+  const msPerSecond = 1000,
+    msPerMinute = msPerSecond * 60,
+    msPerHour = msPerMinute * 60,
+    msPerDay = msPerHour * 24,
+    msPerMonth = msPerDay * 30,
+    msPerYear = msPerMonth * 12;
+  let remain = totalMs;
+  const years = Math.floor(remain / msPerYear); remain %= msPerYear;
+  const months = Math.floor(remain / msPerMonth); remain %= msPerMonth;
+  const days = Math.floor(remain / msPerDay); remain %= msPerDay;
+  const hours = Math.floor(remain / msPerHour); remain %= msPerHour;
+  const minutes = Math.floor(remain / msPerMinute); remain %= msPerMinute;
+  const secs = Math.floor(remain / msPerSecond); remain %= msPerSecond;
+  const ms = Math.floor(remain);
+  const us = Math.round((remain - ms) * 1000);
+  const parts = [];
+  if (years > 0) parts.push(`${years}年`);
+  if (months > 0) parts.push(`${months}个月`);
+  if (days > 0) parts.push(`${days}天`);
+  if (hours > 0) parts.push(`${hours}小时`);
+  if (minutes > 0) parts.push(`${minutes}分`);
+  if (secs > 0) parts.push(`${secs}秒`);
+  if (ms > 0) parts.push(`${ms}毫秒`);
+  if (us > 0 && parts.length === 0) parts.push(`${us}微秒`);
+  let timeStr = parts.join('') || '0秒';
+  if (isNegative) timeStr = `-${timeStr}`;
+  return timeStr;
+}
+
+// ========== 读取状态 ==========
+function loadTimeFormatState() {
+  const checkbox = document.getElementById('timeFormat');
+  const saved = localStorage.getItem('timeFormatChecked');
+  checkbox.checked = saved === 'true';
+}
+
+// ========== 保存状态 ==========
+function bindTimeFormatSave() {
+  const checkbox = document.getElementById('timeFormat');
+  checkbox.addEventListener('change', function () {
+    localStorage.setItem('timeFormatChecked', checkbox.checked);
+  });
+}
+
+// ========== 你原来的更新显示函数（只改判断逻辑） ==========
+function updateTDisplay() {
+  if (!isPlaying) return;
+
+  const tValue = Math.floor(currentTValue / T_STEP) * T_STEP;
+  document.getElementById('currentT').textContent = toSmartNumber(tValue) + "t";
+
+  const timeInSeconds = tValue / BASE_SAMPLE_RATE;
+  const checkbox = document.getElementById('timeFormat');
+
+  // 勾选 → 格式化；不勾选 → 原始数字
+  if (checkbox.checked) {
+    document.getElementById('currentTime').textContent = formatFullTime(timeInSeconds);
+  } else {
+    document.getElementById('currentTime').textContent = toSmartNumber(timeInSeconds);
+  }
+
+  animationFrameId = requestAnimationFrame(updateTDisplay);
+}
+
+// ========== 启动时初始化 ==========
+loadTimeFormatState();
+bindTimeFormatSave();
 
         // ==================== 波形图 ====================
         function setCanvasFixedSize() {
@@ -3610,11 +3688,11 @@
                 ...CUSTOM_EXPRESSIONS];
             allExpressions.forEach(expr => expr.channel === 'mono' ? monoCount++: stereoChannelCount++);
             const totalCount = basicCount + advancedCount + stereoCount + virusCount + specialCount + fixedCount + customCount;
-            document.getElementById('basicCount').textContent = basicCount + ' 個'; document.getElementById('advancedCount').textContent = advancedCount + ' 個';
-            document.getElementById('stereoCount').textContent = stereoCount + ' 個'; document.getElementById('virusCount').textContent = virusCount + ' 個';
-            document.getElementById('specialCount').textContent = specialCount + ' 個'; document.getElementById('fixedCount').textContent = fixedCount + ' 個';
-            document.getElementById('customCount').textContent = customCount + ' 個'; document.getElementById('monoCount').textContent = monoCount + ' 個';
-            document.getElementById('stereoChannelCount').textContent = stereoChannelCount + ' 個'; document.getElementById('totalCount').textContent = totalCount + ' 個';
+            document.getElementById('basicCount').textContent = basicCount + '个'; document.getElementById('advancedCount').textContent = advancedCount + '个';
+            document.getElementById('stereoCount').textContent = stereoCount + '个'; document.getElementById('virusCount').textContent = virusCount + '个';
+            document.getElementById('specialCount').textContent = specialCount + '个'; document.getElementById('fixedCount').textContent = fixedCount + '个';
+            document.getElementById('customCount').textContent = customCount + '个'; document.getElementById('monoCount').textContent = monoCount + '个';
+            document.getElementById('stereoChannelCount').textContent = stereoChannelCount + '个'; document.getElementById('totalCount').textContent = totalCount + '个';
             const now = new Date(); const updateTime = now.toLocaleString('zh-CN', {
                 year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
         });
@@ -3811,7 +3889,7 @@
                             rollbackToLastValid();
                         } saveExpression();
                     },
-                        300);
+                        3);
                 }
             });
         setTimeout(() => {
@@ -3881,32 +3959,32 @@
         }
     }
 
-// ==================== 音量控制函数 ====================
-function updateVolume(value) {
-    // 确保值是数字且在有效范围内
-    let volumePercent = parseFloat(value);
-    if (isNaN(volumePercent)) volumePercent = 50;
-    volumePercent = Math.max(0, Math.min(100, volumePercent));
-    
-    // 更新全局音量值 (0-1范围)
-    currentVolume = volumePercent / 100;
-    
-    // 更新UI显示
-    const volumeValueEl = document.getElementById('volumeValue');
-    if (volumeValueEl) volumeValueEl.textContent = Math.round(volumePercent) + '%';
-    
-    // 实时更新音量节点（如果音频正在播放或已初始化）
-    if (gainNode) {
-        try {
-            gainNode.gain.value = currentVolume;
-        } catch(e) {
-            console.warn('更新音量节点失败:', e);
+    // ==================== 音量控制函数 ====================
+    function updateVolume(value) {
+        // 确保值是数字且在有效范围内
+        let volumePercent = parseFloat(value);
+        if (isNaN(volumePercent)) volumePercent = 50;
+        volumePercent = Math.max(0, Math.min(100, volumePercent));
+
+        // 更新全局音量值 (0-1范围)
+        currentVolume = volumePercent / 100;
+
+        // 更新UI显示
+        const volumeValueEl = document.getElementById('volumeValue');
+        if (volumeValueEl) volumeValueEl.textContent = Math.round(volumePercent) + '%';
+
+        // 实时更新音量节点（如果音频正在播放或已初始化）
+        if (gainNode) {
+            try {
+                gainNode.gain.value = currentVolume;
+            } catch(e) {
+                console.warn('更新音量节点失败:', e);
+            }
         }
+
+        // 保存音量设置到本地存储
+        saveToStorage(STORAGE_KEYS.VOLUME, Math.round(volumePercent).toString());
     }
-    
-    // 保存音量设置到本地存储
-    saveToStorage(STORAGE_KEYS.VOLUME, Math.round(volumePercent).toString());
-}
     // ==================== 页面初始化 ====================
     function initializePage() {
         initCodeEditor(); restoreExpression(); restoreCharacterSettings(); updateStatus(false, '準備就緒');
@@ -3981,7 +4059,8 @@ function updateVolume(value) {
         if (bytes === 0) return "0 字节"; const k = 1024; const sizes = ["B",
             "KB",
             "MB",
-            "GB"]; const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + "" + sizes[i];
+            "GB"];
+            const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + "" + sizes[i];
     }
     (function syntaxCheck() {
         setInterval(() => {
@@ -3992,18 +4071,18 @@ function updateVolume(value) {
                 if (!exprText) {
                     SyntaxValid.textContent = `表达式为空 ${byteStr}`; return;
                 }
-                const mockT = Math.floor(performance.now() * 0.375);
+                const mockT = Math.floor(performance.now() * 1);
                 const testFunc = new Function('t', `${exprText};`);
                 const testValues = [mockT,
                     mockT+100,
                     mockT+1000];
                 for (const t of testValues) testFunc(t);
-                SyntaxValid.innerHTML = `语法检查通过! ${byteStr}`;
+                SyntaxValid.innerHTML = `语法检查通过! <br>${byteStr}`;
             } catch (e) {
                 const exprText = document.getElementById('expr')?.value || '';
                 const byteCount = new Blob([exprText]).size;
                 const byteStr = formatBytes(byteCount);
-                SyntaxValid.innerHTML = `语法错误:Uncaught ${e}，所在行:${e.lineNumber || "未知"}，所在列:${e.columnNumber || "未知"}，请检查你的代码是否有拼写错误。${byteStr}`;
+                SyntaxValid.innerHTML = `语法错误:Uncaught ${e}，所在行:${e.lineNumber || "未知"}，所在列:${e.columnNumber || "未知"}，请检查你的代码是否有拼写错误。<br>${byteStr}`;
             }
         },
             15);
