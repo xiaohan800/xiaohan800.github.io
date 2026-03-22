@@ -1571,7 +1571,7 @@
         We have included over 100 expressions
     </p>
     <div class="img-container">
-        <img src="creator.png" alt="𪍲𤵗">
+        <img src="xuanhan800.github.io/creator.png" alt="xuanhan800">
     </div>
 
     <div class="container">
@@ -2068,7 +2068,7 @@
         </div>
         <div class="char-footer">
             <p>
-                <i class="fas fa-code"></i>项目版本：3.7.0
+                <i class="fas fa-code"></i>项目版本：3.7.1
             </p>
             <p>
                 <i class="fas fa-calendar"></i>最后更新：2026 年 3 月 22 日
@@ -3881,6 +3881,32 @@
         }
     }
 
+// ==================== 音量控制函数 ====================
+function updateVolume(value) {
+    // 确保值是数字且在有效范围内
+    let volumePercent = parseFloat(value);
+    if (isNaN(volumePercent)) volumePercent = 50;
+    volumePercent = Math.max(0, Math.min(100, volumePercent));
+    
+    // 更新全局音量值 (0-1范围)
+    currentVolume = volumePercent / 100;
+    
+    // 更新UI显示
+    const volumeValueEl = document.getElementById('volumeValue');
+    if (volumeValueEl) volumeValueEl.textContent = Math.round(volumePercent) + '%';
+    
+    // 实时更新音量节点（如果音频正在播放或已初始化）
+    if (gainNode) {
+        try {
+            gainNode.gain.value = currentVolume;
+        } catch(e) {
+            console.warn('更新音量节点失败:', e);
+        }
+    }
+    
+    // 保存音量设置到本地存储
+    saveToStorage(STORAGE_KEYS.VOLUME, Math.round(volumePercent).toString());
+}
     // ==================== 页面初始化 ====================
     function initializePage() {
         initCodeEditor(); restoreExpression(); restoreCharacterSettings(); updateStatus(false, '準備就緒');
