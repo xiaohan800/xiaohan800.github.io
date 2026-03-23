@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://xiaohan800.github.io;">
+    <neta name="keywords" content="bytebeat">
     <title>音频字符双用工具 - Bytebeat生成器 + Unicode字符显示器</title>
 
     <!-- 添加Prism.js CSS和JS -->
@@ -381,38 +385,40 @@
             box-shadow: none !important;
         }
         /* 纯CSS圆形开关 · 无JS */
-input[type="checkbox"] {
-  appearance: none;
-  width: 44px;
-  height: 24px;
-  border-radius: 999px;
-  background: #333; /* 关闭状态背景 */
-  position: relative;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
+        input[type="checkbox"] {
+            appearance: none;
+            width: 44px;
+            height: 24px;
+            border-radius: 999px;
+            background: #333;
+            /* 关闭状态背景 */
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
 
-/* 圆形白色滑块 */
-input[type="checkbox"]::before {
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: #fff;
-  border-radius: 50%;
-  top: 3px;
-  left: 3px;
-  transition: transform 0.2s ease;
-}
+        /* 圆形白色滑块 */
+        input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.2s ease;
+        }
 
-/* 开启状态 */
-input[type="checkbox"]:checked {
-  background: #4DABF7; /* 开启状态背景 */
-}
+        /* 开启状态 */
+        input[type="checkbox"]:checked {
+            background: #4DABF7;
+            /* 开启状态背景 */
+        }
 
-input[type="checkbox"]:checked::before {
-  transform: translateX(20px);
-}
+        input[type="checkbox"]:checked::before {
+            transform: translateX(20px);
+        }
 
 
         .status {
@@ -1123,15 +1129,15 @@ input[type="checkbox"]:checked::before {
         }
 
         .restore-btn {
-            background: #5a2d7a;
-            border-color: #ab4df7;
+            background: #ab0000;
+            border-color: #ff0000;
             padding: 8px 12px;
             font-size: 13px;
             margin-left: 10px;
         }
 
         .restore-btn:hover:not(:disabled) {
-            background: #6a3a9a;
+            background: #ff0000;
         }
 
         .speed-presets {
@@ -1584,15 +1590,21 @@ input[type="checkbox"]:checked::before {
             color: #ffb347;
         }
         .step-reset {
-            background: #5a2d7a;
-            border-color: #ab4df7;
+            background: #2d5a7a;
+            border-color: #4dabf7;
             padding: 6px 14px;
             font-size: 13px;
         }
-
+        
+        .step-reset:hover:not(:disabled){
+            background: #3a6a9a;
+        }
     </style>
 </head>
 <body>
+    <noscript>
+        请启用 JavaScript 或更换浏览器再试试
+    </noscript>
     <div class="angry-notice" id="angryNotice"></div>
     <div class="autosave-indicator" id="autosaveIndicator">
         <i class="fas fa-save"></i> 已保存
@@ -1633,6 +1645,7 @@ input[type="checkbox"]:checked::before {
                     <option value="44100">44kHz</option>
                     <option value="48000">48kHz</option>
                     <option value="64000">64kHz</option>
+                    <option value="88200">88kHz</option>
                     <option value="96000">96kHz</option>
                     <option value="128000">128kHz</option>
                     <option value="192000">192kHz</option>
@@ -1762,7 +1775,7 @@ input[type="checkbox"]:checked::before {
         <div class="t-display-container">
             <div class="t-display-row">
                 <div class="t-display-label">
-                    当前t
+                    当前t <button onclick="tLoop()">循环开始</button>
                 </div>
                 <div class="t-display-value address-display" id="currentT">
                     0
@@ -2103,10 +2116,10 @@ input[type="checkbox"]:checked::before {
         </div>
         <div class="char-footer">
             <p>
-                <i class="fas fa-code"></i>项目版本：3.8.0
+                <i class="fas fa-code"></i>项目版本：3.9.0
             </p>
             <p>
-                <i class="fas fa-calendar"></i>最后更新：2026 年 3 月 22 日
+                <i class="fas fa-calendar"></i>最后更新：2026 年 3 月 23 日
             </p>
             <p>
                 <i class="fas fa-user"></i>作者：xiaohan800
@@ -2122,12 +2135,174 @@ input[type="checkbox"]:checked::before {
             </p>
         </div>
     </div>
-    <noscript>
-        请启用 JavaScript 或更换浏览器再试试
-    </noscript>
+
     <script>
-        // ==================== 完整的 Bytebeat + Unicode 工具 JavaScript ====================
-        // 基于原始代码，新增步长控制模块（实时生效，无需重启），已移除修复语法功能
+        let bufferSize = 1024;
+        
+        let BASE_SAMPLE_RATE = 8000;
+        const TARGET_SAMPLE_RATE = 48000;
+        const $ = 3;
+        const DEFAULT_VOLUME = 0.5;
+        const fft = 4096;
+        const sensitivity = 0.001;
+        let SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE;
+        let speedMultiplier = 1.0;
+        let SCALE = 1;
+        let T_STEP = 1;
+        let audioCtx, scriptProcessor, gainNode, isPlaying = false;
+        let animationFrameId = null;
+        let isReverse = false;
+        let currentTValue = 0;
+        let currentVolume = DEFAULT_VOLUME;
+        
+        let currentExprText = 't<<7';
+        let lastValidExprText = 't<<7';
+        let exprValidationTimer = null;
+
+        let waveformCanvas, waveformCtx;
+        let analyser = null;
+        let waveformDataArray = null;
+        let waveformAnimationId = null;
+        let waveformFrameCount = 0;
+        let waveformLastTime = 0;
+        let waveformFPSLastTime = 0;
+        let waveformEnabled = true;
+        let waveformScale = 'time';
+        let waveformAmplitude = 0;
+        let waveformPeak = 0;
+        let waveformSignalDetected = false;
+
+        const Msg = `欢迎您来到该网页。此网页在计算机方面表现性能最佳，部分表达式对于超倍数可能会出出现卡住。请您放心使用如需问题，请反馈作者。群号907741735`;
+        console.log(Msg);
+
+
+
+        const WAVEFORM_CONFIG = {
+            WIDTH: 512,
+            HEIGHT: 255,
+            FPS: 50,
+            FREQUENCY_DECAY: 0,
+            GRID_LINES: 32,
+            FREQUENCY_BARS: 51200,
+            MAX_FREQUENCY_VALUE: 256,
+            MIN_FREQUENCY_VALUE: 0,
+            SMOOTHING_TIME_CONSTANT: 0,
+            COLORS: {
+                BACKGROUND: '#000000',
+                WAVEFORM: '#ffffff',
+                FREQUENCY_START: '#000000',
+                FREQUENCY_END: '#010101',
+                GRID: '#000000',
+                CENTER_LINE: 'rgba(255, 255, 255, 0)',
+                TEXT: '#ffffff'
+            }
+        }
+        const STORAGE_KEYS = {
+            EXPRESSION: 'bytebeat_expression',
+            SPEED_MULTIPLIER: 'bytebeat_speed_multiplier',
+            VOLUME: 'bytebeat_volume',
+            CHAR_INPUT: 'char_input_text',
+            CHAR_LANG: 'char_language',
+            CHAR_LOCAL: 'char_localization',
+            CHAR_STYLES: 'char_styles',
+            LAST_SAVE_TIME: 'last_save_time',
+            LAST_VALID_EXPRESSION: 'last_valid_bytebeat_expression',
+            BASE_SAMPLE_RATE: 'bytebeat_base_sample_rate',
+            T_STEP: 'bytebeat_t_step'
+        };
+        let currentValExpr = function(t) {
+            return (t << 7) & 255;
+        };
+        let currentAmpExpr = function(val) {
+            return val;
+        };
+
+
+        let frequencyDecayArray = null;
+        let previousFrequencyData = null;
+        let decaySmoothing = WAVEFORM_CONFIG.FREQUENCY_DECAY;
+
+        const charLangbank = ["en", "zh-CN", "zh-TW", "ja"];
+        const charTexts = {
+            welcome: ["Welcome to the Character Displayer!",
+                "欢迎来到字符显示器！",
+                "歡迎來到字元顯示器！",
+                "文字ディスプレーヤーへようこそ！"],
+            inputLabel: ["Please input characters:",
+                "请输入字符：",
+                "请输入字符：",
+                "文字を入力してください："],
+            interfaceLang: ["Interface language:",
+                "界面语言：",
+                "界面语言：",
+                "インターフェース言語："],
+            localization: ["Localization:",
+                "本地化：",
+                "本地化：",
+                "ローカライズ："],
+            bold: ["Bold",
+                "粗体",
+                "粗體",
+                "太字"],
+            italic: ["Italic",
+                "斜体",
+                "斜體",
+                "斜体"],
+            smcp: ["Small Caps",
+                "小型大写",
+                "小型大寫",
+                "小型大文字"],
+            zero: ["Slashed Zero",
+                "斜线零",
+                "斜線零",
+                "斜線付きゼロ"],
+            off: ["Off",
+                "关",
+                "關",
+                "オフ"],
+            on: ["On",
+                "开",
+                "開",
+                "オン"],
+            num: ["Num Forms",
+                "数字形式",
+                "數字形式",
+                "数字形式"],
+            tabular: ["Tabular",
+                "等宽",
+                "等寬",
+                "等幅"],
+            proportional: ["Proportional",
+                "比例",
+                "比例",
+                "比例"],
+            oldstyle: ["Old-Style",
+                "旧式",
+                "舊式",
+                "旧形式"],
+            ss: ["Style Sets",
+                "样式集",
+                "樣式集",
+                "スタイルセット"],
+            description: ["Unicode character display tool with multi-language support.",
+                "支持多语言的Unicode字符显示工具。",
+                "支援多語言的Unicode字元顯示工具。",
+                "多言語対応のUnicode文字表示ツール。"]
+        };
+
+        let charStyles = {
+            bold: false,
+            italic: false,
+            smcp: false,
+            zero: false,
+            num: 'tabular',
+            ss: 'default'
+        };
+        let codeEditorTextarea = null;
+        let codeEditorHighlight = null;
+        let isUpdatingCodeEditor = false;
+
+        let EXAMPLE_EXPRESSIONS = [], ADVANCED_EXPRESSIONS = [], STEREO_EXPRESSIONS = [], VIRUS_EXPRESSIONS = [], SPECIAL_EXPRESSIONS = [], FIXED_EXPRESSIONS = [], CUSTOM_EXPRESSIONS = [];
 
         const jokes = [
             "哇，Stephan Shinkufag", "哇，Chasyxx", "哇，SArpnt", "哇，Viznut",
@@ -2365,117 +2540,6 @@ input[type="checkbox"]:checked::before {
             const originalEval = window.eval;
             window.eval = function(code) {};
         })();
-
-        const Msg = `欢迎您来到该网页。此网页在计算机方面表现性能最佳，部分表达式对于超倍数可能会出出现卡住。请您放心使用如需问题，请反馈作者。群号907741735`;
-        console.log(Msg);
-
-        const STORAGE_KEYS = {
-            EXPRESSION: 'bytebeat_expression',
-            SPEED_MULTIPLIER: 'bytebeat_speed_multiplier',
-            VOLUME: 'bytebeat_volume',
-            CHAR_INPUT: 'char_input_text',
-            CHAR_LANG: 'char_language',
-            CHAR_LOCAL: 'char_localization',
-            CHAR_STYLES: 'char_styles',
-            LAST_SAVE_TIME: 'last_save_time',
-            LAST_VALID_EXPRESSION: 'last_valid_bytebeat_expression',
-            BASE_SAMPLE_RATE: 'bytebeat_base_sample_rate',
-            T_STEP: 'bytebeat_t_step'
-        };
-
-        let BASE_SAMPLE_RATE = 8000;
-        const TARGET_SAMPLE_RATE = 48000;
-        const $ = 1;
-        const DEFAULT_VOLUME = 0.5;
-        const fft = 4096;
-        const sensitivity = 0.001;
-
-        const WAVEFORM_CONFIG = {
-            WIDTH: 512,
-            HEIGHT: 255,
-            FPS: 30,
-            FREQUENCY_DECAY: 0,
-            GRID_LINES: 32,
-            FREQUENCY_BARS: 51200,
-            MAX_FREQUENCY_VALUE: 256,
-            MIN_FREQUENCY_VALUE: 0,
-            SMOOTHING_TIME_CONSTANT: 0,
-            COLORS: {
-                BACKGROUND: '#000000',
-                WAVEFORM: '#ffffff',
-                FREQUENCY_START: '#000000',
-                FREQUENCY_END: '#010101',
-                GRID: '#000000',
-                CENTER_LINE: 'rgba(255, 255, 255, 0)',
-                TEXT: '#ffffff'
-            }
-        };
-
-        let SOURCE_SAMPLE_RATE = BASE_SAMPLE_RATE;
-        let speedMultiplier = 1.0;
-        let SCALE = 1;
-        let T_STEP = 1;
-        let audioCtx, scriptProcessor, gainNode, isPlaying = false;
-        let animationFrameId = null;
-        let isReverse = false;
-        let currentTValue = 0;
-        let currentVolume = DEFAULT_VOLUME;
-        let bufferSize = 2048;
-        let currentValExpr = function(t) {
-            return (t << 7) & 255;
-        };
-        let currentAmpExpr = function(val) {
-            return val;
-        };
-        let currentExprText = 't<<7';
-        let lastValidExprText = 't<<7';
-        let exprValidationTimer = null;
-
-        let waveformCanvas, waveformCtx;
-        let analyser = null;
-        let waveformDataArray = null;
-        let waveformAnimationId = null;
-        let waveformFrameCount = 0;
-        let waveformLastTime = 0;
-        let waveformFPSLastTime = 0;
-        let waveformEnabled = true;
-        let waveformScale = 'time';
-        let waveformAmplitude = 0;
-        let waveformPeak = 0;
-        let waveformSignalDetected = false;
-
-        let frequencyDecayArray = null;
-        let previousFrequencyData = null;
-        let decaySmoothing = WAVEFORM_CONFIG.FREQUENCY_DECAY;
-
-        const charLangbank = ["en", "zh-CN", "zh-TW", "ja"];
-        const charTexts = {
-            welcome: ["Welcome to the Character Displayer!", "欢迎来到字符显示器！", "歡迎來到字元顯示器！", "文字ディスプレーヤーへようこそ！"],
-            inputLabel: ["Please input characters:", "请输入字符：", "请输入字符：", "文字を入力してください："],
-            interfaceLang: ["Interface language:", "界面语言：", "界面语言：", "インターフェース言語："],
-            localization: ["Localization:", "本地化：", "本地化：", "ローカライズ："],
-            bold: ["Bold", "粗体", "粗體", "太字"],
-            italic: ["Italic", "斜体", "斜體", "斜体"],
-            smcp: ["Small Caps", "小型大写", "小型大寫", "小型大文字"],
-            zero: ["Slashed Zero", "斜线零", "斜線零", "斜線付きゼロ"],
-            off: ["Off", "关", "關", "オフ"],
-            on: ["On", "开", "開", "オン"],
-            num: ["Num Forms", "数字形式", "數字形式", "数字形式"],
-            tabular: ["Tabular", "等宽", "等寬", "等幅"],
-            proportional: ["Proportional", "比例", "比例", "比例"],
-            oldstyle: ["Old-Style", "旧式", "舊式", "旧形式"],
-            ss: ["Style Sets", "样式集", "樣式集", "スタイルセット"],
-            description: ["Unicode character display tool with multi-language support.", "支持多语言的Unicode字符显示工具。", "支援多語言的Unicode字元顯示工具。", "多言語対応のUnicode文字表示ツール。"]
-        };
-
-        let charStyles = {
-            bold: false, italic: false, smcp: false, zero: false, num: 'tabular', ss: 'default'
-        };
-        let codeEditorTextarea = null;
-        let codeEditorHighlight = null;
-        let isUpdatingCodeEditor = false;
-
-        let EXAMPLE_EXPRESSIONS = [], ADVANCED_EXPRESSIONS = [], STEREO_EXPRESSIONS = [], VIRUS_EXPRESSIONS = [], SPECIAL_EXPRESSIONS = [], FIXED_EXPRESSIONS = [], CUSTOM_EXPRESSIONS = [];
 
         // ==================== 辅助函数 ====================
         function saveToStorage(key, value) {
@@ -2762,56 +2826,182 @@ input[type="checkbox"]:checked::before {
                     ampFunc: val => val
                 };
             }
+        }// ==================== 音频处理（修复 localStorage 读取 + 循环状态持久化） ====================// ==================== 音频处理（localStorage 持久化按钮文字 + 状态） ====================
+function createAudioProcessor(isStereo) {
+    const config = {
+        volume: currentVolume,
+        clamp: 255,
+        normalize: 127.5,
+        maxT: 10**300
+    };
+    let lastIntegerT = 0;
+    let lastL = 0, lastR = 0;
+
+    // 按钮文字映射表：mode → 按钮文本
+    const btnTextMap = {
+        0: "循环开始",
+        1: "记录终止循环",
+        2: "取消循环"
+    };
+
+    // 从 localStorage 加载循环状态（含按钮文字）
+    function loadLoopState() {
+        try {
+            const saved = localStorage.getItem('audio_loop_state');
+            if (saved) {
+                const data = JSON.parse(saved);
+                return {
+                    mode: typeof data?.mode === 'number' ? data.mode : 0,
+                    start: typeof data?.start === 'number' ? data.start : 0,
+                    end: typeof data?.end === 'number' ? data.end : 0,
+                    btnText: btnTextMap[data?.mode] || btnTextMap[0]
+                };
+            }
+        } catch (e) {
+            console.warn('Failed to load loop state:', e);
+        }
+        return { mode: 0, start: 0, end: 0, btnText: btnTextMap[0] };
+    }
+
+    // 保存到 localStorage
+    function saveLoopState() {
+        try {
+            localStorage.setItem('audio_loop_state', JSON.stringify({
+                mode: loopState.mode,
+                start: loopState.start,
+                end: loopState.end
+            }));
+        } catch (e) {
+            console.warn('Failed to save loop state:', e);
+        }
+    }
+
+    // 内部循环状态（本地持久）
+    const loopState = loadLoopState();
+    let lastIsPlaying = false;
+
+    // 启动时立即设置按钮文字
+    function initBtnText() {
+        const btn = document.querySelector('button[onclick="tLoop()"]');
+        if (btn) {
+            btn.textContent = loopState.btnText;
+        }
+    }
+    // 页面加载后立即执行
+    setTimeout(initBtnText, 0);
+
+    // 循环按钮控制
+    window.tLoop = function() {
+        const btn = document.querySelector('button[onclick="tLoop()"]');
+        if (!btn) return;
+
+        if (loopState.mode === 0) {
+            loopState.start = currentTValue;
+            loopState.mode = 1;
+        } else if (loopState.mode === 1) {
+            loopState.end = currentTValue;
+            loopState.mode = 2;
+        } else {
+            loopState.mode = 0;
         }
 
-        // ==================== 音频处理（含步长，实时生效） ====================
-        function createAudioProcessor(isStereo) {
-            const config = {
-                volume: currentVolume,
-                clamp: 255,
-                normalize: 127.5,
-                maxT: 10**300
-            };
-            let lastIntegerT = 0;
-            let lastL = 0,
-            lastR = 0;
-            return function(e) {
-                if (!isPlaying || !currentValExpr) return;
-                const outputBuffer = e.outputBuffer;
-                const bufferLength = outputBuffer.length;
-                const samplesPerBuffer = bufferLength * (SOURCE_SAMPLE_RATE / TARGET_SAMPLE_RATE);
-                const leftChannel = outputBuffer.getChannelData(0);
-                const rightChannel = outputBuffer.numberOfChannels >= 2 ? outputBuffer.getChannelData(1): leftChannel;
-                try {
-                    for (let i = 0; i < bufferLength; i++) {
-                        const t = isReverse ? currentTValue - (i / bufferLength) * samplesPerBuffer: currentTValue + (i / bufferLength) * samplesPerBuffer;
-                        // 按当前步长取整
-                        const integerT = Math.floor(t / T_STEP) * T_STEP;
-                        if (integerT !== lastIntegerT) {
-                            lastIntegerT = integerT;
-                            const rawVal = currentValExpr(integerT);
-                            let leftVal,
-                            rightVal;
-                            if (Array.isArray(rawVal) && rawVal.length >= 2) {
-                                leftVal = rawVal[0] || 0; rightVal = rawVal[1] || 0;
-                            } else {
-                                const monoVal = typeof rawVal === 'number' ? rawVal: (integerT << 7); leftVal = monoVal; rightVal = monoVal;
-                            }
-                            lastL = ((leftVal & config.clamp) / config.normalize - 1) * currentVolume;
-                            lastR = ((rightVal & config.clamp) / config.normalize - 1) * currentVolume;
-                        }
-                        leftChannel[i] = lastL;
-                        rightChannel[i] = lastR;
-                    }
-                    currentTValue = isReverse ? currentTValue - samplesPerBuffer: currentTValue + samplesPerBuffer;
-                    if (Math.abs(currentTValue) > config.maxT) currentTValue = 0;
-                } catch(err) {
-                    for (let i = 0; i < bufferLength; i++) {
-                        leftChannel[i] = 0; if (outputBuffer.numberOfChannels >= 2) rightChannel[i] = 0;
+        // 同步更新按钮文字（根据 mode 自动映射）
+        loopState.btnText = btnTextMap[loopState.mode];
+        btn.textContent = loopState.btnText;
+
+        // 保存状态到 localStorage
+        saveLoopState();
+    };
+
+    return function(e) {
+        if (!isPlaying || !currentValExpr) {
+            lastIsPlaying = false;
+            const out = e.outputBuffer;
+            const L = out.getChannelData(0);
+            const R = out.numberOfChannels >= 2 ? out.getChannelData(1) : L;
+            for (let i = 0; i < L.length; i++) {
+                L[i] = 0; if (R !== L) R[i] = 0;
+            }
+            return;
+        }
+
+        const out = e.outputBuffer;
+        const bufferLength = out.length;
+        const samplesPerBuffer = bufferLength * (SOURCE_SAMPLE_RATE / TARGET_SAMPLE_RATE);
+        const L = out.getChannelData(0);
+        const R = out.numberOfChannels >= 2 ? out.getChannelData(1) : L;
+
+        const hasLoop = loopState.mode === 2;
+
+        // 播放启动瞬间：立刻进入循环
+        const justStarted = isPlaying && !lastIsPlaying;
+        if (justStarted && hasLoop) {
+            currentTValue = isReverse ? loopState.end : loopState.start;
+        }
+        lastIsPlaying = true;
+
+        try {
+            for (let i = 0; i < bufferLength; i++) {
+                let t = isReverse
+                    ? currentTValue - (i / bufferLength) * samplesPerBuffer
+                    : currentTValue + (i / bufferLength) * samplesPerBuffer;
+
+                // 强限制在循环区间
+                if (hasLoop) {
+                    if (isReverse) {
+                        if (t < loopState.start) t = loopState.end;
+                    } else {
+                        if (t > loopState.end) t = loopState.start;
                     }
                 }
-            };
+
+                const integerT = Math.floor(t / T_STEP) * T_STEP;
+                if (integerT !== lastIntegerT) {
+                    lastIntegerT = integerT;
+                    const rawVal = currentValExpr(integerT);
+                    let leftVal, rightVal;
+                    if (Array.isArray(rawVal) && rawVal.length >= 2) {
+                        leftVal = rawVal[0] || 0;
+                        rightVal = rawVal[1] || 0;
+                    } else {
+                        const monoVal = typeof rawVal === 'number' ? rawVal : (integerT << 7);
+                        leftVal = monoVal;
+                        rightVal = monoVal;
+                    }
+                    lastL = ((leftVal & config.clamp) / config.normalize - 1) * currentVolume;
+                    lastR = ((rightVal & config.clamp) / config.normalize - 1) * currentVolume;
+                }
+
+                L[i] = lastL;
+                R[i] = lastR;
+            }
+
+            // 更新下一帧 T
+            let nextT = isReverse
+                ? currentTValue - samplesPerBuffer
+                : currentTValue + samplesPerBuffer;
+
+            if (hasLoop) {
+                if (isReverse) {
+                    if (nextT < loopState.start) nextT = loopState.end;
+                } else {
+                    if (nextT > loopState.end) nextT = loopState.start;
+                }
+            } else {
+                if (Math.abs(nextT) > config.maxT) nextT = 0;
+            }
+
+            currentTValue = nextT;
+
+        } catch (err) {
+            console.error('Audio processing error:', err);
+            for (let i = 0; i < bufferLength; i++) {
+                L[i] = 0; if (R !== L) R[i] = 0;
+            }
         }
+    };
+}
+
 
         // ==================== 表达式验证 ====================
         function validateExpression(updateUI = true) {
@@ -3050,11 +3240,51 @@ input[type="checkbox"]:checked::before {
             updateStatus(false, '已停止 - T值保留为: ' + Math.floor(currentTValue).toLocaleString());
             updateDirectionDisplay(); updateButtonStates();
         }
-        function restartAudioPlayback() {
-            if (!isPlaying) return; const wasReverse = isReverse; stopPlayback(true); setTimeout(() => {
-                isReverse = wasReverse; startAudioPlayback();
-            }, 1);
+//
+// ==================== 重启播放函数（同步保留循环状态） ====================
+function restartAudioPlayback() {
+    if (!isPlaying) return;
+    const wasReverse = isReverse;
+    // 重启前先保存当前T值，避免循环范围被破坏
+    const savedT = currentTValue;
+    stopPlayback(true);
+    setTimeout(() => {
+        isReverse = wasReverse;
+        // 恢复T值后，立即应用循环范围限制
+        currentTValue = savedT;
+
+        // 先从 localStorage 加载最新的循环状态（兼容 createAudioProcessor 里的存储）
+        let loopState = { mode: 0, start: 0, end: 0 };
+        try {
+            const saved = localStorage.getItem('audio_loop_state');
+            if (saved) {
+                const data = JSON.parse(saved);
+                loopState = {
+                    mode: typeof data?.mode === 'number' ? data.mode : 0,
+                    start: typeof data?.start === 'number' ? data.start : 0,
+                    end: typeof data?.end === 'number' ? data.end : 0
+                };
+            }
+        } catch (e) {
+            console.warn('Failed to load loop state in restartAudioPlayback:', e);
         }
+
+        // 只有循环模式为2时才做边界限制
+        if (loopState.mode === 2) {
+            if (isReverse) {
+                // 倒放：确保在循环区间内
+                if (currentTValue < loopState.start) currentTValue = loopState.end;
+                if (currentTValue > loopState.end) currentTValue = loopState.end;
+            } else {
+                // 正放：确保在循环区间内
+                if (currentTValue > loopState.end) currentTValue = loopState.start;
+                if (currentTValue < loopState.start) currentTValue = loopState.start;
+            }
+        }
+        startAudioPlayback();
+    }, 1);
+}
+
         function startPlayback() {
             if (isPlaying && !isReverse) return; if (!validateExpression(false)) {
                 updateStatus(false, '表达式错误，无法播放'); return;
@@ -3119,76 +3349,76 @@ input[type="checkbox"]:checked::before {
             }
         }
         // ========== 你原来的时间格式化函数不动 ==========
-function formatFullTime(seconds) {
-  const isNegative = seconds < 0;
-  const totalMs = Math.abs(seconds) * 1000;
-  const msPerSecond = 1000,
-    msPerMinute = msPerSecond * 60,
-    msPerHour = msPerMinute * 60,
-    msPerDay = msPerHour * 24,
-    msPerMonth = msPerDay * 30,
-    msPerYear = msPerMonth * 12;
-  let remain = totalMs;
-  const years = Math.floor(remain / msPerYear); remain %= msPerYear;
-  const months = Math.floor(remain / msPerMonth); remain %= msPerMonth;
-  const days = Math.floor(remain / msPerDay); remain %= msPerDay;
-  const hours = Math.floor(remain / msPerHour); remain %= msPerHour;
-  const minutes = Math.floor(remain / msPerMinute); remain %= msPerMinute;
-  const secs = Math.floor(remain / msPerSecond); remain %= msPerSecond;
-  const ms = Math.floor(remain);
-  const us = Math.round((remain - ms) * 1000);
-  const parts = [];
-  if (years > 0) parts.push(`${years}年`);
-  if (months > 0) parts.push(`${months}个月`);
-  if (days > 0) parts.push(`${days}天`);
-  if (hours > 0) parts.push(`${hours}小时`);
-  if (minutes > 0) parts.push(`${minutes}分`);
-  if (secs > 0) parts.push(`${secs}秒`);
-  if (ms > 0) parts.push(`${ms}毫秒`);
-  if (us > 0 && parts.length === 0) parts.push(`${us}微秒`);
-  let timeStr = parts.join('') || '0秒';
-  if (isNegative) timeStr = `-${timeStr}`;
-  return timeStr;
-}
+        function formatFullTime(seconds) {
+            const isNegative = seconds < 0;
+            const totalMs = Math.abs(seconds) * 1000;
+            const msPerSecond = 1000,
+            msPerMinute = msPerSecond * 60,
+            msPerHour = msPerMinute * 60,
+            msPerDay = msPerHour * 24,
+            msPerMonth = msPerDay * 30,
+            msPerYear = msPerMonth * 12;
+            let remain = totalMs;
+            const years = Math.floor(remain / msPerYear); remain %= msPerYear;
+            const months = Math.floor(remain / msPerMonth); remain %= msPerMonth;
+            const days = Math.floor(remain / msPerDay); remain %= msPerDay;
+            const hours = Math.floor(remain / msPerHour); remain %= msPerHour;
+            const minutes = Math.floor(remain / msPerMinute); remain %= msPerMinute;
+            const secs = Math.floor(remain / msPerSecond); remain %= msPerSecond;
+            const ms = Math.floor(remain);
+            const us = Math.round((remain - ms) * 1000);
+            const parts = [];
+            if (years > 0) parts.push(`${years}年`);
+            if (months > 0) parts.push(`${months}个月`);
+            if (days > 0) parts.push(`${days}天`);
+            if (hours > 0) parts.push(`${hours}小时`);
+            if (minutes > 0) parts.push(`${minutes}分`);
+            if (secs > 0) parts.push(`${secs}秒`);
+            if (ms > 0) parts.push(`${ms}毫秒`);
+            if (us > 0 && parts.length === 0) parts.push(`${us}微秒`);
+            let timeStr = parts.join('') || '0秒';
+            if (isNegative) timeStr = `-${timeStr}`;
+            return timeStr;
+        }
 
-// ========== 读取状态 ==========
-function loadTimeFormatState() {
-  const checkbox = document.getElementById('timeFormat');
-  const saved = localStorage.getItem('timeFormatChecked');
-  checkbox.checked = saved === 'true';
-}
+        // ========== 读取状态 ==========
+        function loadTimeFormatState() {
+            const checkbox = document.getElementById('timeFormat');
+            const saved = localStorage.getItem('timeFormatChecked');
+            checkbox.checked = saved === 'true';
+        }
 
-// ========== 保存状态 ==========
-function bindTimeFormatSave() {
-  const checkbox = document.getElementById('timeFormat');
-  checkbox.addEventListener('change', function () {
-    localStorage.setItem('timeFormatChecked', checkbox.checked);
-  });
-}
+        // ========== 保存状态 ==========
+        function bindTimeFormatSave() {
+            const checkbox = document.getElementById('timeFormat');
+            checkbox.addEventListener('change', function () {
+                localStorage.setItem('timeFormatChecked', checkbox.checked);
+            });
+        }
 
-// ========== 你原来的更新显示函数（只改判断逻辑） ==========
-function updateTDisplay() {
-  if (!isPlaying) return;
+        // ========== 你原来的更新显示函数（只改判断逻辑） ==========
+        function updateTDisplay() {
+            if (!isPlaying) return;
 
-  const tValue = Math.floor(currentTValue / T_STEP) * T_STEP;
-  document.getElementById('currentT').textContent = toSmartNumber(tValue) + "t";
+            const tValue = Math.floor(currentTValue / T_STEP) * T_STEP;
+            document.getElementById('currentT').textContent = toSmartNumber(tValue) + "t";
 
-  const timeInSeconds = tValue / BASE_SAMPLE_RATE;
-  const checkbox = document.getElementById('timeFormat');
+            const timeInSeconds = tValue / BASE_SAMPLE_RATE;
+            const checkbox = document.getElementById('timeFormat');
 
-  // 勾选 → 格式化；不勾选 → 原始数字
-  if (checkbox.checked) {
-    document.getElementById('currentTime').textContent = formatFullTime(timeInSeconds);
-  } else {
-    document.getElementById('currentTime').textContent = toSmartNumber(timeInSeconds);
-  }
+            // 勾选 → 格式化；不勾选 → 原始数字
+            if (checkbox.checked) {
+                document.getElementById('currentTime').textContent = formatFullTime(timeInSeconds);
+            } else {
+                document.getElementById('currentTime').textContent = toSmartNumber(timeInSeconds);
+            }
 
-  animationFrameId = requestAnimationFrame(updateTDisplay);
-}
+            animationFrameId = requestAnimationFrame(updateTDisplay);
+        }
 
-// ========== 启动时初始化 ==========
-loadTimeFormatState();
-bindTimeFormatSave();
+        // ========== 启动时初始化 ==========
+        loadTimeFormatState();
+        bindTimeFormatSave();
 
         // ==================== 波形图 ====================
         function setCanvasFixedSize() {
@@ -3255,7 +3485,7 @@ bindTimeFormatSave();
         function drawTimeWaveform(dataArray) {
             drawWaveformGrid();
             waveformCtx.strokeStyle = WAVEFORM_CONFIG.COLORS.WAVEFORM;
-            waveformCtx.lineWidth = 1;
+            waveformCtx.lineWidth = $;
             waveformCtx.beginPath();
             const sliceWidth = WAVEFORM_CONFIG.WIDTH / dataArray.length;
             let x = 0;
@@ -4060,7 +4290,7 @@ bindTimeFormatSave();
             "KB",
             "MB",
             "GB"];
-            const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + "" + sizes[i];
+        const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + "" + sizes[i];
     }
     (function syntaxCheck() {
         setInterval(() => {
@@ -4091,7 +4321,11 @@ bindTimeFormatSave();
     // 心跳（保留）
     let isBlock = false;
     setTimeout(function tick() {
-        isBlock = false; const start = Date.now(); while (Date.now() - start < 1) {} isBlock = true; setTimeout(tick, 6690);
+        isBlock = false;
+        const start = Date.now();
+        while (Date.now() - start < 23) {}
+        isBlock = true;
+        setTimeout(tick, 6699);
     }, 1000);
     console.log("js所有逻辑加载完成");
 </script>
