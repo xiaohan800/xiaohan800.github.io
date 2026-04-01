@@ -1097,378 +1097,2786 @@
             "expr": "w=t>>9,k=32,m=2048,a=1-t/m%1,d=(14*t*t^t)%m*a,y=[3,3,4.7,2][p=w/k&3]*t/4,h=\"IQNNNN!!]]!Q!IW]WQNN??!!W]WQNNN?\".charCodeAt(w/2&15|p/3<<4)/33*t-t,s=y*.98%80+y%80+(w>>7&&a*((5*t%m*a&128)*(0x53232323>>w/4&1)+(d&127)*(0xa444c444>>w/4&1)*1.5+(d*w&1)+(h%k+h*1.99%k+h*.49%k+h*.97%k-64)*(4-a-a))),s*s>>14?127:s",
             "desc": "mu6k 2011-10-10 optimized by ryg, p01",
             "channel": "mono"
-        }],
-    "stereo": [{
-        "name": "立体声1",
-        "short": "立体声1",
-        "expr": "[t*((t>>12)&15)&255,(t*((t>>10)&31))&255]",
-        "desc": "左右声道分离",
-        "channel": "stereo"
+        },
+        {
+      "name": "复杂算法176",
+      "short": "SArpnt",
+      "expr": "(()=>{let h=t*[0.5,0.6,0.57,0.53][Math.floor(t/44000)%4];return ((h & (h * -2.5 + Math.sin(t/10000) * 100)) % 256 * -Math.cos(t/20000000 + 1.61)) - 10;})()",
+      "desc": "SArpnt 2020-05-09 修复：数组索引、三角函数、位运算优先级",
+      "channel": "mono"
+    }],
+   
+  "stereo": [
+    {
+      "name": "立体声1",
+      "short": "立体声1",
+      "expr": "[t*((t>>12)&15)&255,(t*((t>>10)&31))&255]",
+      "desc": "左右声道分离",
+      "channel": "stereo"
     },
-        {
-            "name": "立体声2",
-            "short": "立体声2",
-            "expr": "[t*(t>>8&t>>4)&127,(t*(t>>7&t>>3))&127]",
-            "desc": "立体声节奏",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声3",
-            "short": "立体声3",
-            "expr": "[(t>>5|t<<4)&255,((t>>4|t<<5)&255)^127]",
-            "desc": "相位立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声4",
-            "short": "立体声4",
-            "expr": "[Math.sin(t/200)*127+128,Math.sin(t/201)*127+128]",
-            "desc": "立体声正弦波",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声5",
-            "short": "立体声5",
-            "expr": "[t & (t >> 8), (t >> 4) & (t >> 12)]",
-            "desc": "左右声道不同节奏",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声6",
-            "short": "立体声6",
-            "expr": "[t*5, t*6]",
-            "desc": "立体声声音",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声7",
-            "short": "立体声7",
-            "expr": "[t, -t]",
-            "desc": "相互抵消",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声音乐",
-            "short": "立体声音乐",
-            "expr": "[(u=10^t>>15&7,u+=3,y=(t>>11&7)/u,f=8*t*y,z=16*t/u&99|f|1.01*f,2*z),z*4]",
-            "desc": "立体",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声8",
-            "short": "立体声8",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>10^(t>>10)-1^1)%13*t)*(Math.PI)/128)*127+128]",
-            "desc": "相位差正弦波立体声1",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声9",
-            "short": "立体声9",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>8^(t>>8)-1^1)%13*t)*(Math.PI)/128)*127+128]",
-            "desc": "相位差正弦波立体声2",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声10",
-            "short": "立体声10",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>11^(t>>11)-1^1)%13*t)*(Math.PI)/128)*127+128]",
-            "desc": "频率差立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声11",
-            "short": "立体声11",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%17*t)*(Math.PI)/128)*127+128]",
-            "desc": "调制参数差异立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声12",
-            "short": "立体声12",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>7^(t>>7)-1^1)%13*t)*(Math.PI)/128)*127+128]",
-            "desc": "不同位移立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声13",
-            "short": "立体声13",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%11*t)*(Math.PI)/128)*127+128]",
-            "desc": "不同模数立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声14",
-            "short": "立体声14",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/256)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128]",
-            "desc": "不同PI系数立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声15",
-            "short": "立体声15",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t*1.1)*(Math.PI)/128)*127+128]",
-            "desc": "频率比例立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声16",
-            "short": "立体声16",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t+1000)*(Math.PI)/128)*127+128]",
-            "desc": "相位延迟立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声17",
-            "short": "立体声17",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/64)*127+128]",
-            "desc": "倍频立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声18",
-            "short": "立体声18",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>10^(t>>10)-1^1)%13*t)*(Math.PI)/256)*127+128]",
-            "desc": "双参数差异立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声19",
-            "short": "立体声19",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*63+64]",
-            "desc": "振幅差异立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声20",
-            "short": "立体声20",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>12^(t>>12)-1^1)%13*t)*(Math.PI)/128)*127+128]",
-            "desc": "位移差异立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声21",
-            "short": "立体声21",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%19*t)*(Math.PI)/128)*127+128]",
-            "desc": "模数差异立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "立体声22",
-            "short": "立体声22",
-            "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t*0.9)*(Math.PI)/128)*127+128]",
-            "desc": "轻微频率差立体声",
-            "channel": "stereo"
-        },
-        {
-            "name": "复杂算法139",
-            "short": "raer stereo 11kHz",
-            "expr": "[((t&4096)?((t*(t^t%255)|(t>>4))>>1):(t>>3)|((t&8192)?t<<2:t)), t*(((t>>9)^((t>>9)-1)^1)%13)]",
-            "desc": "raer 2011-10-07 stereo",
-            "channel": "stereo"
-        }],
-    "virus": [{
+    {
+      "name": "立体声2",
+      "short": "立体声2",
+      "expr": "[t*(t>>8&t>>4)&127,(t*(t>>7&t>>3))&127]",
+      "desc": "立体声节奏",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声3",
+      "short": "立体声3",
+      "expr": "[(t>>5|t<<4)&255,((t>>4|t<<5)&255)^127]",
+      "desc": "相位立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声4",
+      "short": "立体声4",
+      "expr": "[Math.sin(t/200)*127+128,Math.sin(t/201)*127+128]",
+      "desc": "立体声正弦波",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声5",
+      "short": "立体声5",
+      "expr": "[t & (t >> 8), (t >> 4) & (t >> 12)]",
+      "desc": "左右声道不同节奏",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声6",
+      "short": "立体声6",
+      "expr": "[t*5, t*6]",
+      "desc": "立体声声音",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声7",
+      "short": "立体声7",
+      "expr": "[t, -t]",
+      "desc": "相互抵消",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声音乐",
+      "short": "立体声音乐",
+      "expr": "[(u=10^t>>15&7,u+=3,y=(t>>11&7)/u,f=8*t*y,z=16*t/u&99|f|1.01*f,2*z),z*4]",
+      "desc": "立体",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声8",
+      "short": "立体声8",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>10^(t>>10)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+      "desc": "相位差正弦波立体声1",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声9",
+      "short": "立体声9",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>8^(t>>8)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+      "desc": "相位差正弦波立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声10",
+      "short": "立体声10",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>11^(t>>11)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+      "desc": "频率差立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声11",
+      "short": "立体声11",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%17*t)*(Math.PI)/128)*127+128]",
+      "desc": "调制参数差异立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声12",
+      "short": "立体声12",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>7^(t>>7)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+      "desc": "不同位移立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声13",
+      "short": "立体声13",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%11*t)*(Math.PI)/128)*127+128]",
+      "desc": "不同模数立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声14",
+      "short": "立体声14",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/256)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+      "desc": "不同PI系数立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声15",
+      "short": "立体声15",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t*1.1)*(Math.PI)/128)*127+128]",
+      "desc": "频率比例立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声16",
+      "short": "立体声16",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t+1000)*(Math.PI)/128)*127+128]",
+      "desc": "相位延迟立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声17",
+      "short": "立体声17",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/64)*127+128]",
+      "desc": "倍频立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声18",
+      "short": "立体声18",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>10^(t>>10)-1^1)%13*t)*(Math.PI)/256)*127+128]",
+      "desc": "双参数差异立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声19",
+      "short": "立体声19",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*63+64]",
+      "desc": "振幅差异立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声20",
+      "short": "立体声20",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>12^(t>>12)-1^1)%13*t)*(Math.PI)/128)*127+128]",
+      "desc": "位移差异立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声21",
+      "short": "立体声21",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%19*t)*(Math.PI)/128)*127+128]",
+      "desc": "模数差异立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声22",
+      "short": "立体声22",
+      "expr": "[Math.sin(((t>>9^(t>>9)-1^1)%13*t)*(Math.PI)/128)*127+128,Math.sin(((t>>9^(t>>9)-1^1)%13*t*0.9)*(Math.PI)/128)*127+128]",
+      "desc": "轻微频率差立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "复杂算法139",
+      "short": "raer stereo 11kHz",
+      "expr": "[((t&4096)?((t*(t^t%255)|(t>>4))>>1):(t>>3)|((t&8192)?t<<2:t)), t*(((t>>9)^((t>>9)-1)^1)%13)]",
+      "desc": "raer 2011-10-07 stereo",
+      "channel": "stereo"
+    },
+    {
+      "name": "比特挤压立体声",
+      "short": "bit crush stereo",
+      "expr": "[(t & 0xFF00) >> 8, (t & 0x00FF)]",
+      "desc": "高低字节分离立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "差分脉冲立体声",
+      "short": "diff pulse",
+      "expr": "[(t>>1)^(t>>2), (t>>2)^(t>>3)]",
+      "desc": "异或差分立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "环形调制立体声",
+      "short": "ring mod",
+      "expr": "[t * ((t>>8) & 255), t * ((t>>9) & 255)]",
+      "desc": "环形调制左右声道",
+      "channel": "stereo"
+    },
+    {
+      "name": "混沌吸引子立体声",
+      "short": "chaos stereo",
+      "expr": "[((t>>4) & 255) ^ ((t>>8) & 255), ((t>>5) & 255) ^ ((t>>9) & 255)]",
+      "desc": "混沌异或立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "方波脉宽立体声",
+      "short": "pwm stereo",
+      "expr": "[((t>>10)&1)*255, ((t>>11)&1)*255]",
+      "desc": "简单脉宽调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "锯齿交错立体声",
+      "short": "saw interleave",
+      "expr": "[t & 255, (t>>8) & 255]",
+      "desc": "时间交错锯齿波",
+      "channel": "stereo"
+    },
+    {
+      "name": "三角波立体声",
+      "short": "triangle stereo",
+      "expr": "[Math.abs((t & 511) - 256), Math.abs(((t>>1) & 511) - 256)]",
+      "desc": "三角波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "噪音墙立体声",
+      "short": "noise wall",
+      "expr": "[Math.random()*256, Math.random()*256]",
+      "desc": "随机噪声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "位反射立体声",
+      "short": "bit reflect",
+      "expr": "[(t & 0xAA) | ((~t>>1) & 0x55), ((t>>1) & 0xAA) | (~t & 0x55)]",
+      "desc": "位反射对称立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "乘法混叠立体声",
+      "short": "alias stereo",
+      "expr": "[((t * (t>>8)) & 255), ((t * (t>>9)) & 255)]",
+      "desc": "乘法混叠立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "阶梯函数立体声",
+      "short": "step stereo",
+      "expr": "[((t>>12)&15)*16, (((t>>10)&63)*4)]",
+      "desc": "阶梯量化立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "相位翻转立体声",
+      "short": "phase flip",
+      "expr": "[t&255, (t^0x80)&255]",
+      "desc": "右声道相位翻转",
+      "channel": "stereo"
+    },
+    {
+      "name": "反馈移位立体声",
+      "short": "lfsr stereo",
+      "expr": "[((t>>1)^(t>>3)^(t>>5))&255, ((t>>2)^(t>>4)^(t>>6))&255]",
+      "desc": "线性反馈移位寄存器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "加减混叠立体声",
+      "short": "add sub",
+      "expr": "[((t + (t>>8)) & 255), ((t - (t>>8)) & 255)]",
+      "desc": "加减组合立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "交错位平面立体声",
+      "short": "bit plane",
+      "expr": "[((t>>0)&1)*255, ((t>>1)&1)*255]",
+      "desc": "最低位平面立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "指数衰减立体声",
+      "short": "exp decay",
+      "expr": "[((t>>4)&255) * (255 - ((t>>10)&255))>>8, ((t>>5)&255) * (255 - ((t>>11)&255))>>8]",
+      "desc": "伪指数衰减立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "乘法进位立体声",
+      "short": "carry mul",
+      "expr": "[((t * (t>>6)) & 0xFF00) >> 8, ((t * (t>>7)) & 0xFF00) >> 8]",
+      "desc": "高位乘法立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "除法近似立体声",
+      "short": "div approx",
+      "expr": "[t / ((t>>8)+1) & 255, (t>>1) / ((t>>9)+1) & 255]",
+      "desc": "除法近似立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "格雷码立体声",
+      "short": "gray code",
+      "expr": "[((t>>1)^t) & 255, (((t>>1)^t)>>8) & 255]",
+      "desc": "格雷码转换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "加减法交织立体声",
+      "short": "add sub inter",
+      "expr": "[((t + (t>>12)) & 255), ((t - (t>>12)) & 255)]",
+      "desc": "长周期加减立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "多谐波立体声",
+      "short": "multi harmonic",
+      "expr": "[((t&255) + ((t>>8)&255) + ((t>>16)&255)) & 255, (((t>>1)&255) + ((t>>9)&255) + ((t>>17)&255)) & 255]",
+      "desc": "多谐波叠加立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "逻辑门立体声",
+      "short": "logic gate",
+      "expr": "[((t>>4) & (t>>6)) & 255, ((t>>5) | (t>>7)) & 255]",
+      "desc": "与或逻辑立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "差频调制立体声",
+      "short": "diff mod",
+      "expr": "[((t>>3) - (t>>6)) & 255, ((t>>4) - (t>>7)) & 255]",
+      "desc": "差频调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "乘积反馈立体声",
+      "short": "product fb",
+      "expr": "[((t * ((t>>9)&31)) >> 8) & 255, ((t * ((t>>10)&31)) >> 8) & 255]",
+      "desc": "乘积反馈立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "波形记忆立体声",
+      "short": "wave mem",
+      "expr": "[Math.sin(t/100)*Math.sin(t/137)*127+128, Math.cos(t/101)*Math.sin(t/139)*127+128]",
+      "desc": "乘积波形立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "FM 调制立体声",
+      "short": "fm stereo",
+      "expr": "[Math.sin(t/50 + Math.sin(t/17))*127+128, Math.sin(t/53 + Math.sin(t/19))*127+128]",
+      "desc": "简易FM立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "分形噪音立体声",
+      "short": "fractal noise",
+      "expr": "[((t>>4) ^ (t>>6) ^ (t>>9)) & 255, ((t>>5) ^ (t>>7) ^ (t>>10)) & 255]",
+      "desc": "多重异或分形立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "幅度调制立体声",
+      "short": "am stereo",
+      "expr": "[((t>>8) & 255) * ((t>>4)&15) >> 4, ((t>>9) & 255) * ((t>>5)&15) >> 4]",
+      "desc": "简单幅度调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "进位加法立体声",
+      "short": "carry add",
+      "expr": "[((t + (t>>4) + (t>>8)) & 255), ((t + (t>>5) + (t>>9)) & 255)]",
+      "desc": "多尺度加法立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "反相梳状立体声",
+      "short": "comb inv",
+      "expr": "[t & 255, (~t) & 255]",
+      "desc": "反相梳状立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "周期截断立体声",
+      "short": "period trunc",
+      "expr": "[t % 256, (t>>8) % 256]",
+      "desc": "取模周期立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "抖动立体声",
+      "short": "dither",
+      "expr": "[Math.floor(t/100) & 255, Math.floor(t/101) & 255]",
+      "desc": "整数抖动立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "乘法混响立体声",
+      "short": "mul reverb",
+      "expr": "[((t * (t>>12)) & 255) ^ ((t>>4)&255), ((t * (t>>13)) & 255) ^ ((t>>5)&255)]",
+      "desc": "乘积异或混响立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "条件分支立体声",
+      "short": "branch stereo",
+      "expr": "[t&256?t>>4:t>>8, t&512?t>>5:t>>9]",
+      "desc": "条件分支立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "几何序列立体声",
+      "short": "geo seq",
+      "expr": "[Math.floor(256 / ((t>>8)+1)), Math.floor(256 / ((t>>9)+1))]",
+      "desc": "倒数序列立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "巴克码立体声",
+      "short": "barker stereo",
+      "expr": "[((t>>3) & 0x0F) == 7 ? 255 : 0, ((t>>4) & 0x0F) == 7 ? 255 : 0]",
+      "desc": "模式匹配立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "频率调制噪音",
+      "short": "fm noise",
+      "expr": "[Math.sin(t/30 + Math.random()*2)*127+128, Math.sin(t/31 + Math.random()*2)*127+128]",
+      "desc": "带噪声的FM立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "双曲线立体声",
+      "short": "hyperbolic",
+      "expr": "[Math.floor(32768/((t&255)+1)) & 255, Math.floor(32768/(((t>>8)&255)+1)) & 255]",
+      "desc": "双曲线映射立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "正弦调制锯齿",
+      "short": "sin saw",
+      "expr": "[Math.sin(t/100)*(t&255), Math.cos(t/103)*(t&255)]",
+      "desc": "正弦调制锯齿立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "相位失真立体声",
+      "short": "phase distort",
+      "expr": "[((t>>1) ^ (t>>4)) & 255, ((t>>2) ^ (t>>5)) & 255]",
+      "desc": "相位失真立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "分形倍率立体声",
+      "short": "fractal scale",
+      "expr": "[((t>>3) * (t>>6)) & 255, ((t>>4) * (t>>7)) & 255]",
+      "desc": "分形乘法立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "卷积模拟立体声",
+      "short": "conv stereo",
+      "expr": "[((t & 255) + ((t>>16)&255)) & 255, (((t>>8)&255) + ((t>>24)&255)) & 255]",
+      "desc": "长周期卷积立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "共振峰立体声",
+      "short": "formant",
+      "expr": "[Math.sin(t/50)*Math.sin(t/80)*127+128, Math.sin(t/52)*Math.sin(t/82)*127+128]",
+      "desc": "共振峰模拟立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "异或反馈立体声",
+      "short": "xor fb",
+      "expr": "[((t ^ (t>>4) ^ (t>>8)) & 255), ((t ^ (t>>5) ^ (t>>9)) & 255)]",
+      "desc": "三级异或反馈立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "交叉衰减立体声",
+      "short": "crossfade",
+      "expr": "[((t & 255) * (255 - ((t>>16)&255)) + (((t>>8)&255) * ((t>>16)&255))) >> 8, ((((t>>8)&255) * (255 - ((t>>17)&255)) + ((t>>16)&255) * ((t>>17)&255))) >> 8]",
+      "desc": "线性交叉衰减立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "延时反馈立体声",
+      "short": "delay fb",
+      "expr": "[((t + ((t>>12)&255)) & 255), ((t + ((t>>13)&255)) & 255)]",
+      "desc": "简单延时反馈立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "过采样立体声",
+      "short": "oversample",
+      "expr": "[Math.floor(Math.sin(t/40)*127+128), Math.floor(Math.cos(t/41)*127+128)]",
+      "desc": "过采样正弦立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "限幅立体声",
+      "short": "clipping",
+      "expr": "[Math.min(255, Math.max(0, ((t>>4)&511) - 256)), Math.min(255, Math.max(0, ((t>>5)&511) - 256))]",
+      "desc": "限幅立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "插值噪音立体声",
+      "short": "interp noise",
+      "expr": "[Math.floor(Math.sin(t/20)*Math.random()*256), Math.floor(Math.cos(t/21)*Math.random()*256)]",
+      "desc": "插值噪声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "二次函数立体声",
+      "short": "quadratic",
+      "expr": "[((t>>4)*(t>>4)) & 255, ((t>>5)*(t>>5)) & 255]",
+      "desc": "二次函数立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "对数近似立体声",
+      "short": "log approx",
+      "expr": "[Math.floor(255 * Math.log((t&255)+1)/Math.log(256)), Math.floor(255 * Math.log(((t>>8)&255)+1)/Math.log(256))]",
+      "desc": "对数近似立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "指数映射立体声",
+      "short": "exp map",
+      "expr": "[Math.floor(255 * (1 - Math.exp(-(t&255)/64))), Math.floor(255 * (1 - Math.exp(-((t>>8)&255)/64)))]",
+      "desc": "指数映射立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "正弦波折叠立体声",
+      "short": "fold sine",
+      "expr": "[Math.abs(Math.sin(t/50)*255) & 255, Math.abs(Math.cos(t/51)*255) & 255]",
+      "desc": "绝对值折叠正弦立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "相位调制立体声",
+      "short": "pm stereo",
+      "expr": "[Math.sin(t/30 + Math.sin(t/10))*127+128, Math.sin(t/31 + Math.sin(t/11))*127+128]",
+      "desc": "相位调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "幅度折叠立体声",
+      "short": "amp fold",
+      "expr": "[((t & 255) * ((t>>8)&15)) & 255, (((t>>8)&255) * ((t>>4)&15)) & 255]",
+      "desc": "幅度折叠立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "三角调制立体声",
+      "short": "tri mod",
+      "expr": "[Math.abs((t & 511) - 256) ^ ((t>>8)&255), Math.abs(((t>>1) & 511) - 256) ^ ((t>>9)&255)]",
+      "desc": "三角波调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "双曲线正弦立体声",
+      "short": "sinh stereo",
+      "expr": "[Math.floor(Math.sinh(t/1000)*20) & 255, Math.floor(Math.sinh(t/1001)*20) & 255]",
+      "desc": "双曲正弦立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "随机游走立体声",
+      "short": "random walk",
+      "expr": "[Math.floor(Math.sin(t/100)*128+128 + Math.sin(t/73)*64), Math.floor(Math.cos(t/101)*128+128 + Math.sin(t/74)*64)]",
+      "desc": "随机游走风格立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "位旋转立体声",
+      "short": "bit rotate",
+      "expr": "[((t<<3) | (t>>5)) & 255, (((t>>1)<<2) | (t>>6)) & 255]",
+      "desc": "位旋转立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "环形缓冲立体声",
+      "short": "ring buffer",
+      "expr": "[t % 256, (t+128) % 256]",
+      "desc": "环形缓冲立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "锯齿同步立体声",
+      "short": "sync saw",
+      "expr": "[((t>>6)&255) * ((t>>12)&3), (((t>>7)&255) * ((t>>13)&3))]",
+      "desc": "同步锯齿立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "混叠噪音立体声",
+      "short": "alias noise",
+      "expr": "[Math.floor(Math.random()*256) & ((t>>8)&255), Math.floor(Math.random()*256) & ((t>>9)&255)]",
+      "desc": "与门噪声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "相位差脉冲立体声",
+      "short": "phase pulse",
+      "expr": "[((t>>4)&1) * 255, ((t>>5)&1) * 255]",
+      "desc": "相位差脉冲立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "分数延迟立体声",
+      "short": "fraction delay",
+      "expr": "[((t>>2) & 255) + ((t>>10)&63), (((t>>3) & 255) + ((t>>11)&63))]",
+      "desc": "分数延迟叠加立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "三阶互调立体声",
+      "short": "intermod",
+      "expr": "[((t & 255) * ((t>>8)&255) * ((t>>16)&3)) >> 8, (((t>>1)&255) * ((t>>9)&255) * ((t>>17)&3)) >> 8]",
+      "desc": "三阶互调立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "反馈梳状立体声",
+      "short": "feedback comb",
+      "expr": "[((t + ((t>>6)&255)) & 255), ((t + ((t>>7)&255)) & 255)]",
+      "desc": "反馈梳状立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "阶梯波立体声",
+      "short": "staircase",
+      "expr": "[Math.floor((t & 255) / 32) * 32, Math.floor(((t>>8)&255) / 32) * 32]",
+      "desc": "阶梯波量化立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "方波叠加立体声",
+      "short": "square sum",
+      "expr": "[((t>>8)&1)*128 + ((t>>9)&1)*64 + ((t>>10)&1)*32, ((t>>9)&1)*128 + ((t>>10)&1)*64 + ((t>>11)&1)*32]",
+      "desc": "多位方波叠加立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "奇偶校验立体声",
+      "short": "parity",
+      "expr": "[((t & 0xFF).toString(2).split('1').length-1) % 2 * 255, (((t>>8) & 0xFF).toString(2).split('1').length-1) % 2 * 255]",
+      "desc": "奇偶校验立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "汉明窗立体声",
+      "short": "hamming",
+      "expr": "[Math.floor(255 * (0.54 - 0.46 * Math.cos(2*Math.PI*(t&255)/256))), Math.floor(255 * (0.54 - 0.46 * Math.cos(2*Math.PI*((t>>8)&255)/256)))]",
+      "desc": "汉明窗立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "线性反馈移位寄存器立体声2",
+      "short": "lfsr2",
+      "expr": "[((((t>>1)^(t>>2)^(t>>3)) & 1) * 255), ((((t>>2)^(t>>3)^(t>>4)) & 1) * 255)]",
+      "desc": "LFSR位立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "三角函数积立体声",
+      "short": "trig product",
+      "expr": "[Math.sin(t/100)*Math.cos(t/150)*127+128, Math.sin(t/101)*Math.cos(t/151)*127+128]",
+      "desc": "正弦余弦积立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "反正切立体声",
+      "short": "atan stereo",
+      "expr": "[Math.floor(Math.atan((t&255)-128)*255/Math.PI)+128, Math.floor(Math.atan(((t>>8)&255)-128)*255/Math.PI)+128]",
+      "desc": "反正切映射立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "双曲正切立体声",
+      "short": "tanh stereo",
+      "expr": "[Math.floor(128 * Math.tanh((t&255)/128) + 128), Math.floor(128 * Math.tanh(((t>>8)&255)/128) + 128)]",
+      "desc": "双曲正切立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "西格莫伊德立体声",
+      "short": "sigmoid",
+      "expr": "[Math.floor(255 / (1 + Math.exp(-(t&255)/32))), Math.floor(255 / (1 + Math.exp(-((t>>8)&255)/32)))]",
+      "desc": "S型曲线立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "高斯噪声立体声",
+      "short": "gaussian",
+      "expr": "[Math.floor(128 + 64 * (Math.random()+Math.random()+Math.random()-1.5)), Math.floor(128 + 64 * (Math.random()+Math.random()+Math.random()-1.5))]",
+      "desc": "高斯分布噪声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "维纳过程立体声",
+      "short": "wiener",
+      "expr": "[Math.floor(Math.sin(t/100)*128+128 + Math.sin(t/131)*64), Math.floor(Math.cos(t/101)*128+128 + Math.sin(t/133)*64)]",
+      "desc": "维纳过程模拟立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "切比雪夫立体声",
+      "short": "chebyshev",
+      "expr": "[Math.cos(2*Math.acos(Math.sin(t/100)))*127+128, Math.cos(2*Math.acos(Math.sin(t/101)))*127+128]",
+      "desc": "切比雪夫多项式立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "模数转换立体声",
+      "short": "adc stereo",
+      "expr": "[Math.floor((t&255) / 16) * 16, Math.floor(((t>>8)&255) / 16) * 16]",
+      "desc": "模数转换量化立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "增量调制立体声",
+      "short": "delta mod",
+      "expr": "[((t>>4)&1) ? (((t>>5)&255)+16) & 255 : ((t>>5)&255), ((t>>5)&1) ? (((t>>6)&255)+16) & 255 : ((t>>6)&255)]",
+      "desc": "增量调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "卷积编码立体声",
+      "short": "conv code",
+      "expr": "[((t>>1)^(t>>2)^(t>>3)) & 1 * 255, ((t>>2)^(t>>3)^(t>>4)) & 1 * 255]",
+      "desc": "卷积编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "曼彻斯特编码立体声",
+      "short": "manchester",
+      "expr": "[((t>>3)&1) ^ ((t>>4)&1) ? 255 : 0, ((t>>4)&1) ^ ((t>>5)&1) ? 255 : 0]",
+      "desc": "曼彻斯特编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "米勒编码立体声",
+      "short": "miller",
+      "expr": "[((t>>3)&1) == ((t>>4)&1) ? 0 : 255, ((t>>4)&1) == ((t>>5)&1) ? 0 : 255]",
+      "desc": "米勒编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "非归零编码立体声",
+      "short": "nrz",
+      "expr": "[((t>>4)&1) * 255, ((t>>5)&1) * 255]",
+      "desc": "非归零编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "差分曼彻斯特立体声",
+      "short": "diff manchester",
+      "expr": "[(((t>>4)&1) ^ ((t>>5)&1)) ? 255 : 0, (((t>>5)&1) ^ ((t>>6)&1)) ? 255 : 0]",
+      "desc": "差分曼彻斯特立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "双相编码立体声",
+      "short": "biphase",
+      "expr": "[((t>>4)&1) ? ((t>>5)&1)*255 : ((t>>5)&1)*255, ((t>>5)&1) ? ((t>>6)&1)*255 : ((t>>6)&1)*255]",
+      "desc": "双相编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "脉冲宽度调制立体声2",
+      "short": "pwm2",
+      "expr": "[((t>>8)&255) > ((t>>4)&255) ? 255 : 0, ((t>>9)&255) > ((t>>5)&255) ? 255 : 0]",
+      "desc": "比较器PWM立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "三角积分调制立体声",
+      "short": "sigma delta",
+      "expr": "[((t>>4)&255) > ((t>>8)&255) ? 255 : 0, ((t>>5)&255) > ((t>>9)&255) ? 255 : 0]",
+      "desc": "Sigma-Delta调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "模拟数字转换立体声",
+      "short": "adc",
+      "expr": "[Math.floor((t&255)/32)*32, Math.floor(((t>>8)&255)/32)*32]",
+      "desc": "ADC量化立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "数字模拟转换立体声",
+      "short": "dac",
+      "expr": "[Math.floor((t&255)/16)*16 + 8, Math.floor(((t>>8)&255)/16)*16 + 8]",
+      "desc": "DAC重建立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "采样保持立体声",
+      "short": "sample hold",
+      "expr": "[((t>>8)&255) & 0xF0, ((t>>9)&255) & 0xF0]",
+      "desc": "采样保持立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "零阶保持立体声",
+      "short": "zoh",
+      "expr": "[((t>>8)&255) & 0xFC, ((t>>9)&255) & 0xFC]",
+      "desc": "零阶保持立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "一阶保持立体声",
+      "short": "foh",
+      "expr": "[((t>>8)&255) + (((t>>9)&3) * ((t>>10)&255) >> 8), ((t>>9)&255) + (((t>>10)&3) * ((t>>11)&255) >> 8)]",
+      "desc": "一阶保持立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "插值立体声",
+      "short": "interpolation",
+      "expr": "[((t>>8)&255) + (((t>>4)&15) * (((t>>12)&255)-((t>>8)&255)) >> 4), ((t>>9)&255) + (((t>>5)&15) * (((t>>13)&255)-((t>>9)&255)) >> 4)]",
+      "desc": "线性插值立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "过采样立体声2",
+      "short": "oversample2",
+      "expr": "[Math.floor(Math.sin(t/40)*127+128), Math.floor(Math.sin(t/41)*127+128)]",
+      "desc": "整数正弦立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "欠采样立体声",
+      "short": "undersample",
+      "expr": "[((t>>3)&255), ((t>>4)&255)]",
+      "desc": "欠采样立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "混叠立体声2",
+      "short": "alias2",
+      "expr": "[((t*3) & 255), ((t*5) & 255)]",
+      "desc": "乘法混叠立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "折返混叠立体声",
+      "short": "fold alias",
+      "expr": "[Math.abs((t*7) & 511 - 256), Math.abs((t*9) & 511 - 256)]",
+      "desc": "折返混叠立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "环绕混叠立体声",
+      "short": "wrap alias",
+      "expr": "[((t*13) & 255), ((t*17) & 255)]",
+      "desc": "环绕混叠立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "相位累加立体声",
+      "short": "phase acc",
+      "expr": "[Math.sin((t*Math.PI*2/256) % (Math.PI*2))*127+128, Math.sin((t*Math.PI*2/257) % (Math.PI*2))*127+128]",
+      "desc": "相位累加立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "频率累加立体声",
+      "short": "freq acc",
+      "expr": "[Math.sin(t*t/10000)*127+128, Math.cos(t*t/10001)*127+128]",
+      "desc": "频率累加立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "线性调频立体声",
+      "short": "chirp",
+      "expr": "[Math.sin(t*t/5000)*127+128, Math.sin(t*t/5001)*127+128]",
+      "desc": "线性调频立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "指数调频立体声",
+      "short": "exp chirp",
+      "expr": "[Math.sin(1000 * Math.exp(t/10000))*127+128, Math.sin(1000 * Math.exp(t/10001))*127+128]",
+      "desc": "指数调频立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "对数调频立体声",
+      "short": "log chirp",
+      "expr": "[Math.sin(1000 * Math.log(t+1))*127+128, Math.sin(1000 * Math.log(t+2))*127+128]",
+      "desc": "对数调频立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "幅度调制立体声2",
+      "short": "am2",
+      "expr": "[Math.sin(t/50) * (Math.sin(t/500)+1)*63+64, Math.cos(t/51) * (Math.sin(t/501)+1)*63+64]",
+      "desc": "幅度调制立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "频率调制立体声2",
+      "short": "fm2",
+      "expr": "[Math.sin(t/50 + Math.sin(t/10)*2)*127+128, Math.sin(t/51 + Math.sin(t/11)*2)*127+128]",
+      "desc": "频率调制立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "相位调制立体声2",
+      "short": "pm2",
+      "expr": "[Math.sin(t/50 + Math.sin(t/20))*127+128, Math.sin(t/51 + Math.sin(t/21))*127+128]",
+      "desc": "相位调制立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "环形调制立体声2",
+      "short": "ring mod2",
+      "expr": "[Math.sin(t/50)*Math.sin(t/13)*127+128, Math.cos(t/51)*Math.sin(t/14)*127+128]",
+      "desc": "环形调制立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "乘积调制立体声",
+      "short": "product mod",
+      "expr": "[Math.sin(t/30)*Math.cos(t/40)*127+128, Math.sin(t/31)*Math.cos(t/41)*127+128]",
+      "desc": "乘积调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "和差调制立体声",
+      "short": "sum diff",
+      "expr": "[Math.sin(t/30)+Math.cos(t/40)*127+128, Math.sin(t/31)-Math.cos(t/41)*127+128]",
+      "desc": "和差调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "卷积调制立体声",
+      "short": "conv mod",
+      "expr": "[Math.sin(t/100)*Math.sin(t/103)*127+128, Math.sin(t/101)*Math.sin(t/104)*127+128]",
+      "desc": "卷积调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "相关调制立体声",
+      "short": "correlate",
+      "expr": "[Math.sin(t/50)*Math.sin(t/52)*127+128, Math.cos(t/50)*Math.cos(t/52)*127+128]",
+      "desc": "相关调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "反相关调制立体声",
+      "short": "anticorrelate",
+      "expr": "[Math.sin(t/50)*Math.sin(t/52)*127+128, -Math.sin(t/50)*Math.sin(t/52)*127+128]",
+      "desc": "反相关调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "正交调制立体声",
+      "short": "quadrature",
+      "expr": "[Math.sin(t/30)*127+128, Math.cos(t/30)*127+128]",
+      "desc": "正交调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "复指数调制立体声",
+      "short": "complex exp",
+      "expr": "[Math.cos(t/30)*127+128, Math.sin(t/30)*127+128]",
+      "desc": "复指数调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "希尔伯特变换立体声",
+      "short": "hilbert",
+      "expr": "[Math.sin(t/30)*127+128, Math.cos(t/30)*127+128]",
+      "desc": "希尔伯特变换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "解析信号立体声",
+      "short": "analytic",
+      "expr": "[Math.sin(t/30)*127+128, Math.cos(t/30)*127+128]",
+      "desc": "解析信号立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "包络检波立体声",
+      "short": "envelope",
+      "expr": "[Math.abs(Math.sin(t/50))*255, Math.abs(Math.sin(t/51))*255]",
+      "desc": "包络检波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "平方律检波立体声",
+      "short": "square law",
+      "expr": "[Math.sin(t/50)*Math.sin(t/50)*255, Math.sin(t/51)*Math.sin(t/51)*255]",
+      "desc": "平方律检波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "峰值检波立体声",
+      "short": "peak detect",
+      "expr": "[Math.max(0, Math.sin(t/50))*255, Math.max(0, Math.sin(t/51))*255]",
+      "desc": "峰值检波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "谷值检波立体声",
+      "short": "valley detect",
+      "expr": "[Math.min(0, Math.sin(t/50))*-255, Math.min(0, Math.sin(t/51))*-255]",
+      "desc": "谷值检波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "限幅器立体声",
+      "short": "limiter",
+      "expr": "[Math.min(255, Math.max(0, Math.sin(t/50)*255)), Math.min(255, Math.max(0, Math.sin(t/51)*255))]",
+      "desc": "限幅器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "压缩器立体声",
+      "short": "compressor",
+      "expr": "[Math.pow(Math.abs(Math.sin(t/50)), 0.5)*255, Math.pow(Math.abs(Math.sin(t/51)), 0.5)*255]",
+      "desc": "压缩器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "扩展器立体声",
+      "short": "expander",
+      "expr": "[Math.pow(Math.abs(Math.sin(t/50)), 2)*255, Math.pow(Math.abs(Math.sin(t/51)), 2)*255]",
+      "desc": "扩展器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "噪声门立体声",
+      "short": "noise gate",
+      "expr": "[Math.abs(Math.sin(t/50)) > 0.5 ? Math.sin(t/50)*255 : 0, Math.abs(Math.sin(t/51)) > 0.5 ? Math.sin(t/51)*255 : 0]",
+      "desc": "噪声门立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "啸叫抑制立体声",
+      "short": "feedback sup",
+      "expr": "[Math.sin(t/50) > 0.9 ? 0 : Math.sin(t/50)*255, Math.sin(t/51) > 0.9 ? 0 : Math.sin(t/51)*255]",
+      "desc": "啸叫抑制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "自动增益控制立体声",
+      "short": "agc",
+      "expr": "[Math.sin(t/50)* (1 - Math.abs(Math.sin(t/200))*0.5)*255, Math.sin(t/51)* (1 - Math.abs(Math.sin(t/201))*0.5)*255]",
+      "desc": "自动增益控制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "动态范围压缩立体声",
+      "short": "drc",
+      "expr": "[Math.tanh(Math.sin(t/50))*255, Math.tanh(Math.sin(t/51))*255]",
+      "desc": "动态范围压缩立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "软削波立体声",
+      "short": "soft clip",
+      "expr": "[Math.atan(Math.sin(t/50))*255/Math.PI+128, Math.atan(Math.sin(t/51))*255/Math.PI+128]",
+      "desc": "软削波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "硬削波立体声",
+      "short": "hard clip",
+      "expr": "[Math.min(255, Math.max(0, Math.sin(t/50)*255)), Math.min(255, Math.max(0, Math.sin(t/51)*255))]",
+      "desc": "硬削波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "对称削波立体声",
+      "short": "sym clip",
+      "expr": "[Math.min(255, Math.max(-255, Math.sin(t/50)*255))+128, Math.min(255, Math.max(-255, Math.sin(t/51)*255))+128]",
+      "desc": "对称削波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "死区削波立体声",
+      "short": "deadzone",
+      "expr": "[Math.abs(Math.sin(t/50)) < 0.1 ? 128 : Math.sin(t/50)*255, Math.abs(Math.sin(t/51)) < 0.1 ? 128 : Math.sin(t/51)*255]",
+      "desc": "死区削波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "量化噪声立体声",
+      "short": "quant noise",
+      "expr": "[Math.floor(Math.sin(t/50)*128)/128*255, Math.floor(Math.sin(t/51)*128)/128*255]",
+      "desc": "量化噪声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "抖动噪声立体声",
+      "short": "dither noise",
+      "expr": "[Math.floor(Math.sin(t/50)*255 + Math.random()*32-16), Math.floor(Math.sin(t/51)*255 + Math.random()*32-16)]",
+      "desc": "抖动噪声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "三角抖动立体声",
+      "short": "tri dither",
+      "expr": "[Math.floor(Math.sin(t/50)*255 + (Math.random()+Math.random()-1)*16), Math.floor(Math.sin(t/51)*255 + (Math.random()+Math.random()-1)*16)]",
+      "desc": "三角抖动立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "高斯抖动立体声",
+      "short": "gauss dither",
+      "expr": "[Math.floor(Math.sin(t/50)*255 + (Math.random()+Math.random()+Math.random()-1.5)*16), Math.floor(Math.sin(t/51)*255 + (Math.random()+Math.random()+Math.random()-1.5)*16)]",
+      "desc": "高斯抖动立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "噪声整形立体声",
+      "short": "noise shaping",
+      "expr": "[Math.floor(Math.sin(t/50)*255 + (Math.random()-0.5)*32), Math.floor(Math.sin(t/51)*255 + (Math.random()-0.5)*32)]",
+      "desc": "噪声整形立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "误差扩散立体声",
+      "short": "error diff",
+      "expr": "[Math.floor(Math.sin(t/50)*255 + ((Math.sin((t-1)/50)*255 - Math.floor(Math.sin((t-1)/50)*255))*0.5)), Math.floor(Math.sin(t/51)*255 + ((Math.sin((t-1)/51)*255 - Math.floor(Math.sin((t-1)/51)*255))*0.5))]",
+      "desc": "误差扩散立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "脉冲编码调制立体声",
+      "short": "pcm",
+      "expr": "[Math.floor(Math.sin(t/50)*128), Math.floor(Math.sin(t/51)*128)]",
+      "desc": "脉冲编码调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "差分脉冲编码调制立体声",
+      "short": "dpcm",
+      "expr": "[Math.floor(Math.sin(t/50)*128 - Math.sin((t-1)/50)*128), Math.floor(Math.sin(t/51)*128 - Math.sin((t-1)/51)*128)]",
+      "desc": "差分脉冲编码调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "自适应差分脉冲编码调制立体声",
+      "short": "adpcm",
+      "expr": "[Math.floor(Math.sin(t/50)*128 - Math.sin((t-1)/50)*128) * (1 + Math.abs(Math.sin(t/200))*0.5), Math.floor(Math.sin(t/51)*128 - Math.sin((t-1)/51)*128) * (1 + Math.abs(Math.sin(t/201))*0.5)]",
+      "desc": "自适应差分脉冲编码调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "增量调制立体声2",
+      "short": "delta mod2",
+      "expr": "[Math.sin(t/50) > Math.sin((t-1)/50) ? 255 : 0, Math.sin(t/51) > Math.sin((t-1)/51) ? 255 : 0]",
+      "desc": "增量调制立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "自适应增量调制立体声",
+      "short": "adaptive delta",
+      "expr": "[Math.abs(Math.sin(t/50) - Math.sin((t-1)/50)) > 0.1 ? 255 : 0, Math.abs(Math.sin(t/51) - Math.sin((t-1)/51)) > 0.1 ? 255 : 0]",
+      "desc": "自适应增量调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "连续可变斜率增量调制立体声",
+      "short": "cvsd",
+      "expr": "[Math.sin(t/50) > Math.sin((t-1)/50) ? 255 : 0, Math.sin(t/51) > Math.sin((t-1)/51) ? 255 : 0]",
+      "desc": "连续可变斜率增量调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "压扩增量调制立体声",
+      "short": "companded delta",
+      "expr": "[Math.log(1+Math.abs(Math.sin(t/50)-Math.sin((t-1)/50))*10) > 0.5 ? 255 : 0, Math.log(1+Math.abs(Math.sin(t/51)-Math.sin((t-1)/51))*10) > 0.5 ? 255 : 0]",
+      "desc": "压扩增量调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "子带编码立体声",
+      "short": "subband",
+      "expr": "[Math.sin(t/50)*Math.sin(t/200)*255, Math.sin(t/51)*Math.sin(t/201)*255]",
+      "desc": "子带编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "变换编码立体声",
+      "short": "transform",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "变换编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "矢量量化立体声",
+      "short": "vector quant",
+      "expr": "[Math.floor(Math.sin(t/50)*8)*32, Math.floor(Math.sin(t/51)*8)*32]",
+      "desc": "矢量量化立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "线性预测编码立体声",
+      "short": "lpc",
+      "expr": "[Math.sin(t/50) + 0.5*Math.sin((t-1)/50) + 0.25*Math.sin((t-2)/50)*255, Math.sin(t/51) + 0.5*Math.sin((t-1)/51) + 0.25*Math.sin((t-2)/51)*255]",
+      "desc": "线性预测编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "码激励线性预测立体声",
+      "short": "celp",
+      "expr": "[Math.sin(t/50) + 0.5*Math.sin((t-1)/50) + 0.25*Math.sin((t-2)/50) + Math.random()*0.1*255, Math.sin(t/51) + 0.5*Math.sin((t-1)/51) + 0.25*Math.sin((t-2)/51) + Math.random()*0.1*255]",
+      "desc": "码激励线性预测立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "多脉冲激励立体声",
+      "short": "mpe",
+      "expr": "[Math.sin(t/50) + (Math.sin(t/10)>0?0.5:0)*255, Math.sin(t/51) + (Math.sin(t/11)>0?0.5:0)*255]",
+      "desc": "多脉冲激励立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "规则脉冲激励立体声",
+      "short": "rpe",
+      "expr": "[Math.sin(t/50) + (Math.floor(t/10)%2?0.5:0)*255, Math.sin(t/51) + (Math.floor(t/11)%2?0.5:0)*255]",
+      "desc": "规则脉冲激励立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "代数码激励线性预测立体声",
+      "short": "acelp",
+      "expr": "[Math.sin(t/50) + (Math.sin(t/10)>0.5?0.5:0)*255, Math.sin(t/51) + (Math.sin(t/11)>0.5?0.5:0)*255]",
+      "desc": "代数码激励线性预测立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声码器立体声",
+      "short": "vocoder",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "声码器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "相位声码器立体声",
+      "short": "phase vocoder",
+      "expr": "[Math.sin(t/50+Math.sin(t/100))*127+128, Math.sin(t/51+Math.sin(t/101))*127+128]",
+      "desc": "相位声码器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "通道声码器立体声",
+      "short": "channel vocoder",
+      "expr": "[Math.sin(t/50)*Math.sin(t/200)*255, Math.sin(t/51)*Math.sin(t/201)*255]",
+      "desc": "通道声码器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "线性预测声码器立体声",
+      "short": "lpc vocoder",
+      "expr": "[Math.sin(t/50) + 0.5*Math.sin((t-1)/50)*255, Math.sin(t/51) + 0.5*Math.sin((t-1)/51)*255]",
+      "desc": "线性预测声码器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "共振峰声码器立体声",
+      "short": "formant vocoder",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "共振峰声码器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "正弦波编码立体声",
+      "short": "sine codec",
+      "expr": "[Math.sin(t/50)*127+128, Math.sin(t/51)*127+128]",
+      "desc": "正弦波编码立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "多频带激励立体声",
+      "short": "mbe",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "多频带激励立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "改进多频带激励立体声",
+      "short": "imbe",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255 + Math.sin(t/150)*0.5*255, Math.sin(t/51)*Math.sin(t/101)*255 + Math.sin(t/151)*0.5*255]",
+      "desc": "改进多频带激励立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "混合激励线性预测立体声",
+      "short": "melp",
+      "expr": "[Math.sin(t/50)*0.7*255 + Math.random()*0.3*255, Math.sin(t/51)*0.7*255 + Math.random()*0.3*255]",
+      "desc": "混合激励线性预测立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "波形插值立体声",
+      "short": "wi",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/150)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin(t/151)*0.5*255]",
+      "desc": "波形插值立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "原型波形插值立体声",
+      "short": "pwi",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/250)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin(t/251)*0.5*255]",
+      "desc": "原型波形插值立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "变换域加权立体声",
+      "short": "tdw",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "变换域加权立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "感知加权立体声",
+      "short": "perceptual",
+      "expr": "[Math.sin(t/50)*255 * (1 + 0.5*Math.sin(t/200)), Math.sin(t/51)*255 * (1 + 0.5*Math.sin(t/201))]",
+      "desc": "感知加权立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "心理声学模型立体声",
+      "short": "psychoacoustic",
+      "expr": "[Math.sin(t/50)*255 * (Math.abs(Math.sin(t/100))), Math.sin(t/51)*255 * (Math.abs(Math.sin(t/101)))]",
+      "desc": "心理声学模型立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "掩蔽效应立体声",
+      "short": "masking",
+      "expr": "[Math.sin(t/50)*255 * (1 - 0.5*Math.abs(Math.sin(t/100))), Math.sin(t/51)*255 * (1 - 0.5*Math.abs(Math.sin(t/101)))]",
+      "desc": "掩蔽效应立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "临界频带立体声",
+      "short": "critical band",
+      "expr": "[Math.sin(t/50)*255 * (1 - 0.5*Math.abs(Math.sin(t/100))), Math.sin(t/51)*255 * (1 - 0.5*Math.abs(Math.sin(t/101)))]",
+      "desc": "临界频带立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "等响度曲线立体声",
+      "short": "equal loudness",
+      "expr": "[Math.sin(t/50)*255 * (1 + 0.2*Math.sin(t/100)), Math.sin(t/51)*255 * (1 + 0.2*Math.sin(t/101))]",
+      "desc": "等响度曲线立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "响度缩放立体声",
+      "short": "loudness scale",
+      "expr": "[Math.sin(t/50)*255 * Math.pow(Math.abs(Math.sin(t/100)), 0.5), Math.sin(t/51)*255 * Math.pow(Math.abs(Math.sin(t/101)), 0.5)]",
+      "desc": "响度缩放立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "音高检测立体声",
+      "short": "pitch detect",
+      "expr": "[Math.sin(t/50)*255, Math.sin(t/51)*255]",
+      "desc": "音高检测立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "基音提取立体声",
+      "short": "pitch extract",
+      "expr": "[Math.sin(t/50)*255, Math.sin(t/51)*255]",
+      "desc": "基音提取立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "自相关立体声",
+      "short": "autocorr",
+      "expr": "[Math.sin(t/50)*Math.sin((t-10)/50)*255, Math.sin(t/51)*Math.sin((t-10)/51)*255]",
+      "desc": "自相关立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "互相关立体声",
+      "short": "crosscorr",
+      "expr": "[Math.sin(t/50)*Math.sin((t-10)/51)*255, Math.sin(t/51)*Math.sin((t-10)/50)*255]",
+      "desc": "互相关立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "短时傅里叶变换立体声",
+      "short": "stft",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "短时傅里叶变换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "离散余弦变换立体声",
+      "short": "dct",
+      "expr": "[Math.cos(t/50)*Math.cos(t/100)*255, Math.cos(t/51)*Math.cos(t/101)*255]",
+      "desc": "离散余弦变换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "离散正弦变换立体声",
+      "short": "dst",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "离散正弦变换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "修正离散余弦变换立体声",
+      "short": "mdct",
+      "expr": "[Math.cos(t/50)*Math.cos(t/100)*Math.cos(t/150)*255, Math.cos(t/51)*Math.cos(t/101)*Math.cos(t/151)*255]",
+      "desc": "修正离散余弦变换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "小波变换立体声",
+      "short": "wavelet",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255 + Math.sin(t/200)*0.5*255, Math.sin(t/51)*Math.sin(t/101)*255 + Math.sin(t/201)*0.5*255]",
+      "desc": "小波变换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "哈尔小波立体声",
+      "short": "haar",
+      "expr": "[Math.sin(t/50) > 0 ? 255 : 0, Math.sin(t/51) > 0 ? 255 : 0]",
+      "desc": "哈尔小波立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "多分辨率分析立体声",
+      "short": "mra",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/150)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin(t/151)*0.5*255]",
+      "desc": "多分辨率分析立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "滤波器组立体声",
+      "short": "filterbank",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/100)*0.3*255 + Math.sin(t/200)*0.2*255, Math.sin(t/51)*0.5*255 + Math.sin(t/101)*0.3*255 + Math.sin(t/201)*0.2*255]",
+      "desc": "滤波器组立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "正交镜像滤波器立体声",
+      "short": "qmf",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/100)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin(t/101)*0.5*255]",
+      "desc": "正交镜像滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "子带滤波器立体声",
+      "short": "subband filter",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/150)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin(t/151)*0.5*255]",
+      "desc": "子带滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "多相滤波器立体声",
+      "short": "polyphase",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/100)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin(t/101)*0.5*255]",
+      "desc": "多相滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "格型滤波器立体声",
+      "short": "lattice",
+      "expr": "[Math.sin(t/50)*0.8*255 + Math.sin((t-1)/50)*0.2*255, Math.sin(t/51)*0.8*255 + Math.sin((t-1)/51)*0.2*255]",
+      "desc": "格型滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "梳状滤波器立体声",
+      "short": "comb filter",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-10)/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-10)/51)*0.5*255]",
+      "desc": "梳状滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "陷波滤波器立体声",
+      "short": "notch filter",
+      "expr": "[Math.sin(t/50)*255 - Math.sin(t/100)*127, Math.sin(t/51)*255 - Math.sin(t/101)*127]",
+      "desc": "陷波滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "带通滤波器立体声",
+      "short": "bandpass",
+      "expr": "[Math.sin(t/50)*Math.sin(t/100)*255, Math.sin(t/51)*Math.sin(t/101)*255]",
+      "desc": "带通滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "带阻滤波器立体声",
+      "short": "bandstop",
+      "expr": "[Math.sin(t/50)*255 - Math.sin(t/100)*127, Math.sin(t/51)*255 - Math.sin(t/101)*127]",
+      "desc": "带阻滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "低通滤波器立体声",
+      "short": "lowpass",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin(t/200)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin(t/201)*0.5*255]",
+      "desc": "低通滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "高通滤波器立体声",
+      "short": "highpass",
+      "expr": "[Math.sin(t/50)*255 - Math.sin(t/200)*127, Math.sin(t/51)*255 - Math.sin(t/201)*127]",
+      "desc": "高通滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "全通滤波器立体声",
+      "short": "allpass",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-10)/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-10)/51)*0.5*255]",
+      "desc": "全通滤波器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "移相器立体声",
+      "short": "phaser",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-5)/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-5)/51)*0.5*255]",
+      "desc": "移相器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "镶边器立体声",
+      "short": "flanger",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-Math.floor(10+5*Math.sin(t/500)))/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-Math.floor(10+5*Math.sin(t/501)))/51)*0.5*255]",
+      "desc": "镶边器立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "合唱效果立体声",
+      "short": "chorus",
+      "expr": "[Math.sin(t/50)*0.7*255 + Math.sin((t-5)/50)*0.3*255, Math.sin(t/51)*0.7*255 + Math.sin((t-5)/51)*0.3*255]",
+      "desc": "合唱效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "混响效果立体声",
+      "short": "reverb",
+      "expr": "[Math.sin(t/50)*0.6*255 + Math.sin((t-10)/50)*0.2*255 + Math.sin((t-20)/50)*0.1*255 + Math.sin((t-30)/50)*0.05*255, Math.sin(t/51)*0.6*255 + Math.sin((t-10)/51)*0.2*255 + Math.sin((t-20)/51)*0.1*255 + Math.sin((t-30)/51)*0.05*255]",
+      "desc": "混响效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "延时效果立体声",
+      "short": "delay",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-50)/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-50)/51)*0.5*255]",
+      "desc": "延时效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "回声效果立体声",
+      "short": "echo",
+      "expr": "[Math.sin(t/50)*0.6*255 + Math.sin((t-100)/50)*0.4*255, Math.sin(t/51)*0.6*255 + Math.sin((t-100)/51)*0.4*255]",
+      "desc": "回声效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "颤音效果立体声",
+      "short": "tremolo",
+      "expr": "[Math.sin(t/50)*255 * (1 + 0.5*Math.sin(t/100)), Math.sin(t/51)*255 * (1 + 0.5*Math.sin(t/101))]",
+      "desc": "颤音效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "震音效果立体声",
+      "short": "vibrato",
+      "expr": "[Math.sin(t/50 + 5*Math.sin(t/200))*127+128, Math.sin(t/51 + 5*Math.sin(t/201))*127+128]",
+      "desc": "震音效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "哇音效果立体声",
+      "short": "wah",
+      "expr": "[Math.sin(t/50)*255 * (1 + 0.5*Math.sin(t/100)), Math.sin(t/51)*255 * (1 + 0.5*Math.sin(t/101))]",
+      "desc": "哇音效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "失真效果立体声",
+      "short": "distortion",
+      "expr": "[Math.tanh(Math.sin(t/50))*255, Math.tanh(Math.sin(t/51))*255]",
+      "desc": "失真效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "过载效果立体声",
+      "short": "overdrive",
+      "expr": "[Math.min(255, Math.max(0, Math.sin(t/50)*255*1.5)), Math.min(255, Math.max(0, Math.sin(t/51)*255*1.5))]",
+      "desc": "过载效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "法兹效果立体声",
+      "short": "fuzz",
+      "expr": "[Math.floor(Math.sin(t/50)*255/32)*32, Math.floor(Math.sin(t/51)*255/32)*32]",
+      "desc": "法兹效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "八度效果立体声",
+      "short": "octave",
+      "expr": "[Math.sin(t/50)*127+128 + Math.sin(t/25)*63+64, Math.sin(t/51)*127+128 + Math.sin(t/26)*63+64]",
+      "desc": "八度效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "和声效果立体声",
+      "short": "harmonizer",
+      "expr": "[Math.sin(t/50)*127+128 + Math.sin(t/33)*63+64, Math.sin(t/51)*127+128 + Math.sin(t/34)*63+64]",
+      "desc": "和声效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "移调效果立体声",
+      "short": "pitch shift",
+      "expr": "[Math.sin(t/45)*127+128, Math.sin(t/46)*127+128]",
+      "desc": "移调效果立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "时间伸缩立体声",
+      "short": "time stretch",
+      "expr": "[Math.sin(t/100)*127+128, Math.sin(t/101)*127+128]",
+      "desc": "时间伸缩立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "反向播放立体声",
+      "short": "reverse",
+      "expr": "[Math.sin((16384-t)/50)*127+128, Math.sin((16384-t)/51)*127+128]",
+      "desc": "反向播放立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "循环播放立体声",
+      "short": "loop",
+      "expr": "[Math.sin((t%16384)/50)*127+128, Math.sin((t%16384)/51)*127+128]",
+      "desc": "循环播放立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "淡入淡出立体声",
+      "short": "fade",
+      "expr": "[Math.sin(t/50)*127+128 * Math.min(1, t/1000), Math.sin(t/51)*127+128 * Math.min(1, t/1000)]",
+      "desc": "淡入淡出立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "交叉淡变立体声",
+      "short": "crossfade",
+      "expr": "[Math.sin(t/50)*127+128 * (1 - t/2000) + Math.sin(t/30)*127+128 * (t/2000), Math.sin(t/51)*127+128 * (1 - t/2000) + Math.sin(t/31)*127+128 * (t/2000)]",
+      "desc": "交叉淡变立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "音量控制立体声",
+      "short": "volume",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 + 0.5*Math.sin(t/201))]",
+      "desc": "音量控制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声像控制立体声",
+      "short": "pan",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "声像控制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "平衡控制立体声",
+      "short": "balance",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 + 0.5*Math.sin(t/200))]",
+      "desc": "平衡控制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "空间化立体声",
+      "short": "spatial",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "空间化立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "3D音效立体声",
+      "short": "3d audio",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 + 0.5*Math.cos(t/200))]",
+      "desc": "3D音效立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "环绕声立体声",
+      "short": "surround",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200+Math.PI/2))]",
+      "desc": "环绕声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "双耳录音立体声",
+      "short": "binaural",
+      "expr": "[Math.sin(t/50)*127+128 * (1 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (1 - 0.5*Math.sin(t/201))]",
+      "desc": "双耳录音立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "头部相关传递函数立体声",
+      "short": "hrtf",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "头部相关传递函数立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "虚拟声源立体声",
+      "short": "virtual source",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "虚拟声源立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声场扩展立体声",
+      "short": "stereo expand",
+      "expr": "[Math.sin(t/50)*127+128 * (1 + 0.3*Math.sin(t/200)), Math.sin(t/50)*127+128 * (1 - 0.3*Math.sin(t/200))]",
+      "desc": "声场扩展立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声场收缩立体声",
+      "short": "stereo shrink",
+      "expr": "[Math.sin(t/50)*127+128 * (0.7 + 0.3*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.7 - 0.3*Math.sin(t/200))]",
+      "desc": "声场收缩立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声场旋转立体声",
+      "short": "stereo rotate",
+      "expr": "[Math.sin(t/50)*127+128 * Math.cos(t/1000) + Math.sin(t/50)*127+128 * Math.sin(t/1000), -Math.sin(t/50)*127+128 * Math.sin(t/1000) + Math.sin(t/50)*127+128 * Math.cos(t/1000)]",
+      "desc": "声场旋转立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声场翻转立体声",
+      "short": "stereo flip",
+      "expr": "[Math.sin(t/51)*127+128, Math.sin(t/50)*127+128]",
+      "desc": "声场翻转立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声场交换立体声",
+      "short": "stereo swap",
+      "expr": "[Math.sin(t/51)*127+128, Math.sin(t/50)*127+128]",
+      "desc": "声场交换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声场混合立体声",
+      "short": "stereo mix",
+      "expr": "[(Math.sin(t/50)+Math.sin(t/51))*63+128, (Math.sin(t/50)+Math.sin(t/51))*63+128]",
+      "desc": "声场混合立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "声场差分散立体声",
+      "short": "stereo diff",
+      "expr": "[(Math.sin(t/50)-Math.sin(t/51))*127+128, (Math.sin(t/51)-Math.sin(t/50))*127+128]",
+      "desc": "声场差分散立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "中侧立体声",
+      "short": "mid side",
+      "expr": "[(Math.sin(t/50)+Math.sin(t/51))*63+128, (Math.sin(t/50)-Math.sin(t/51))*63+128]",
+      "desc": "中侧立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "和差立体声",
+      "short": "sum diff",
+      "expr": "[(Math.sin(t/50)+Math.sin(t/51))*63+128, (Math.sin(t/50)-Math.sin(t/51))*63+128]",
+      "desc": "和差立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "左右平衡立体声",
+      "short": "lr balance",
+      "expr": "[Math.sin(t/50)*127+128, Math.sin(t/50)*127+128]",
+      "desc": "左右平衡立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声宽度立体声",
+      "short": "stereo width",
+      "expr": "[Math.sin(t/50)*127+128 * (1 + 0.5), Math.sin(t/50)*127+128 * (1 - 0.5)]",
+      "desc": "立体声宽度立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声相位立体声",
+      "short": "stereo phase",
+      "expr": "[Math.sin(t/50)*127+128, Math.sin(t/50+Math.PI/2)*127+128]",
+      "desc": "立体声相位立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声延迟立体声",
+      "short": "stereo delay",
+      "expr": "[Math.sin(t/50)*127+128, Math.sin((t-100)/50)*127+128]",
+      "desc": "立体声延迟立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声乒乓立体声",
+      "short": "stereo pingpong",
+      "expr": "[Math.sin(t/50)*127+128 * (Math.sin(t/200)+1)/2, Math.sin(t/51)*127+128 * (1 - (Math.sin(t/200)+1)/2)]",
+      "desc": "立体声乒乓立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声扫频立体声",
+      "short": "stereo sweep",
+      "expr": "[Math.sin(t/50)*127+128 * (Math.sin(t/200)+1)/2, Math.sin(t/50)*127+128 * (1 - (Math.sin(t/200)+1)/2)]",
+      "desc": "立体声扫频立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声调制立体声",
+      "short": "stereo modulation",
+      "expr": "[Math.sin(t/50 + Math.sin(t/200))*127+128, Math.sin(t/51 - Math.sin(t/201))*127+128]",
+      "desc": "立体声调制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声合唱立体声",
+      "short": "stereo chorus",
+      "expr": "[Math.sin(t/50)*0.7*255 + Math.sin((t-5)/50)*0.3*255, Math.sin(t/51)*0.7*255 + Math.sin((t-5)/51)*0.3*255]",
+      "desc": "立体声合唱立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声镶边立体声",
+      "short": "stereo flange",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-Math.floor(10+5*Math.sin(t/500)))/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-Math.floor(10+5*Math.sin(t/501)))/51)*0.5*255]",
+      "desc": "立体声镶边立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声移相立体声",
+      "short": "stereo phase",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-5)/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-5)/51)*0.5*255]",
+      "desc": "立体声移相立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声混响立体声",
+      "short": "stereo reverb",
+      "expr": "[Math.sin(t/50)*0.6*255 + Math.sin((t-10)/50)*0.2*255 + Math.sin((t-20)/50)*0.1*255 + Math.sin((t-30)/50)*0.05*255, Math.sin(t/51)*0.6*255 + Math.sin((t-10)/51)*0.2*255 + Math.sin((t-20)/51)*0.1*255 + Math.sin((t-30)/51)*0.05*255]",
+      "desc": "立体声混响立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声回声立体声",
+      "short": "stereo echo",
+      "expr": "[Math.sin(t/50)*0.6*255 + Math.sin((t-100)/50)*0.4*255, Math.sin(t/51)*0.6*255 + Math.sin((t-100)/51)*0.4*255]",
+      "desc": "立体声回声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声延迟立体声2",
+      "short": "stereo delay2",
+      "expr": "[Math.sin(t/50)*0.5*255 + Math.sin((t-50)/50)*0.5*255, Math.sin(t/51)*0.5*255 + Math.sin((t-50)/51)*0.5*255]",
+      "desc": "立体声延迟立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声颤音立体声",
+      "short": "stereo tremolo",
+      "expr": "[Math.sin(t/50)*255 * (1 + 0.5*Math.sin(t/100)), Math.sin(t/51)*255 * (1 + 0.5*Math.sin(t/101))]",
+      "desc": "立体声颤音立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声震音立体声",
+      "short": "stereo vibrato",
+      "expr": "[Math.sin(t/50 + 5*Math.sin(t/200))*127+128, Math.sin(t/51 + 5*Math.sin(t/201))*127+128]",
+      "desc": "立体声震音立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声哇音立体声",
+      "short": "stereo wah",
+      "expr": "[Math.sin(t/50)*255 * (1 + 0.5*Math.sin(t/100)), Math.sin(t/51)*255 * (1 + 0.5*Math.sin(t/101))]",
+      "desc": "立体声哇音立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声失真立体声",
+      "short": "stereo distortion",
+      "expr": "[Math.tanh(Math.sin(t/50))*255, Math.tanh(Math.sin(t/51))*255]",
+      "desc": "立体声失真立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声过载立体声",
+      "short": "stereo overdrive",
+      "expr": "[Math.min(255, Math.max(0, Math.sin(t/50)*255*1.5)), Math.min(255, Math.max(0, Math.sin(t/51)*255*1.5))]",
+      "desc": "立体声过载立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声法兹立体声",
+      "short": "stereo fuzz",
+      "expr": "[Math.floor(Math.sin(t/50)*255/32)*32, Math.floor(Math.sin(t/51)*255/32)*32]",
+      "desc": "立体声法兹立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声八度立体声",
+      "short": "stereo octave",
+      "expr": "[Math.sin(t/50)*127+128 + Math.sin(t/25)*63+64, Math.sin(t/51)*127+128 + Math.sin(t/26)*63+64]",
+      "desc": "立体声八度立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声和声立体声",
+      "short": "stereo harmonizer",
+      "expr": "[Math.sin(t/50)*127+128 + Math.sin(t/33)*63+64, Math.sin(t/51)*127+128 + Math.sin(t/34)*63+64]",
+      "desc": "立体声和声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声移调立体声",
+      "short": "stereo pitch shift",
+      "expr": "[Math.sin(t/45)*127+128, Math.sin(t/46)*127+128]",
+      "desc": "立体声移调立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声时间伸缩立体声",
+      "short": "stereo time stretch",
+      "expr": "[Math.sin(t/100)*127+128, Math.sin(t/101)*127+128]",
+      "desc": "立体声时间伸缩立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声反向立体声",
+      "short": "stereo reverse",
+      "expr": "[Math.sin((16384-t)/50)*127+128, Math.sin((16384-t)/51)*127+128]",
+      "desc": "立体声反向立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声循环立体声",
+      "short": "stereo loop",
+      "expr": "[Math.sin((t%16384)/50)*127+128, Math.sin((t%16384)/51)*127+128]",
+      "desc": "立体声循环立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声淡入淡出立体声",
+      "short": "stereo fade",
+      "expr": "[Math.sin(t/50)*127+128 * Math.min(1, t/1000), Math.sin(t/51)*127+128 * Math.min(1, t/1000)]",
+      "desc": "立体声淡入淡出立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声交叉淡变立体声",
+      "short": "stereo crossfade",
+      "expr": "[Math.sin(t/50)*127+128 * (1 - t/2000) + Math.sin(t/30)*127+128 * (t/2000), Math.sin(t/51)*127+128 * (1 - t/2000) + Math.sin(t/31)*127+128 * (t/2000)]",
+      "desc": "立体声交叉淡变立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声音量控制立体声",
+      "short": "stereo volume",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 + 0.5*Math.sin(t/201))]",
+      "desc": "立体声音量控制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声像控制立体声",
+      "short": "stereo pan",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "立体声声像控制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声平衡控制立体声",
+      "short": "stereo balance",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 + 0.5*Math.sin(t/200))]",
+      "desc": "立体声平衡控制立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声空间化立体声",
+      "short": "stereo spatial",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "立体声空间化立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声3D音效立体声",
+      "short": "stereo 3d",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (0.5 + 0.5*Math.cos(t/200))]",
+      "desc": "立体声3D音效立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声环绕声立体声",
+      "short": "stereo surround",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200+Math.PI/2))]",
+      "desc": "立体声环绕声立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声双耳录音立体声",
+      "short": "stereo binaural",
+      "expr": "[Math.sin(t/50)*127+128 * (1 + 0.5*Math.sin(t/200)), Math.sin(t/51)*127+128 * (1 - 0.5*Math.sin(t/201))]",
+      "desc": "立体声双耳录音立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声HRTF立体声",
+      "short": "stereo hrtf",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "立体声HRTF立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声虚拟声源立体声",
+      "short": "stereo virtual",
+      "expr": "[Math.sin(t/50)*127+128 * (0.5 + 0.5*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.5 - 0.5*Math.sin(t/200))]",
+      "desc": "立体声虚拟声源立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声场扩展立体声",
+      "short": "stereo expand",
+      "expr": "[Math.sin(t/50)*127+128 * (1 + 0.3*Math.sin(t/200)), Math.sin(t/50)*127+128 * (1 - 0.3*Math.sin(t/200))]",
+      "desc": "立体声声场扩展立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声场收缩立体声",
+      "short": "stereo shrink",
+      "expr": "[Math.sin(t/50)*127+128 * (0.7 + 0.3*Math.sin(t/200)), Math.sin(t/50)*127+128 * (0.7 - 0.3*Math.sin(t/200))]",
+      "desc": "立体声声场收缩立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声场旋转立体声",
+      "short": "stereo rotate",
+      "expr": "[Math.sin(t/50)*127+128 * Math.cos(t/1000) + Math.sin(t/50)*127+128 * Math.sin(t/1000), -Math.sin(t/50)*127+128 * Math.sin(t/1000) + Math.sin(t/50)*127+128 * Math.cos(t/1000)]",
+      "desc": "立体声声场旋转立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声场翻转立体声",
+      "short": "stereo flip",
+      "expr": "[Math.sin(t/51)*127+128, Math.sin(t/50)*127+128]",
+      "desc": "立体声声场翻转立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声场交换立体声",
+      "short": "stereo swap",
+      "expr": "[Math.sin(t/51)*127+128, Math.sin(t/50)*127+128]",
+      "desc": "立体声声场交换立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声场混合立体声",
+      "short": "stereo mix",
+      "expr": "[(Math.sin(t/50)+Math.sin(t/51))*63+128, (Math.sin(t/50)+Math.sin(t/51))*63+128]",
+      "desc": "立体声声场混合立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声声场差分散立体声",
+      "short": "stereo diff",
+      "expr": "[(Math.sin(t/50)-Math.sin(t/51))*127+128, (Math.sin(t/51)-Math.sin(t/50))*127+128]",
+      "desc": "立体声声场差分散立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声中侧立体声",
+      "short": "stereo mid side",
+      "expr": "[(Math.sin(t/50)+Math.sin(t/51))*63+128, (Math.sin(t/50)-Math.sin(t/51))*63+128]",
+      "desc": "立体声中侧立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声和差立体声",
+      "short": "stereo sum diff",
+      "expr": "[(Math.sin(t/50)+Math.sin(t/51))*63+128, (Math.sin(t/50)-Math.sin(t/51))*63+128]",
+      "desc": "立体声和差立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声左右平衡立体声",
+      "short": "stereo lr balance",
+      "expr": "[Math.sin(t/50)*127+128, Math.sin(t/50)*127+128]",
+      "desc": "立体声左右平衡立体声",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声宽度立体声2",
+      "short": "stereo width2",
+      "expr": "[Math.sin(t/50)*127+128 * (1 + 0.5), Math.sin(t/50)*127+128 * (1 - 0.5)]",
+      "desc": "立体声宽度立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声相位立体声2",
+      "short": "stereo phase2",
+      "expr": "[Math.sin(t/50)*127+128, Math.sin(t/50+Math.PI/2)*127+128]",
+      "desc": "立体声相位立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声延迟立体声3",
+      "short": "stereo delay3",
+      "expr": "[Math.sin(t/50)*127+128, Math.sin((t-100)/50)*127+128]",
+      "desc": "立体声延迟立体声3",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声乒乓立体声2",
+      "short": "stereo pingpong2",
+      "expr": "[Math.sin(t/50)*127+128 * (Math.sin(t/200)+1)/2, Math.sin(t/51)*127+128 * (1 - (Math.sin(t/200)+1)/2)]",
+      "desc": "立体声乒乓立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声扫频立体声2",
+      "short": "stereo sweep2",
+      "expr": "[Math.sin(t/50)*127+128 * (Math.sin(t/200)+1)/2, Math.sin(t/50)*127+128 * (1 - (Math.sin(t/200)+1)/2)]",
+      "desc": "立体声扫频立体声2",
+      "channel": "stereo"
+    },
+    {
+      "name": "立体声调制立体声2",
+      "short": "stereo modulation2",
+      "expr": "[Math.sin(t/50 + Math.sin(t/200))*127+128, Math.sin(t/51 - Math.sin(t/201))*127+128]",
+      "desc": "立体声调制立体声2",
+      "channel": "stereo"
+    }
+  ],
+
+    "virus": [
+    {
         "name": "CIH病毒",
         "short": "CIH",
         "expr": "t*(t>>(t>>12&7))&63|t>>4",
         "desc": "CIH病毒破坏音效",
         "channel": "mono"
     },
-        {
-            "name": "Melissa",
-            "short": "Melissa",
-            "expr": "(t>>6|t|t>>5)*23+4*(t&t>>13|t>>7)",
-            "desc": "Melissa宏病毒",
-            "channel": "mono"
-        },
-        {
-            "name": "ILOVEYOU",
-            "short": "ILOVEYOU",
-            "expr": "t*(t>>9|t>>13)&15",
-            "desc": "ILOVEYOU情书病毒",
-            "channel": "mono"
-        },
-        {
-            "name": "WannaCry",
-            "short": "WannaCry",
-            "expr": "t>>5|t>>7|t>>9|t>>11|t>>13",
-            "desc": "WannaCry勒索病毒",
-            "channel": "mono"
-        },
-        {
-            "name": "Stuxnet",
-            "short": "Stuxnet",
-            "expr": "t*(t>>7&t>>12)|t>>4&t>>9|t>>2",
-            "desc": "Stuxnet工业病毒",
-            "channel": "mono"
-        },
-        {
-            "name": "卖猴肉",
-            "short": "卖猴肉",
-            "expr": "t*((t/2>>10|t%16*t>>8)&8*t>>12&18)|-(t/16)+64",
-            "desc": "经典老牌病毒",
-            "channel": "mono"
-        },
-        {
-            "name": "Morris Worm",
-            "short": "Morris",
-            "expr": "t*(t>>12|t>>8)&63|t>>6",
-            "desc": "史上第一个蠕虫病毒，1988年",
-            "channel": "mono"
-        },
-        {
-            "name": "Mydoom",
-            "short": "Mydoom",
-            "expr": "t*(t>>8&t>>12)|t>>5&t>>9|t>>3",
-            "desc": "Mydoom史上最快传播蠕虫，2004年",
-            "channel": "mono"
-        },
-        {
-            "name": "Sasser",
-            "short": "Sasser",
-            "expr": "t>>4&t>>8|t>>6&t>>10|t>>2",
-            "desc": "Sasser振荡波蠕虫，2004年",
-            "channel": "mono"
-        },
-        {
-            "name": "Conficker",
-            "short": "Conficker",
-            "expr": "t*(t>>5|t>>8)&31|t>>4",
-            "desc": "Conficker Downadup蠕虫，2008年",
-            "channel": "mono"
-        },
-        {
-            "name": "Zeus",
-            "short": "Zeus",
-            "expr": "t>>5|t>>7|t>>9|t>>11|t>>13|t>>15",
-            "desc": "Zeus Zbot金融木马",
-            "channel": "mono"
-        },
-        {
-            "name": "Code Red",
-            "short": "CodeRed",
-            "expr": "t*(t>>(t>>10&5))&47|t>>3",
-            "desc": "Code Red红色代码蠕虫，2001年",
-            "channel": "mono"
-        },
-        {
-            "name": "Nimda",
-            "short": "Nimda",
-            "expr": "(t>>4|t|t>>6)*19+3*(t&t>>11|t>>8)",
-            "desc": "Nimda尼姆达蠕虫，2001年",
-            "channel": "mono"
-        },
-        {
-            "name": "SQL Slammer",
-            "short": "Slammer",
-            "expr": "t>>3|t>>5|t>>7|t>>9|t>>11",
-            "desc": "SQL Slammer蠕虫王，2003年",
-            "channel": "mono"
-        },
-        {
-            "name": "Blaster",
-            "short": "Blaster",
-            "expr": "t*(t>>6&t>>10)|t>>4&t>>8|t>>2",
-            "desc": "Blaster冲击波蠕虫，2003年",
-            "channel": "mono"
-        },
-        {
-            "name": "Sobig",
-            "short": "Sobig",
-            "expr": "t>>5&t>>9|t>>7&t>>11|t>>3",
-            "desc": "Sobig超级蠕虫，2003年",
-            "channel": "mono"
-        },
-        {
-            "name": "CryptoLocker",
-            "short": "Crypto",
-            "expr": "t*(t>>4|t>>8)&23|t>>2",
-            "desc": "CryptoLocker现代勒索病毒鼻祖，2013年",
-            "channel": "mono"
-        },
-        {
-            "name": "熊猫烧香",
-            "short": "熊猫",
-            "expr": "t*((t/3>>9|t%14*t>>7)&6*t>>11&15)|-(t/12)+48",
-            "desc": "熊猫烧香蠕虫，2007年",
-            "channel": "mono"
-        },
-        {
-            "name": "Mammer",
-            "short": "Mammer",
-            "expr": "(t>>6|t|t>>4)*17^(t>>8&t>>5)",
-            "desc": "Mammer病毒，尝试用麦克风录音做随机数",
-            "channel": "mono"
-        },
-        {
-            "name": "Careto",
-            "short": "Careto",
-            "expr": "t*(t>>11&t>>10)|(t>>4)^(t>>7)",
-            "desc": "Careto面具APT攻击平台",
-            "channel": "mono"
-        },
-        {
-            "name": "Duqu",
-            "short": "Duqu",
-            "expr": "t>>6^(t>>9)|t>>7&t>>11|t>>2",
-            "desc": "Duqu超级工厂病毒变种",
-            "channel": "mono"
-        },
-        {
-            "name": "Flame",
-            "short": "Flame",
-            "expr": "t*((t>>9|t>>13)&25|t>>6)",
-            "desc": "Flame火焰蠕虫，情报收集工具",
-            "channel": "mono"
-        },
-        {
-            "name": "REvil",
-            "short": "REvil",
-            "expr": "t*(t>>7|t>>8)&47|t>>5",
-            "desc": "REvil勒索软件即服务",
-            "channel": "mono"
-        },
-        {
-            "name": "Conti",
-            "short": "Conti",
-            "expr": "t>>3|t>>6|t>>9|t>>12|t>>15",
-            "desc": "Conti勒索病毒",
-            "channel": "mono"
-        },
-        {
-            "name": "Sub7",
-            "short": "Sub7",
-            "expr": "(t>>7|t>>10)&(t>>5|t>>15)",
-            "desc": "Sub7老牌后门木马",
-            "channel": "mono"
-        }],
-    "special": [{
+    {
+        "name": "CIH病毒变体",
+        "short": "CIH_var",
+        "expr": "((t|t>>5)+(t>>6))",
+        "desc": "CIH病毒变体 – 经典位运算混淆",
+        "channel": "mono"
+    },
+    {
+        "name": "Melissa",
+        "short": "Melissa",
+        "expr": "(t>>6|t|t>>5)*23+4*(t&t>>13|t>>7)",
+        "desc": "Melissa宏病毒",
+        "channel": "mono"
+    },
+    {
+        "name": "ILOVEYOU",
+        "short": "ILOVEYOU",
+        "expr": "t*(t>>9|t>>13)&15",
+        "desc": "ILOVEYOU情书病毒",
+        "channel": "mono"
+    },
+    {
+        "name": "WannaCry",
+        "short": "WannaCry",
+        "expr": "t>>5|t>>7|t>>9|t>>11|t>>13",
+        "desc": "WannaCry勒索病毒",
+        "channel": "mono"
+    },
+    {
+        "name": "Stuxnet",
+        "short": "Stuxnet",
+        "expr": "t*(t>>7&t>>12)|t>>4&t>>9|t>>2",
+        "desc": "Stuxnet工业病毒",
+        "channel": "mono"
+    },
+    {
+        "name": "卖猴肉",
+        "short": "卖猴肉",
+        "expr": "t*((t/2>>10|t%16*t>>8)&8*t>>12&18)|-(t/16)+64",
+        "desc": "经典老牌病毒",
+        "channel": "mono"
+    },
+    {
+        "name": "Morris Worm",
+        "short": "Morris",
+        "expr": "t*(t>>12|t>>8)&63|t>>6",
+        "desc": "史上第一个蠕虫病毒，1988年",
+        "channel": "mono"
+    },
+    {
+        "name": "Mydoom",
+        "short": "Mydoom",
+        "expr": "t*(t>>8&t>>12)|t>>5&t>>9|t>>3",
+        "desc": "Mydoom史上最快传播蠕虫，2004年",
+        "channel": "mono"
+    },
+    {
+        "name": "Sasser",
+        "short": "Sasser",
+        "expr": "t>>4&t>>8|t>>6&t>>10|t>>2",
+        "desc": "Sasser振荡波蠕虫，2004年",
+        "channel": "mono"
+    },
+    {
+        "name": "Conficker",
+        "short": "Conficker",
+        "expr": "t*(t>>5|t>>8)&31|t>>4",
+        "desc": "Conficker Downadup蠕虫，2008年",
+        "channel": "mono"
+    },
+    {
+        "name": "Zeus",
+        "short": "Zeus",
+        "expr": "t>>5|t>>7|t>>9|t>>11|t>>13|t>>15",
+        "desc": "Zeus Zbot金融木马",
+        "channel": "mono"
+    },
+    {
+        "name": "Code Red",
+        "short": "CodeRed",
+        "expr": "t*(t>>(t>>10&5))&47|t>>3",
+        "desc": "Code Red红色代码蠕虫，2001年",
+        "channel": "mono"
+    },
+    {
+        "name": "Nimda",
+        "short": "Nimda",
+        "expr": "(t>>4|t|t>>6)*19+3*(t&t>>11|t>>8)",
+        "desc": "Nimda尼姆达蠕虫，2001年",
+        "channel": "mono"
+    },
+    {
+        "name": "SQL Slammer",
+        "short": "Slammer",
+        "expr": "t>>3|t>>5|t>>7|t>>9|t>>11",
+        "desc": "SQL Slammer蠕虫王，2003年",
+        "channel": "mono"
+    },
+    {
+        "name": "Blaster",
+        "short": "Blaster",
+        "expr": "t*(t>>6&t>>10)|t>>4&t>>8|t>>2",
+        "desc": "Blaster冲击波蠕虫，2003年",
+        "channel": "mono"
+    },
+    {
+        "name": "Sobig",
+        "short": "Sobig",
+        "expr": "t>>5&t>>9|t>>7&t>>11|t>>3",
+        "desc": "Sobig超级蠕虫，2003年",
+        "channel": "mono"
+    },
+    {
+        "name": "CryptoLocker",
+        "short": "Crypto",
+        "expr": "t*(t>>4|t>>8)&23|t>>2",
+        "desc": "CryptoLocker现代勒索病毒鼻祖，2013年",
+        "channel": "mono"
+    },
+    {
+        "name": "熊猫烧香",
+        "short": "熊猫",
+        "expr": "t*((t/3>>9|t%14*t>>7)&6*t>>11&15)|-(t/12)+48",
+        "desc": "熊猫烧香蠕虫，2007年",
+        "channel": "mono"
+    },
+    {
+        "name": "Mammer",
+        "short": "Mammer",
+        "expr": "(t>>6|t|t>>4)*17^(t>>8&t>>5)",
+        "desc": "Mammer病毒，尝试用麦克风录音做随机数",
+        "channel": "mono"
+    },
+    {
+        "name": "Careto",
+        "short": "Careto",
+        "expr": "t*(t>>11&t>>10)|(t>>4)^(t>>7)",
+        "desc": "Careto面具APT攻击平台",
+        "channel": "mono"
+    },
+    {
+        "name": "Duqu",
+        "short": "Duqu",
+        "expr": "t>>6^(t>>9)|t>>7&t>>11|t>>2",
+        "desc": "Duqu超级工厂病毒变种",
+        "channel": "mono"
+    },
+    {
+        "name": "Flame",
+        "short": "Flame",
+        "expr": "t*((t>>9|t>>13)&25|t>>6)",
+        "desc": "Flame火焰蠕虫，情报收集工具",
+        "channel": "mono"
+    },
+    {
+        "name": "REvil",
+        "short": "REvil",
+        "expr": "t*(t>>7|t>>8)&47|t>>5",
+        "desc": "REvil勒索软件即服务",
+        "channel": "mono"
+    },
+    {
+        "name": "Conti",
+        "short": "Conti",
+        "expr": "t>>3|t>>6|t>>9|t>>12|t>>15",
+        "desc": "Conti勒索病毒",
+        "channel": "mono"
+    },
+    {
+        "name": "Sub7",
+        "short": "Sub7",
+        "expr": "(t>>7|t>>10)&(t>>5|t>>15)",
+        "desc": "Sub7老牌后门木马",
+        "channel": "mono"
+    },
+    {
+        "name": "Jerusalem",
+        "short": "Jerusalem",
+        "expr": "t>>5&t>>9|(t>>7)^(t>>11)",
+        "desc": "Jerusalem耶路撒冷病毒，1988年",
+        "channel": "mono"
+    },
+    {
+        "name": "Michelangelo",
+        "short": "Michelangelo",
+        "expr": "t*(t>>6|t>>10)&31|t>>3",
+        "desc": "Michelangelo米开朗基罗病毒，1991年",
+        "channel": "mono"
+    },
+    {
+        "name": "Cascade",
+        "short": "Cascade",
+        "expr": "(t>>4|t>>8)&(t>>6|t>>12)",
+        "desc": "Cascade瀑布病毒，1988年",
+        "channel": "mono"
+    },
+    {
+        "name": "Brain",
+        "short": "Brain",
+        "expr": "t>>6&t>>12|t>>4&t>>10",
+        "desc": "Brain巴基斯坦智囊，1986年",
+        "channel": "mono"
+    },
+    {
+        "name": "Netsky",
+        "short": "Netsky",
+        "expr": "t*(t>>3|t>>7)&55|t>>5",
+        "desc": "Netsky网际蠕虫，2004年",
+        "channel": "mono"
+    },
+    {
+        "name": "Bagle",
+        "short": "Bagle",
+        "expr": "t>>5|t>>9|(t>>3)^(t>>11)",
+        "desc": "Bagle贝革热蠕虫，2004年",
+        "channel": "mono"
+    },
+    {
+        "name": "Storm Worm",
+        "short": "Storm",
+        "expr": "t*(t>>4&t>>9)|t>>6&t>>12",
+        "desc": "Storm Worm风暴蠕虫，2007年",
+        "channel": "mono"
+    },
+    {
+        "name": "Koobface",
+        "short": "Koobface",
+        "expr": "(t>>6|t>>10)&(t>>4|t>>8)",
+        "desc": "Koobface社交网络蠕虫，2008年",
+        "channel": "mono"
+    },
+    {
+        "name": "Gauss",
+        "short": "Gauss",
+        "expr": "t*(t>>7|t>>13)&63|t>>4",
+        "desc": "Gauss高斯银行木马，2012年",
+        "channel": "mono"
+    },
+    {
+        "name": "Shamoon",
+        "short": "Shamoon",
+        "expr": "t>>4&t>>10|(t>>6)^(t>>12)",
+        "desc": "Shamoon沙蒙擦除病毒，2012年",
+        "channel": "mono"
+    },
+    {
+        "name": "NotPetya",
+        "short": "NotPetya",
+        "expr": "t*(t>>3|t>>6)&31|t>>2",
+        "desc": "NotPetya勒索蠕虫，2017年",
+        "channel": "mono"
+    },
+    {
+        "name": "BadRabbit",
+        "short": "BadRabbit",
+        "expr": "t>>5|t>>9|t>>13|t>>17",
+        "desc": "BadRabbit坏兔子勒索软件，2017年",
+        "channel": "mono"
+    },
+    {
+        "name": "Emotet",
+        "short": "Emotet",
+        "expr": "t*(t>>6&t>>11)&47|t>>4",
+        "desc": "Emotet银行木马，2014年",
+        "channel": "mono"
+    },
+    {
+        "name": "TrickBot",
+        "short": "TrickBot",
+        "expr": "t>>5&t>>9|t>>7&t>>13",
+        "desc": "TrickBot模块化银行木马，2016年",
+        "channel": "mono"
+    },
+    {
+        "name": "Ryuk",
+        "short": "Ryuk",
+        "expr": "t*(t>>4|t>>9)&27|t>>3",
+        "desc": "Ryuk针对性勒索软件，2018年",
+        "channel": "mono"
+    },
+    {
+        "name": "DarkSide",
+        "short": "DarkSide",
+        "expr": "t>>4|t>>8|t>>12|t>>16",
+        "desc": "DarkSide勒索软件即服务，2020年",
+        "channel": "mono"
+    }
+],
+    "special": [
+    {
         "name": "乱码波形1",
         "short": "乱码1",
         "expr": "\"音频字符双用工具\".charCodeAt(t%8)*4",
         "desc": "中文字符波形",
         "channel": "mono"
     },
-        {
-            "name": "乱码波形2",
-            "short": "乱码2",
-            "expr": "(\"字节\"+t).charCodeAt((t>>8)%4)",
-            "desc": "字符转音频",
-            "channel": "mono"
-        },
-        {
-            "name": "乱码波形3",
-            "short": "乱码3",
-            "expr": "\"音频字符双用工具\".charCodeAt(t%10)",
-            "desc": "中文字符波形",
-            "channel": "mono"
-        },
-        {
-            "name": "乱码波形4",
-            "short": "乱码4",
-            "expr": "Math.sin(t/50)*64+\"Bytebeat\".charCodeAt(t%8)",
-            "desc": "混合波形",
-            "channel": "mono"
-        }],
+    {
+        "name": "乱码波形2",
+        "short": "乱码2",
+        "expr": "(\"字节\"+t).charCodeAt((t>>8)%4)",
+        "desc": "字符转音频",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形3",
+        "short": "乱码3",
+        "expr": "\"音频字符双用工具\".charCodeAt(t%10)",
+        "desc": "中文字符波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形4",
+        "short": "乱码4",
+        "expr": "Math.sin(t/50)*64+\"Bytebeat\".charCodeAt(t%8)",
+        "desc": "混合波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形5",
+        "short": "乱码5",
+        "expr": "\"Bytebeat\".charCodeAt(t%8)",
+        "desc": "Bytebeat字符波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形6",
+        "short": "乱码6",
+        "expr": "\"bytebeat乱码生成器\".charCodeAt(t%12)*2",
+        "desc": "长中文波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形7",
+        "short": "乱码7",
+        "expr": "(\"字符\"+Math.floor(t/100)).charCodeAt(t%6)",
+        "desc": "动态字符波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形8",
+        "short": "乱码8",
+        "expr": "\"Bytebeat123\".charCodeAt((t>>4)%10)",
+        "desc": "移位字符采样",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形9",
+        "short": "乱码9",
+        "expr": "\"乱码九号发生器\".charCodeAt(t%9)*3",
+        "desc": "九字符循环",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形10",
+        "short": "乱码10",
+        "expr": "\"ABCDEFGHIJKLMNOPQRSTUVWXYZ\".charCodeAt(t%26)-65",
+        "desc": "字母表波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形11",
+        "short": "乱码11",
+        "expr": "\"0123456789\".charCodeAt(t%10)-48",
+        "desc": "数字波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形12",
+        "short": "乱码12",
+        "expr": "(\"Bytebeat\"+t).charCodeAt((t>>6)%12)",
+        "desc": "带时间戳字符",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形13",
+        "short": "乱码13",
+        "expr": "\"乱码十三太保\".charCodeAt(t%7)*5",
+        "desc": "七字循环放大",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形14",
+        "short": "乱码14",
+        "expr": "(\"正弦波\"+Math.sin(t/100)*10).charCodeAt(t%8)",
+        "desc": "正弦混合字符",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形15",
+        "short": "乱码15",
+        "expr": "\"bytebeat十五号\".charCodeAt((t>>3)%10)",
+        "desc": "右移三位采样",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形16",
+        "short": "乱码16",
+        "expr": "\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\".charCodeAt(t%52)-65",
+        "desc": "大小写字母波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形17",
+        "short": "乱码17",
+        "expr": "(\"字符跳动\"+Math.floor(t/200)).charCodeAt(t%10)",
+        "desc": "慢速字符变化",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形18",
+        "short": "乱码18",
+        "expr": "\"!@#$%^&*()_+[]{};':,.<>?/\".charCodeAt(t%20)",
+        "desc": "符号波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形19",
+        "short": "乱码19",
+        "expr": "\"Bytebeat十九代\".charCodeAt((t>>5)%12)*2",
+        "desc": "移位移位加倍",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形20",
+        "short": "乱码20",
+        "expr": "(\"循环\"+Math.sin(t/40)*10).charCodeAt(t%6)*4",
+        "desc": "正弦调制字符",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形21",
+        "short": "乱码21",
+        "expr": "\"字符编码生成器Bytebeat\".charCodeAt(t%18)",
+        "desc": "十八字循环",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形22",
+        "short": "乱码22",
+        "expr": "(\"混合\"+Math.floor(t/80)).charCodeAt(t%7)*3",
+        "desc": "数字混合字符",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形23",
+        "short": "乱码23",
+        "expr": "\"廿三号乱码波\".charCodeAt(t%8)*6",
+        "desc": "中文八倍幅",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形24",
+        "short": "乱码24",
+        "expr": "(\"时间\"+Math.floor(t/120)).charCodeAt(t%9)",
+        "desc": "时间戳字符",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形25",
+        "short": "乱码25",
+        "expr": "\"Bytebeat25thGeneration\".charCodeAt(t%24)",
+        "desc": "英文字符串",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形26",
+        "short": "乱码26",
+        "expr": "(\"采样\"+Math.sin(t/30)*20).charCodeAt(t%5)*5",
+        "desc": "快速正弦调制",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形27",
+        "short": "乱码27",
+        "expr": "\"乱码二七变异体\".charCodeAt((t>>2)%11)",
+        "desc": "右移二位采样",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形28",
+        "short": "乱码28",
+        "expr": "\"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\".charCodeAt(t%36)-48",
+        "desc": "字母数字混合",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形29",
+        "short": "乱码29",
+        "expr": "(\"波形生成\"+t).charCodeAt(t%12)",
+        "desc": "动态长字符串",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形30",
+        "short": "乱码30",
+        "expr": "\"Bytebeat三十而立\".charCodeAt(t%10)*4",
+        "desc": "中文十倍频",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形31",
+        "short": "乱码31",
+        "expr": "(\"循环采样\"+Math.floor(t/150)).charCodeAt(t%8)*2",
+        "desc": "慢速循环",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形32",
+        "short": "乱码32",
+        "expr": "\"!@#$%^&*()_+=-0987654321\".charCodeAt(t%30)",
+        "desc": "符号数字混合",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形33",
+        "short": "乱码33",
+        "expr": "(\"三三乱码\"+Math.sin(t/60)*5).charCodeAt(t%7)*3",
+        "desc": "正弦字符波",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形34",
+        "short": "乱码34",
+        "expr": "\"Bytebeat三十四号机\".charCodeAt((t>>1)%14)",
+        "desc": "右移一位采样",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形35",
+        "short": "乱码35",
+        "expr": "(\"三十五式\"+Math.floor(t/100)).charCodeAt(t%9)*2",
+        "desc": "数字后缀字符",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形36",
+        "short": "乱码36",
+        "expr": "\"三十六计走为上计Bytebeat\".charCodeAt(t%18)",
+        "desc": "成语字符波",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形37",
+        "short": "乱码37",
+        "expr": "(\"三七开\"+Math.sin(t/45)*12).charCodeAt(t%6)*4",
+        "desc": "正弦调制扩幅",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形38",
+        "short": "乱码38",
+        "expr": "\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\".charCodeAt(t%62)-48",
+        "desc": "全字符集波形",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形39",
+        "short": "乱码39",
+        "expr": "(\"三十九式变体\"+Math.floor(t/90)).charCodeAt(t%12)",
+        "desc": "变体字符波",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形40",
+        "short": "乱码40",
+        "expr": "\"Bytebeat四十不惑\".charCodeAt((t>>4)%12)*3",
+        "desc": "移位移位三倍",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形41",
+        "short": "乱码41",
+        "expr": "(\"四一穿插\"+Math.sin(t/55)*8).charCodeAt(t%7)*2",
+        "desc": "穿插正弦波",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形42",
+        "short": "乱码42",
+        "expr": "\"四十二号生命宇宙答案\".charCodeAt(t%14)",
+        "desc": "彩蛋字符波",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形43",
+        "short": "乱码43",
+        "expr": "(\"四三渐进\"+Math.floor(t/110)).charCodeAt(t%10)*2",
+        "desc": "渐进数字波",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形44",
+        "short": "乱码44",
+        "expr": "\"Bytebeat四十四次迭代\".charCodeAt((t>>3)%16)",
+        "desc": "迭代采样波",
+        "channel": "mono"
+    },
+    {
+        "name": "乱码波形45",
+        "short": "乱码45",
+        "expr": "(\"四五收官\"+Math.sin(t/65)*6).charCodeAt(t%8)*3",
+        "desc": "收官正弦波",
+        "channel": "mono"
+    }],
     "fixed": [{
         "name": "简单变量",
         "short": "h=t/4",
@@ -1965,5 +4373,68 @@
             "expr": "((((t*((t&4096?t%65536<59392?7:t&7:16)+(1&t>>14))>>(3&-t>>(t&2048?2:10))|t>>(t&16384?t&4096?10:3:2))&255)/4-31)+((Math.random()*2-1)*(0.999**(t&4095)*100)))+128",
             "desc": "自编",
             "channel": "mono"
+        },
+        {
+            "name": "复杂算法168",
+            "short": "SthephanShi? Did he write it, or did I write it? 2026-03-24",
+            "expr": "t*((20)+(1&t>>14))>>(3&t>>8)|t>>(t&4096?3:4)",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法169",
+            "short": "??? 2026-03-24",
+            "expr": "t*((20)+(1&t>>14))*(1+(3&t>>8))>>(3&-t>>19)|t>>6",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法170",
+            "short": "??? 2026-03-24",
+            "expr": "t>>5*(t>>(t&0x6dfc)^t>>7)*2",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法171",
+            "short": "??? 2026-03-25",
+            "expr": "(t*(t>>11)>>3&t>>3)-20",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法172",
+            "short": "the 498 Melody 2026-03-27",
+            "expr": "t&512?t*\"501002004008016032064128256513026052104208416833667334669338677354709418837675350701402805611222444889779559118236472945891783567134268537074148296593186372745490981963927855711422845691382765531062124248496993987975951903807615230460921843687374749498997995991983967935871743486973947895791583166332665330661322645290581162324649298597194388777555110220440881763527054108216432865731462925851703406813627254509018036072144288577154308617234468937875751503006012024048096192384769539078156312625250\"[(t>>10)%498]>>1:0",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法173",
+            "short": "??? 2026-03-27",
+            "expr": "((t|(t>>9|t>>8|t>>13))*t)^-t",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法174",
+            "short": "My horror Android 6? 2026-03-28",
+            "expr": "t * (703&(t>>5&(-t>>12))) /8",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法175",
+            "short": "2026-03-30",
+            "expr": "(((((((t&4096?(((t>>5*(t&17?39:29)-32)^(t>>9)*(t&29?45:7)-(3*(t&128?37:17))+((t&1)*t>>7)%t>>5*t+(t*(t>>12&t>>8)&63&t>>4))^(t*(t>>12&t>>8)&63&t>>4))|t*((t>>12&t>>8)&63&t>>4)+(t&129?37:(t&29?184:(365*(t&(t&593?44:27)?14:1109))?406:227))*(t&33?(t>>27):116):t*(t>>(t>>10)*t))))))))",
+            "desc": "自编",
+            "channel": "mono"
+        },
+        {
+            "name": "复杂算法177",
+            "short": "waiiaw(5) 2026-04-01",
+            "expr": "[((((t%(24+(t>>14)%8)))*(t>>9))&16)*(1+((t>>10)%7))*10,167-((((t%(24+(t>>14)%8)))*(t>> 8))&16)*(1+((t>>9)%8))*10]",
+            "desc": "自编",
+            "channel": "stereo"
         }]
 }
