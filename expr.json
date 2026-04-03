@@ -4442,6 +4442,6 @@
             "short": "simple step sequencer remixed 2026-04-03",
             "expr": "Math.min(255,Math.max(0,(melody=(((t*2**([0,,12,17,14,10,15,7,3,-12,-4,-16,-17,-19]['0x'+'0101210101310101410101510101210101016278010142780101278091016278a1a121a1a161a1a141a1a151a1a121a1a1a121a1a161a1a141a1a151a1a121a1b1b121b1b121b1c141b1b151b1b121b1b1a16278b1b14278a1a1278b91b16278d1d121d1d161d1d141d1d151d1d121d1d1d121d1d161d1d141d1d151d1d121d1'[t>>11&255]|0]/12)-1|t>>5)&255)/128-1)*0.5,bass=(((t*(2**(\"<857\".charCodeAt((t>>17)%4)/12-6))&255)/128-1)*0.5),noise=(Math.random()*2-1)*(0.9997**((t+8192)&16383)),beep=((((t*(t>>13))&255)/128-1)*0.4),drumbeat=(u=t%8192,0.9997**u*Math.sin(u**0.3*9)),end=((Math.random()*2-1)*(0.9999**(t-10485760))),t<10485760?((t<8388608?(t<4194304?((t>1048576?((melody+bass)+(t>2097152?drumbeat:0)):bass)+(t>3145728?noise:0)):((t>6291458?noise:bass))+beep):(melody+bass+noise+beep+drumbeat))):end)*127+128))",
             "desc": "自编",
-            "channel": "stereo"
+            "channel": "mono"
         }]
 }
