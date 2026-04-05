@@ -3200,8 +3200,6 @@ const jokes = [
             
             
             
-            
-            
             // ==================== ByteBeat解析器（支持前缀、后缀、Infix及所有原策略） ====================
 const BYTEBEAT_CONFIG = {
     DEFAULT_FALLBACK: function(t) {
@@ -3343,185 +3341,97 @@ function strategy5(exprText) {
     return null;
 }
 
-// ========== 新增：前缀表达式（PN语法）解析器 ==========
-function tryParsePrefix(exprText) {
-    const tokens = exprText.trim().split(/\s+/);
-    if (tokens.length === 0) return null;
-    
-    // 构建递归下降解析器（编译为JS函数）
-    let pos = 0;
-    
-    function parseExpression() {
-        if (pos >= tokens.length) return '0';
-        const token = tokens[pos++];
-        
-        // 数字常量
-        if (/^-?\d+$/.test(token)) {
-            return token;
-        }
-        if (/^0x[0-9a-fA-F]+$/i.test(token)) {
-            return parseInt(token, 16).toString();
-        }
-        // 变量 t
-        if (token === 't') {
-            return 't';
-        }
-        
-        // 一元运算符
-        const unaryOps = {
-            '~': (arg) => `(~${arg})`,
-            '!': (arg) => `(!${arg})`,
-            '-': (arg) => `(-${arg})`
-        };
-        if (unaryOps[token]) {
-            const arg = parseExpression();
-            if (arg === null) return null;
-            return unaryOps[token](arg);
-        }
-        
-        // 二元运算符（前缀表示：运算符 左 右）
-        const binaryOps = {
-            '+': (a, b) => `(${a} + ${b})`,
-            '-': (a, b) => `(${a} - ${b})`,
-            '*': (a, b) => `(${a} * ${b})`,
-            '/': (a, b) => `(${b} !== 0 ? (${a} / ${b} | 0) : 0)`,
-            '%': (a, b) => `(${b} !== 0 ? (${a} % ${b}) : 0)`,
-            '&': (a, b) => `(${a} & ${b})`,
-            '|': (a, b) => `(${a} | ${b})`,
-            '^': (a, b) => `(${a} ^ ${b})`,
-            '<<': (a, b) => `(${a} << ${b})`,
-            '>>': (a, b) => `(${a} >> ${b})`,
-            '>>>': (a, b) => `(${a} >>> ${b})`,
-            '==': (a, b) => `(${a} == ${b})`,
-            '!=': (a, b) => `(${a} != ${b})`,
-            '<': (a, b) => `(${a} < ${b})`,
-            '>': (a, b) => `(${a} > ${b})`,
-            '<=': (a, b) => `(${a} <= ${b})`,
-            '>=': (a, b) => `(${a} >= ${b})`,
-            '&&': (a, b) => `(${a} && ${b})`,
-            '||': (a, b) => `(${a} || ${b})`
-        };
-        if (binaryOps[token]) {
-            const left = parseExpression();
-            const right = parseExpression();
-            if (left === null || right === null) return null;
-            return binaryOps[token](left, right);
-        }
-        
-        // 特殊操作：立体声 [左 右]
-        if (token === '[') {
-            const left = parseExpression();
-            const right = parseExpression();
-            // 可选的闭括号
-            if (pos < tokens.length && tokens[pos] === ']') pos++;
-            if (left === null || right === null) return null;
-            return `[${left}, ${right}]`;
-        }
-        
-        // 未知token
-        return null;
-    }
-    
+// ========== 新增：直接执行策略（处理复杂表达式） ==========
+function tryDirectEval(exprText) {
     try {
-        const exprJS = parseExpression();
-        if (exprJS === null || pos !== tokens.length) return null;
-        
-        const func = new Function('t', 'return (' + exprJS + ');');
-        const testVal = func(0);
-        if (testVal !== undefined && (isValidNumber(testVal) || (Array.isArray(testVal) && testVal.length === 2))) {
-            return createSafeWrapper(func);
+        // 检查是否包含函数定义或复杂语法
+        if (exprText.includes('function') || exprText.includes('=>') || 
+            exprText.includes('{') || exprText.includes('}')) {
+            
+            // 尝试作为函数体执行
+            const func = new Function('t', `
+                try {
+                    return (${exprText});
+                } catch(e) {
+                    try {
+                        return (function(t) { ${exprText} })(t);
+                    } catch(e2) {
+                        return undefined;
+                    }
+                }
+            `);
+            
+            const testVal = func(0);
+            if (testVal !== undefined && (isValidNumber(testVal) || (Array.isArray(testVal) && testVal.length === 2))) {
+                return createSafeWrapper(func);
+            }
         }
     } catch(e) {}
     return null;
 }
 
-// ========== 后缀表达式（Postfix/RPN）解析器 ==========
-function tryParsePostfix(exprText) {
-    const tokens = exprText.trim().split(/\s+/);
-    if (tokens.length === 0) return null;
-    
-    const codeLines = [];
-    codeLines.push('var stack = [];');
-    
-    const binaryOps = {
-        '+': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push(((a + b) | 0));'); },
-        '-': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push(((a - b) | 0));'); },
-        '*': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push(((a * b) | 0));'); },
-        '/': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push(b !== 0 ? (Math.trunc(a / b) | 0) : 0);'); },
-        '%': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push(b !== 0 ? ((a % b) | 0) : 0);'); },
-        '&': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push((a & b) | 0);'); },
-        '|': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push((a | b) | 0);'); },
-        '^': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push((a ^ b) | 0);'); },
-        '<<': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push((a << b) | 0);'); },
-        '>>': () => { codeLines.push('var b = stack.pop(), a = stack.pop(); stack.push((a >> b) | 0);'); }
-    };
-    
-    const unaryOps = {
-        '~': () => { codeLines.push('var a = stack.pop(); stack.push((~a) | 0);'); }
-    };
-    
-    const stackOps = {
-        'DUP': () => { codeLines.push('if(stack.length) stack.push(stack[stack.length-1]); else stack.push(0);'); },
-        'DROP': () => { codeLines.push('stack.pop();'); },
-        'SWAP': () => { codeLines.push('if(stack.length >= 2) { var a = stack.pop(), b = stack.pop(); stack.push(a, b); }'); },
-        'OVER': () => { codeLines.push('if(stack.length >= 2) stack.push(stack[stack.length-2]); else stack.push(0);'); }
-    };
-    
-    for (const token of tokens) {
-        if (/^-?\d+$/.test(token)) {
-            codeLines.push(`stack.push(${parseInt(token, 10)});`);
-        } else if (/^0x[0-9a-fA-F]+$/i.test(token)) {
-            codeLines.push(`stack.push(${parseInt(token, 16)});`);
-        } else if (token === 't') {
-            codeLines.push('stack.push(t);');
-        } else if (binaryOps[token]) {
-            binaryOps[token]();
-        } else if (unaryOps[token]) {
-            unaryOps[token]();
-        } else if (stackOps[token]) {
-            stackOps[token]();
-        } else {
-            return null;
-        }
-    }
-    
-    codeLines.push(`
-        if(stack.length >= 2) {
-            var right = stack.pop();
-            var left = stack.pop();
-            return [left, right];
-        } else if(stack.length === 1) {
-            return stack[0];
-        } else {
-            return ${BYTEBEAT_CONFIG.DEFAULT_FALLBACK(0) & 255};
-        }
-    `);
-    
+// ========== 增强的IIFE处理 ==========
+function tryEnhancedIIFE(exprText) {
     try {
-        const func = new Function('t', codeLines.join('\n'));
-        const testVal = func(0);
-        if (testVal !== undefined && (isValidNumber(testVal) || (Array.isArray(testVal) && testVal.length === 2))) {
-            return createSafeWrapper(func);
+        // 处理 (function(v,t){...})(0,t) 这种带额外参数的形式
+        const paramPattern = /\(function\s*\(([^)]*)\)\s*\{([\s\S]*)\}\)\s*\(([^)]*)\)/;
+        const match = exprText.match(paramPattern);
+        
+        if (match) {
+            const params = match[1].split(',').map(p => p.trim());
+            const body = match[2];
+            const args = match[3].split(',').map(a => a.trim());
+            
+            // 构建参数映射
+            const func = new Function('t', `
+                try {
+                    const ${params.map((p, i) => `${p} = ${args[i] || 't'}`).join(', ')};
+                    ${body}
+                } catch(e) {
+                    return undefined;
+                }
+            `);
+            
+            const testVal = func(0);
+            if (testVal !== undefined && (isValidNumber(testVal) || (Array.isArray(testVal) && testVal.length === 2))) {
+                return createSafeWrapper(func);
+            }
         }
     } catch(e) {}
     return null;
 }
 
-// ========== Infix 解析器（普通JS表达式） ==========
-function tryParseInfix(exprText) {
-    const dangerousPattern = /[;{}]|function|=>|import|export|with|eval|new\s+Function/;
-    if (dangerousPattern.test(exprText)) return null;
+// ========== 增强的箭头函数处理 ==========
+function tryEnhancedArrow(exprText) {
     try {
-        const func = new Function('t', 'return (' + exprText + ');');
-        const testVal = func(0);
-        if (testVal !== undefined && (isValidNumber(testVal) || (Array.isArray(testVal) && testVal.length === 2))) {
-            return createSafeWrapper(func);
+        // 处理 (()=>{...})() 或 (()=>{...})(t) 形式
+        const arrowPattern = /^\(\(([^)]*)\)\s*=>\s*\{([\s\S]*)\}\)\s*\(([^)]*)\)$/;
+        const match = exprText.match(arrowPattern);
+        
+        if (match) {
+            const params = match[1].split(',').map(p => p.trim());
+            const body = match[2];
+            const args = match[3].split(',').map(a => a.trim());
+            
+            const func = new Function('t', `
+                try {
+                    const ${params.map((p, i) => `${p} = ${args[i] || 't'}`).join(', ')};
+                    ${body}
+                } catch(e) {
+                    return undefined;
+                }
+            `);
+            
+            const testVal = func(0);
+            if (testVal !== undefined && (isValidNumber(testVal) || (Array.isArray(testVal) && testVal.length === 2))) {
+                return createSafeWrapper(func);
+            }
         }
     } catch(e) {}
     return null;
 }
 
-// ========== 主解析函数（按顺序尝试：Infix -> Postfix -> Prefix -> 策略0-5 -> Fallback） ==========
+// ========== 主解析函数（增强版） ==========
 function parseExpression(exprText) {
     exprText = exprText.trim();
     
@@ -3532,72 +3442,83 @@ function parseExpression(exprText) {
     
     if (!exprText) return defaultFunc;
     
-    // 1. Infix 普通JS语法
+    // 1. 增强的IIFE处理（优先处理带多个参数的）
+    const enhancedIIFE = tryEnhancedIIFE(exprText);
+    if (enhancedIIFE) return enhancedIIFE;
+    
+    // 2. 增强的箭头函数处理
+    const enhancedArrow = tryEnhancedArrow(exprText);
+    if (enhancedArrow) return enhancedArrow;
+    
+    // 3. 直接执行策略
+    const directEval = tryDirectEval(exprText);
+    if (directEval) return directEval;
+    
+    // 4. Infix 普通JS语法
     const infixWrapper = tryParseInfix(exprText);
     if (infixWrapper) return infixWrapper;
     
-    // 2. Postfix (RPN) 后缀语法
-    const postfixWrapper = tryParsePostfix(exprText);
-    if (postfixWrapper) return postfixWrapper;
-    
-    // 3. Prefix (PN) 前缀语法（新增）
-    const prefixWrapper = tryParsePrefix(exprText);
-    if (prefixWrapper) return prefixWrapper;
-    
-    // 4. 原有策略0-5（保持兼容）
+    // 5. 原有策略0-5（保持兼容）
     const strategies = [strategy0, strategy1, strategy2, strategy3, strategy4, strategy5];
     for (const strat of strategies) {
         const result = strat(exprText);
         if (result) return result;
     }
     
-    // 5. 最终回退
+    // 6. 最终回退
     return defaultFunc;
 }
 
+// ========== Infix 解析器 ==========
+function tryParseInfix(exprText) {
+    try {
+        const func = new Function('t', 'return (' + exprText + ');');
+        const testVal = func(0);
+        if (testVal !== undefined && (isValidNumber(testVal) || (Array.isArray(testVal) && testVal.length === 2))) {
+            return createSafeWrapper(func);
+        }
+    } catch(e) {}
+    return null;
+}
+
 // ==================== 测试代码 ====================
-console.log('=== Infix 语法测试 ===');
-const infixExpr = 't * 2 + (t >> 4)';
-const infixFunc = parseExpression(infixExpr);
-console.log('t=0:', infixFunc.valFunc(0));
-console.log('t=100:', infixFunc.valFunc(100));
+console.log('=== 测试三个复杂表达式 ===\n');
 
-console.log('\n=== Postfix (RPN) 测试 ===');
-const rpnExpr = 't 16 >> 4 % 1 + t 10 >> 5 % 2 + + t 12 >> 3 % - t * 3 / DUP 9 + | t 4 >> & 19 + t 12 >> 127 % ^';
-const rpnFunc = parseExpression(rpnExpr);
-console.log('t=0:', rpnFunc.valFunc(0));
-console.log('t=100:', rpnFunc.valFunc(100));
+// 测试表达式1
+const expr1 = '(function(v,t){return (v>>1)+(v>>4)+t*(((t>>16)|(t>>6))&(69&(t>>9)));})(0,t)';
+const func1 = parseExpression(expr1);
+console.log('表达式1测试结果:');
+for (let t of [0, 100, 1000, 5000]) {
+    console.log(`  t=${t}: ${func1.valFunc(t)}`);
+}
 
-console.log('\n=== Prefix (PN) 语法测试 ===');
-const prefixExpr1 = '+ * t 2 3';        // t*2 + 3
-const prefixFunc1 = parseExpression(prefixExpr1);
-console.log('+ * t 2 3, t=5:', prefixFunc1.valFunc(5));
+console.log('\n表达式2测试结果:');
+const expr2 = '(()=>{let h=t*[0.5,0.6,0.57,0.53][Math.floor(t/44000)%4];return ((h & (h * -2.5 + Math.sin(t/10000) * 100)) % 256 * -Math.cos(t/20000000 + 1.61)) - 10;})()';
+const func2 = parseExpression(expr2);
+for (let t of [0, 100, 1000, 5000]) {
+    const result = func2.valFunc(t);
+    console.log(`  t=${t}: ${result}`);
+}
 
-const prefixExpr2 = '>> t 4';           // t >> 4
-const prefixFunc2 = parseExpression(prefixExpr2);
-console.log('>> t 4, t=100:', prefixFunc2.valFunc(100));
+console.log('\n表达式3测试结果:');
+const expr3 = '(function(t){var SS=function(s,o,r,p){var c=s.charCodeAt((t>>r)%p);return c==32?0:31&t*Math.pow(2,c/12-o)}; return SS("0 0     7 7     037:<<",6,10,32) + (t&4096?SS("037",4,8,3)*(4096-(t&4095))>>12 : 0);})(t)';
+const func3 = parseExpression(expr3);
+for (let t of [0, 100, 1000, 5000, 10000]) {
+    const result = func3.valFunc(t);
+    console.log(`  t=${t}: ${result}`);
+}
 
-const prefixExpr3 = '[ + t 100 - t 50 ]'; // 立体声 [t+100, t-50]
-const prefixFunc3 = parseExpression(prefixExpr3);
-console.log('[ + t 100 - t 50 ], t=200:', prefixFunc3.valFunc(200));
+console.log('\n=== 测试原有功能 ===');
+const simpleExpr = 't * 2 + (t >> 4)';
+const simpleFunc = parseExpression(simpleExpr);
+console.log('简单表达式 t=100:', simpleFunc.valFunc(100));
 
-const prefixExpr4 = '& t 255';          // t & 255
-const prefixFunc4 = parseExpression(prefixExpr4);
-console.log('& t 255, t=300:', prefixFunc4.valFunc(300));
 
-const prefixExpr5 = '+ >> t 8 & t 15';  // (t>>8) + (t&15)
-const prefixFunc5 = parseExpression(prefixExpr5);
-console.log('+ >> t 8 & t 15, t=1024:', prefixFunc5.valFunc(1024));
 
-console.log('\n=== 原有策略测试（IIFE）===');
-const iifeExpr = '(function(t){ return t & 255; })(t)';
-const iifeFunc = parseExpression(iifeExpr);
-console.log('t=123:', iifeFunc.valFunc(123));
 
-console.log('\n=== Fallback 测试 ===');
-const badExpr = '!!! invalid ###';
-const fallbackFunc = parseExpression(badExpr);
-console.log('t=0:', fallbackFunc.valFunc(0));
+
+
+
             // ==================== 音频处理（修复 localStorage 读取 + 循环状态持久化） ====================// ==================== 音频处理（localStorage 持久化按钮文字 + 状态） ====================
             function createAudioProcessor(isStereo) {
                 const config = {
